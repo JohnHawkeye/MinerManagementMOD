@@ -1,0 +1,28 @@
+{
+  "rootNamespace": "MinerManagementMOD",
+  "fileMap": {
+    "Helpers\\MiningHelper.cs": "MinerManagementMOD.Helpers",
+    "Systems\\MiningSystem.cs": "MinerManagementMOD.Systems",
+    "Helpers\\MiningDirectionHelper.cs": "MinerManagementMOD.Helpers",
+    "Systems\\MarketSystem.cs": "MinerManagementMOD.Systems",
+    "Market\\MarketEntry.cs": "MinerManagementMOD.Market",
+    "Market\\MarketDatabase.cs": "MinerManagementMOD.Market",
+    "Systems\\MerchantSystem.cs": "MinerManagementMOD.Systems",
+    "NPCs\\OreMerchant.cs": "MinerManagementMOD.NPCs",
+    "Systems\\MerchantSpawnSystem.cs": "MinerManagementMOD.Systems",
+    "Common\\UI\\MarketUI.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\MarketUISystem.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\MarketItemSlot.cs": "MinerManagementMOD.Common.UI",
+    "Common\\NPCs\\MinerGlobalNPC.cs": "MinerManagementMOD.Common.NPCs",
+    "Items\\MinerWhistle.cs": "MinerManagementMOD.Items",
+    "Systems\\DeliverySystem.cs": "MinerManagementMOD.Systems",
+    "Items\\CopperSword100.cs": "MinerManagementMOD.Items",
+    "NPCs\\GuardNPC.cs": "MinerManagementMOD.NPCs",
+    "Systems\\MinerRosterSystem.cs": "MinerManagementMOD.Systems",
+    "Common\\UI\\MinerRoserUI.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\MinerUISystem.cs": "MinerManagementMOD.Common.UI",
+    "Common\\Players\\MinerPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Common\\Players\\UIPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Systems\\MinerManager.cs": "MinerManagementMOD.Systems"
+  }
+}

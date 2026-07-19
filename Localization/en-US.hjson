@@ -1,0 +1,44 @@
+Items: {
+	MinerWhistle: {
+		DisplayName: Miner's Whistle
+		Tooltip: Summons distant miners to your side
+	}
+}
+
+Mods: {
+	MinerManagementMOD: {
+		NPCs: {
+			OreMerchant: {
+				TownNPCMood: {
+					HateCrowded: こんなに混んでいるのは 嫌だよ。
+					DislikeCrowded: 人混みが嫌いです。
+					LoveSpace: 充分なスペースが あるのがいいね。
+					FarFromHome: 家から遠すぎる。
+					NoHome: 家を持っていないのが 嫌なんです。
+					Content: 私は満足しています。
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				DisplayName: Ore Merchant
+				Census.SpawnCondition: Conditions unknown
+			}
+
+			MinerNPC.DisplayName: Miner N P C
+			GuardNPC.DisplayName: Guard N P C
+			OldMinerNPC.DisplayName: Old Miner N P C
+		}
+
+		Items: {
+			MinerWhistle: {
+				Tooltip: ""
+				DisplayName: Miner Whistle
+			}
+
+			CopperSword100: {
+				DisplayName: Copper Sword100
+				Tooltip: ""
+			}
+		}
+	}
+}

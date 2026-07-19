@@ -1,0 +1,10 @@
+Items: {
+    MinerWhistle: {
+        DisplayName: 鉱夫の呼び笛
+        Tooltip: 使用すると離れている鉱夫を自分のそばへ呼び寄せる
+    }
+    CopperSword100: {
+        DisplayName: 銅の剣100個セット
+        Tooltip: クエスト用のアイテム。銅の剣100が入ったボックス。
+    }
+}

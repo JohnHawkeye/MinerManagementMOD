@@ -1,0 +1,3 @@
+displayName = MinerManagementMOD
+author = JHE
+version = 0.1
