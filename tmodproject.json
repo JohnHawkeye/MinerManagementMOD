@@ -23,6 +23,10 @@
     "Common\\UI\\MinerUISystem.cs": "MinerManagementMOD.Common.UI",
     "Common\\Players\\MinerPlayer.cs": "MinerManagementMOD.Common.Players",
     "Common\\Players\\UIPlayer.cs": "MinerManagementMOD.Common.Players",
-    "Systems\\MinerManager.cs": "MinerManagementMOD.Systems"
+    "Systems\\MinerManager.cs": "MinerManagementMOD.Systems",
+    "Items\\Treasure\\TreasureBase.cs": "MinerManagementMOD.Items.Treasure",
+    "Items\\Treasure\\Treasure001.cs": "MinerManagementMOD.Items.Treasure",
+    "Items\\Treasure\\TreasureRegistry.cs": "MinerManagementMOD.Items.Treasure",
+    "Items\\Treasure\\Treasure049.cs": "MinerManagementMOD.Items.Treasure"
   }
 }

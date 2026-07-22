@@ -1,10 +1,3 @@
-Items: {
-	MinerWhistle: {
-		DisplayName: Miner's Whistle
-		Tooltip: Summons distant miners to your side
-	}
-}
-
 Mods: {
 	MinerManagementMOD: {
 		NPCs: {
@@ -31,12 +24,47 @@ Mods: {
 
 		Items: {
 			MinerWhistle: {
-				Tooltip: ""
-				DisplayName: Miner Whistle
+				DisplayName: Miner's Whistle
+				Tooltip: Summons distant miners to your side
 			}
 
 			CopperSword100: {
 				DisplayName: Copper Sword100
+				Tooltip: ""
+			}
+
+			CopperAmberRing: {
+				DisplayName: Copper Amber Ring
+				Tooltip: ""
+			}
+
+			CopperAmethystRing: {
+				DisplayName: Copper Amethyst Ring
+				Tooltip: ""
+			}
+
+			CopperDiamondRing: {
+				DisplayName: Copper Diamond Ring
+				Tooltip: ""
+			}
+
+			CopperEmeraldRing: {
+				DisplayName: Copper Emerald Ring
+				Tooltip: ""
+			}
+
+			CopperRubyRing: {
+				DisplayName: Copper Ruby Ring
+				Tooltip: ""
+			}
+
+			CopperSapphireRing: {
+				DisplayName: Copper Sapphire Ring
+				Tooltip: ""
+			}
+
+			CopperTopazRing: {
+				DisplayName: Copper Topaz Ring
 				Tooltip: ""
 			}
 		}

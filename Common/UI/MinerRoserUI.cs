@@ -24,6 +24,8 @@ namespace MinerManagementMOD.Common.UI
         private UITextPanel<string> closeButton;
         private UITextPanel<string> hireButton;
 
+        private UIImage portraitImage;
+
         private int currentPage = 0;
 
         public override void OnInitialize()
@@ -37,7 +39,9 @@ namespace MinerManagementMOD.Common.UI
             Panel.Left.Set(640, 0);
             Panel.Top.Set(125, 0);
 
+            //Panel.BackgroundColor = new Color(63,82,151);
             Append(Panel);
+
 
             //------------------------------------------------
             //Hire
@@ -80,6 +84,32 @@ namespace MinerManagementMOD.Common.UI
             closeButton.OnLeftClick += CloseWindow;
 
             Panel.Append(closeButton);
+
+            //---------------------------------------------------
+            // ポートレイト画像
+            //---------------------------------------------------
+
+
+            portraitImage = new UIImage(
+            ModContent.Request<Texture2D>(
+                "MinerManagementMOD/Assets/UI/MinerPortrait"));
+
+            portraitImage.Left.Set(20, 0);
+            portraitImage.Top.Set(80, 0);
+
+            portraitImage.Width.Set(48, 0);
+            portraitImage.Height.Set(48, 0);
+
+            UIPanel portraitPanel = new UIPanel();
+            portraitPanel.Left.Set(10, 0);
+            portraitPanel.Top.Set(70, 0);
+            portraitPanel.Width.Set(56, 0);
+            portraitPanel.Height.Set(56, 0);
+
+            portraitPanel.Append(portraitImage);
+
+            Panel.Append(portraitImage);
+
 
             //---------------------------------------------------
             // 名前
@@ -161,7 +191,7 @@ namespace MinerManagementMOD.Common.UI
             Player player = Main.LocalPlayer;
 
             // お金確認
-            if (player.CountItem(ItemID.GoldCoin)<1)
+            if (player.CountItem(ItemID.GoldCoin) < 1)
             {
                 Main.NewText(
                     "10ゴールド必要です。",
@@ -218,6 +248,8 @@ namespace MinerManagementMOD.Common.UI
                 Main.LocalPlayer,
                 data
             );
+
+            RefreshPage();
         }
 
         private void CloseWindow(UIMouseEvent evt, UIElement listeningElement)
@@ -225,7 +257,7 @@ namespace MinerManagementMOD.Common.UI
             MinerUISystem.Visible = false;
         }
 
-        private void RefreshPage()
+        public void RefreshPage()
         {
             if (nameText == null || pageText == null)
                 return;
@@ -237,8 +269,31 @@ namespace MinerManagementMOD.Common.UI
             MinerData miner =
                 MinerRosterSystem.Miners[currentPage];
 
+            //Summon button
+            if (miner.IsHired)
+            {
+                if (MinerManager.IsMinerSpawned(miner.ID))
+                {
+                    summonButton.SetText("召喚中");
+                    summonButton.TextColor = Color.LimeGreen;
+                }
+                else
+                {
+                    summonButton.SetText("召喚");
+                    summonButton.TextColor = Color.White;
+                }
+            }
+
             if (miner == null)
                 return;
+
+            if (!string.IsNullOrEmpty(miner.TexturePath))
+            {
+                portraitImage.SetImage(
+                    ModContent.Request<Texture2D>(
+                        miner.TexturePath,
+                        AssetRequestMode.ImmediateLoad));
+            }
 
             nameText.SetText(miner.IsHired ? miner.Name : "空き");
 
@@ -264,32 +319,5 @@ namespace MinerManagementMOD.Common.UI
                 );
         }
 
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            base.DrawSelf(spriteBatch);
-
-            if (MinerRosterSystem.Miners == null)
-                return;
-
-            MinerData miner = MinerRosterSystem.Miners[currentPage];
-
-            if (miner == null)
-                return;
-
-            if (string.IsNullOrEmpty(miner.TexturePath))
-                return;
-
-            Texture2D texture =
-                ModContent.Request<Texture2D>(miner.TexturePath, AssetRequestMode.ImmediateLoad).Value;
-
-            spriteBatch.Draw(
-                texture,
-                new Rectangle(
-                    (int)(Panel.Left.Pixels + 20),
-                    (int)(Panel.Top.Pixels + 80),
-                    48,
-                    48),
-                Color.White);
-        }
     }
 }

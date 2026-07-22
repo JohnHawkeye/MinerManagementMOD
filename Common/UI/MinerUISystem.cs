@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -41,10 +42,17 @@ namespace MinerManagementMOD.Common.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (Visible)
+            if (!Visible)
+                return;
+            
+            if(Main.keyState.IsKeyDown(Keys.Escape)&&
+                Main.oldKeyState.IsKeyUp(Keys.Escape))
             {
-                MinerInterface?.Update(gameTime);
+                Visible =false;
+                return;   
             }
+
+            MinerInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(System.Collections.Generic.List<GameInterfaceLayer> layers)
@@ -93,6 +101,10 @@ namespace MinerManagementMOD.Common.UI
                 if (Main.mouseLeft && Main.mouseLeftRelease)
                 {
                     Visible = !Visible;
+                    if (Visible)
+                    {
+                        MinerUI.RefreshPage();
+                    }
 
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }

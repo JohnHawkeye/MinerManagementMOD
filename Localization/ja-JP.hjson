@@ -1,10 +1,44 @@
-Items: {
-    MinerWhistle: {
-        DisplayName: 鉱夫の呼び笛
-        Tooltip: 使用すると離れている鉱夫を自分のそばへ呼び寄せる
-    }
-    CopperSword100: {
-        DisplayName: 銅の剣100個セット
-        Tooltip: クエスト用のアイテム。銅の剣100が入ったボックス。
+Mods: {
+	MinerManagementMOD: {
+        Items: {
+            CopperAmberRing: {
+                DisplayName: カッパーアンバーリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+            CopperAmethystRing: {
+                DisplayName: カッパーアメジストリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+            CopperDiamondRing: {
+                DisplayName: カッパーダイアモンドリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+            CopperEmeraldRing: {
+                DisplayName: カッパーエメラルドリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }    
+            CopperRubyRing: {
+                DisplayName: カッパールビーリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+            CopperSapphireRing: {
+                DisplayName: カッパーサファイアリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+            CopperTopazRing: {
+                DisplayName: カッパートパーズリング
+                Tooltip: "綺麗な宝石を加工して指輪にした装飾品。\n高値で販売出来る。"
+            }
+
+
+            MinerWhistle: {
+                DisplayName: 鉱夫の呼び笛
+                Tooltip: 使用すると離れている鉱夫を自分のそばへ呼び寄せる
+            }
+            CopperSword100: {
+                DisplayName: 銅の剣100個セット
+                Tooltip: クエスト用のアイテム。銅の剣100が入ったボックス。
+            }
+        }
     }
 }
