@@ -28,6 +28,7 @@ namespace MinerManagementMOD.Systems
 
         public static void SpawnMiner(Player player, MinerData data)
         {
+            
 
             // 既に存在する場合
             if(IsMinerSpawned(data.ID))
@@ -60,7 +61,7 @@ namespace MinerManagementMOD.Systems
                 miner.MiningPower = data.MiningPower;
                 miner.MiningSpeed = data.MiningSpeed;
                 miner.CarryCapacity = data.CarryCapacity;
-
+                miner.HasLight = data.HasLight;
 
                 npc.GivenName = data.Name;
             }

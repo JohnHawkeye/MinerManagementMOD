@@ -8,6 +8,8 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using MinerManagementMOD.Systems;
 using Terraria.ID;
+using MinerManagementMOD.NPCs;
+using Terraria.Audio;
 
 namespace MinerManagementMOD.Common.UI
 {
@@ -19,6 +21,10 @@ namespace MinerManagementMOD.Common.UI
         private UIText pageText;
 
         private UITextPanel<string> summonButton;
+        private UITextPanel<string> gotoButton;
+        private UITextPanel<string> lightButton;
+
+
         private UITextPanel<string> leftButton;
         private UITextPanel<string> rightButton;
         private UITextPanel<string> closeButton;
@@ -130,6 +136,37 @@ namespace MinerManagementMOD.Common.UI
             summonButton.Top.Set(80, 0);
             summonButton.OnLeftClick += SummonButtonClicked;
             Panel.Append(summonButton);
+
+            //-----------------------------------------------------
+            // Goto button
+            //-----------------------------------------------------
+            gotoButton = new UITextPanel<string>("傍に行く");
+
+            gotoButton.Width.Set(120, 0);
+            gotoButton.Height.Set(40, 0);
+
+            gotoButton.Left.Set(390, 0);   // 召喚ボタンの右
+            gotoButton.Top.Set(80, 0);
+
+            gotoButton.OnLeftClick += GotoButtonClicked;
+
+            Panel.Append(gotoButton);
+
+            //-----------------------------------------------------
+            // Light button
+            //-----------------------------------------------------
+            lightButton = new UITextPanel<string>("照明を装備\n1G");
+
+            lightButton.Width.Set(120, 0);
+            lightButton.Height.Set(50, 0);
+
+            lightButton.Left.Set(260, 0);
+            lightButton.Top.Set(140, 0);
+
+            lightButton.OnLeftClick += LightButtonClicked;
+
+            Panel.Append(lightButton);
+
 
             //---------------------------------------------------
             // ←
@@ -252,6 +289,59 @@ namespace MinerManagementMOD.Common.UI
             RefreshPage();
         }
 
+        private void GotoButtonClicked(UIMouseEvent evt, UIElement listeningElement)
+        {
+            MinerData miner = MinerRosterSystem.Miners[currentPage];
+
+            foreach (NPC npc in Main.npc)
+            {
+                if (!npc.active)
+                    continue;
+
+                if (npc.ModNPC is MinerNPC minerNpc &&
+                    minerNpc.MinerID == miner.ID)
+                {
+                    // NPCの少し横へワープ
+                    SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
+                    Main.LocalPlayer.Teleport(
+                        npc.Center + new Vector2(0f, 0f),
+                        TeleportationStyleID.RodOfDiscord
+                    );
+                    SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
+                    break;
+                }
+            }
+        }
+
+        private void LightButtonClicked(UIMouseEvent evt, UIElement listeningElement)
+        {
+            MinerData miner = MinerRosterSystem.Miners[currentPage];
+
+            if (!miner.IsHired)
+                return;
+
+            if (miner.HasLight)
+            {
+                Main.NewText("この鉱夫は既に照明を装備しています。");
+                return;
+            }
+
+            Player player = Main.LocalPlayer;
+
+            // 1Gold必要
+            if (!player.BuyItem(Item.buyPrice(gold: 1)))
+            {
+                Main.NewText("1ゴールド必要です。", 255, 100, 100);
+                return;
+            }
+
+            miner.HasLight = true;
+
+            Main.NewText($"{miner.Name}に照明を装備させました！", 100, 255, 100);
+
+            RefreshPage();
+        }
+
         private void CloseWindow(UIMouseEvent evt, UIElement listeningElement)
         {
             MinerUISystem.Visible = false;
@@ -276,12 +366,30 @@ namespace MinerManagementMOD.Common.UI
                 {
                     summonButton.SetText("召喚中");
                     summonButton.TextColor = Color.LimeGreen;
+
+                    if (gotoButton.Parent == null)
+                        Panel.Append(gotoButton);
                 }
                 else
                 {
                     summonButton.SetText("召喚");
                     summonButton.TextColor = Color.White;
+
+                    if (gotoButton.Parent != null)
+                        gotoButton.Remove();
                 }
+            }
+
+            //Light 
+            if (miner.HasLight)
+            {
+                lightButton.SetText("照明装備済");
+                lightButton.TextColor = Color.Yellow;
+            }
+            else
+            {
+                lightButton.SetText("照明を装備\n1G");
+                lightButton.TextColor = Color.White;
             }
 
             if (miner == null)
@@ -304,11 +412,20 @@ namespace MinerManagementMOD.Common.UI
 
                 if (summonButton.Parent == null)
                     Panel.Append(summonButton);
+
+                if (lightButton.Parent == null)
+                    Panel.Append(lightButton);
             }
             else
             {
                 if (summonButton.Parent != null)
                     summonButton.Remove();
+
+                if (gotoButton.Parent != null)
+                    gotoButton.Remove();
+
+                if (lightButton.Parent != null)
+                    lightButton.Remove();
 
                 if (hireButton.Parent == null)
                     Panel.Append(hireButton);

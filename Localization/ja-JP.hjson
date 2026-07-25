@@ -47,6 +47,22 @@ Mods: {
 				DisplayName: 鉱物掘削機Tier1
 				Tooltip: "プレイヤーの位置に掘削機を設置。\n自動で鉱物を採掘します。\n回収はインベントリを閉じた状態で右クリック。"
 			}
+
+            
+			Detonator: {
+				DisplayName: デトネイター
+				Tooltip: "くっつけたリモートボムを破壊するためのリモコン。\n使用すると爆弾が爆発する。"
+			}
+
+			RemoteBomb: {
+				DisplayName: リモートボム
+				Tooltip: "設置したい場所に向けて投げよう。"
+			}
+
+			MagicHand: {
+				DisplayName: マジックハンド
+				Tooltip: "これで直接触らなくて済む！"
+			}
         }
     }
 }

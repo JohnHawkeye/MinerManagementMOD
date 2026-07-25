@@ -34,6 +34,11 @@
     "Items\\BuriedBox.cs": "MinerManagementMOD.Items",
     "Items\\MiningMachineItem.cs": "MinerManagementMOD.Items",
     "Projectiles\\MiningMachineProjectile.cs": "MinerManagementMOD.Projectiles",
-    "Recipes\\AdditionalRecipes.cs": "MinerManagementMOD.Recipes"
+    "Recipes\\AdditionalRecipes.cs": "MinerManagementMOD.Recipes",
+    "Projectiles\\RemoteBombProj.cs": "MinerManagementMOD.Projectiles",
+    "Items\\RemoteBomb.cs": "MinerManagementMOD.Items",
+    "Items\\Detonator.cs": "MinerManagementMOD.Items",
+    "Items\\MagicHand.cs": "MinerManagementMOD.Items",
+    "Projectiles\\MagicHandProjectile.cs": "MinerManagementMOD.Projectiles"
   }
 }

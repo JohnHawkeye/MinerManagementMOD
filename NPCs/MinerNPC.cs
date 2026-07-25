@@ -20,6 +20,7 @@ namespace MinerManagementMOD.NPCs
         public int MiningPower;
         public int MiningSpeed;
         public int CarryCapacity;
+        public bool HasLight;
 
         //
         public bool IsMining = false;
@@ -35,7 +36,6 @@ namespace MinerManagementMOD.NPCs
 
         private int miningDirection = 1;
         private Point miningColumn;
-        private int miningHeight = 0;
         private int miningTimer;
         private float advanceTargetX;
 
@@ -94,6 +94,10 @@ namespace MinerManagementMOD.NPCs
         public override void AI()
         {
             NPC.timeLeft = 60;
+            if (HasLight)
+            {
+                Lighting.AddLight(NPC.Center, 1f, 0.95f, 0.75f);
+            }
 
             switch (CurrentState)
             {
@@ -174,69 +178,77 @@ namespace MinerManagementMOD.NPCs
 
             int targetX = miningColumn.X;
 
-            // 上 → 中 → 下
-            int targetY =  miningColumn.Y - miningHeight;
+            bool hasNormalBlock = false;
+            bool hasFallingBlock = false;
 
-            Tile tile = Framing.GetTileSafely(targetX, targetY);
-           
-            // 落下ブロックなら専用モードへ
-            if (tile.HasTile &&
-                TileID.Sets.Falling[tile.TileType])
+            //---------------------------------------
+            // ① 通常ブロックを探して掘る
+            //---------------------------------------
+            for (int offset = 2; offset >= 0; offset--)
             {
-                miningHeight = 0;
+                int targetY = miningColumn.Y - offset;
+
+                Tile tile = Framing.GetTileSafely(targetX, targetY);
+
+                if (!tile.HasTile)
+                    continue;
+
+                if (TileID.Sets.Falling[tile.TileType])
+                {
+                    hasFallingBlock = true;
+                    continue;
+                }
+
+                if (!Helpers.MiningHelper.CanMine(tile.TileType))
+                    continue;
+
+                hasNormalBlock = true;
+
+                WorldGen.KillTile(targetX, targetY);
+                TryDropMiningCrate(targetX, targetY);
+
+                Tile after = Framing.GetTileSafely(targetX, targetY);
+
+                if (!after.HasTile)
+                {
+                    MinedBlockCount++;
+
+                    if (MinedBlockCount >= MaxMineBlocks)
+                    {
+                        StopMining();
+                        return;
+                    }
+                }
+            }
+
+            // 通常ブロックが残っているなら今回は終了
+            if (hasNormalBlock)
+                return;
+
+            //---------------------------------------
+            // ② 落下ブロックだけになったら専用処理へ
+            //---------------------------------------
+            if (hasFallingBlock)
+            {
                 fallingWaitTimer = 0;
                 CurrentState = MinerState.FallingMining;
                 return;
             }
 
-            if (tile.HasTile &&
-                Helpers.MiningHelper.CanMine(tile.TileType))
+            //---------------------------------------
+            // ③ 何も無ければ前進
+            //---------------------------------------
+            advanceTargetX = NPC.Center.X + miningDirection * 16f;
+
+            torchCounter++;
+
+            if (torchCounter >= TorchInterval)
             {
-                WorldGen.KillTile(targetX, targetY);
-                TryDropMiningCrate(targetX, targetY);
-
-                Tile tileAfter = Framing.GetTileSafely(targetX, targetY);
-
-                if (!tileAfter.HasTile)
-                {
-                    MinedBlockCount++;
-                    if (MinedBlockCount >= MaxMineBlocks)
-                    {
-                        IsMining = false;
-                        CurrentState = MinerState.Idle;
-
-                        miningHeight = 0;
-                        miningTimer = 0;
-                        isSwingingPickaxe = false;
-
-                        NPC.velocity = Vector2.Zero;
-                        return;
-                    }
-
-                    miningHeight++;
-                }
-            }
-            else
-            {
-                miningHeight++;
+                torchCounter = 0;
+                TryPlaceTorch();
             }
 
-            // 3ブロック掘ったら前進
-            if (miningHeight >= 3)
-            {
-                miningHeight = 0;
-                advanceTargetX = NPC.Center.X + miningDirection * 16;
-
-                torchCounter++;
-                if (torchCounter >= TorchInterval)
-                {
-                    torchCounter = 0;
-                    TryPlaceTorch();
-                }
-
-                CurrentState = MinerState.Advancing;
-
-            }
+            CurrentState = MinerState.Advancing;
         }
 
         private void MineFallingBlocks()
@@ -294,19 +306,11 @@ namespace MinerManagementMOD.NPCs
                 if (check.HasTile &&
                     TileID.Sets.Falling[check.TileType])
                 {
-                    hasFalling = true;
-                    break;
+                    return;
                 }
             }
 
-            if (!hasFalling)
-            {
-                fallingWaitTimer = 0;
-                miningHeight = 0;
-                advanceTargetX = NPC.Center.X + miningDirection * 16f;
-                CurrentState = MinerState.Advancing;
-                return;
-            }
+            CurrentState = MinerState.Mining;
         }
 
         //stop mining
@@ -345,7 +349,6 @@ namespace MinerManagementMOD.NPCs
                 (int)(NPC.Bottom.Y / 16) - 1
             );
 
-            miningHeight = 0;
             miningTimer = 0;
 
             NPC.velocity.X = 0;

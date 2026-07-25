@@ -77,8 +77,27 @@ Mods: {
 				DisplayName: Mining Machine Item
 				Tooltip: ""
 			}
+
+			Detonator: {
+				DisplayName: Detonator
+				Tooltip: ""
+			}
+
+			RemoteBomb: {
+				DisplayName: Remote Bomb
+				Tooltip: ""
+			}
+
+			MagicHand: {
+				DisplayName: Magic Hand
+				Tooltip: ""
+			}
 		}
 
-		Projectiles.MiningMachineProjectile.DisplayName: Mining Machine Projectile
+		Projectiles: {
+			MiningMachineProjectile.DisplayName: Mining Machine Projectile
+			RemoteBombProj.DisplayName: Remote Bomb Proj
+			MagicHandProjectile.DisplayName: Magic Hand Projectile
+		}
 	}
 }

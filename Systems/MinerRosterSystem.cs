@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 
 namespace MinerManagementMOD.Systems
 {
-
     public class MinerData
     {
         public int ID;
@@ -11,6 +10,8 @@ namespace MinerManagementMOD.Systems
 
         public string Name;
         public string TexturePath;
+
+        public bool HasLight= false;
 
         public int MiningPower = 1;
         public int MiningSpeed = 1;
@@ -21,6 +22,7 @@ namespace MinerManagementMOD.Systems
             ID = id;
             Name = name;
             TexturePath = texture;
+
         }
     }
 

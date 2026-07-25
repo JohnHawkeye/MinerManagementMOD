@@ -170,7 +170,7 @@ namespace MinerManagementMOD.Projectiles
             Player player = Main.player[Projectile.owner];
 
             // 右クリックしていない
-            if (!Main.mouseRight)
+            if (!Main.mouseRight|| Main.mouseRightRelease == false)
                 return;
 
             // インベントリを開いているときは無効
