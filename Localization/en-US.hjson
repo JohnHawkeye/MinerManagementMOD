@@ -67,6 +67,18 @@ Mods: {
 				DisplayName: Copper Topaz Ring
 				Tooltip: ""
 			}
+
+			BuriedBox: {
+				DisplayName: Buried Box
+				Tooltip: ""
+			}
+
+			MiningMachineItem: {
+				DisplayName: Mining Machine Item
+				Tooltip: ""
+			}
 		}
+
+		Projectiles.MiningMachineProjectile.DisplayName: Mining Machine Projectile
 	}
 }

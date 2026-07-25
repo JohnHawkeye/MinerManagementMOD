@@ -27,6 +27,13 @@
     "Items\\Treasure\\TreasureBase.cs": "MinerManagementMOD.Items.Treasure",
     "Items\\Treasure\\Treasure001.cs": "MinerManagementMOD.Items.Treasure",
     "Items\\Treasure\\TreasureRegistry.cs": "MinerManagementMOD.Items.Treasure",
-    "Items\\Treasure\\Treasure049.cs": "MinerManagementMOD.Items.Treasure"
+    "Items\\Treasure\\Treasure049.cs": "MinerManagementMOD.Items.Treasure",
+    "Systems\\TreasureEffects.cs": "MinerManagementMOD.Systems",
+    "Common\\Players\\TreasurePlayer.cs": "MinerManagementMOD.Common.Players",
+    "Systems\\TreasureWorldData.cs": "MinerManagementMOD.Systems",
+    "Items\\BuriedBox.cs": "MinerManagementMOD.Items",
+    "Items\\MiningMachineItem.cs": "MinerManagementMOD.Items",
+    "Projectiles\\MiningMachineProjectile.cs": "MinerManagementMOD.Projectiles",
+    "Recipes\\AdditionalRecipes.cs": "MinerManagementMOD.Recipes"
   }
 }

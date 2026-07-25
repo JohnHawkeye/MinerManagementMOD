@@ -1,0 +1,1106 @@
+Mods: {
+	MinerManagementMOD: {
+		Items: {
+			Treasure001: {
+				DisplayName: Old Coin
+				Tooltip:
+					'''
+					A common copper coin
+					Treasure item
+					'''
+			}
+
+			Treasure002: {
+				DisplayName: Rusted Gear
+				Tooltip:
+					'''
+					A chipped gear
+					Treasure item
+					'''
+			}
+
+			Treasure003: {
+				DisplayName: Broken Pocket Watch
+				Tooltip:
+					'''
+					Its hands no longer move
+					Treasure item
+					'''
+			}
+
+			Treasure004: {
+				DisplayName: Carved Wooden Doll
+				Tooltip:
+					'''
+					Apparently used to ward off evil
+					Treasure item
+					'''
+			}
+
+			Treasure005: {
+				DisplayName: Iron Key
+				Tooltip:
+					'''
+					I wonder what it opens
+					Treasure item
+					'''
+			}
+
+			Treasure006: {
+				DisplayName: Worn-out Die
+				Tooltip:
+					'''
+					Thrown thousands... or tens of thousands of times?
+					Treasure item
+					'''
+			}
+
+			Treasure007: {
+				DisplayName: Yellowed Map
+				Tooltip:
+					'''
+					Does treasure lie hidden here...?
+					Treasure item
+					'''
+			}
+
+			Treasure008: {
+				DisplayName: Broken Compass
+				Tooltip:
+					'''
+					Doesn't look usable
+					Treasure item
+					'''
+			}
+
+			Treasure009: {
+				DisplayName: Old Fountain Pen
+				Tooltip:
+					'''
+					The nib is bent out of shape
+					Treasure item
+					'''
+			}
+
+			Treasure010: {
+				DisplayName: Mine Lantern
+				Tooltip:
+					'''
+					A well-used lantern
+					Treasure item
+					'''
+			}
+
+			Treasure011: {
+				DisplayName: Ship in a Bottle
+				Tooltip:
+					'''
+					You can see a delicately crafted ship inside
+					Treasure item
+					'''
+			}
+
+			Treasure012: {
+				DisplayName: Fancy Button
+				Tooltip:
+					'''
+					Perhaps it belonged to a noblewoman
+					Treasure item
+					'''
+			}
+
+			Treasure013: {
+				DisplayName: Broken Pot
+				Tooltip:
+					'''
+					Could this be an expensive vase?
+					Treasure Item
+					'''
+			}
+
+			Treasure014: {
+				DisplayName: Sharp Fishhook
+				Tooltip:
+					'''
+					Many a catch was hooked with this
+					Treasure Item
+					'''
+			}
+
+			Treasure015: {
+				DisplayName: Silver Spoon
+				Tooltip:
+					'''
+					It supposedly turns black when it touches poison
+					Treasure Item
+					'''
+			}
+
+			Treasure016: {
+				DisplayName: Carved Wooden Bird
+				Tooltip:
+					'''
+					It seems to be a guardian deity of some sort
+					Treasure Item
+					'''
+			}
+
+			Treasure017: {
+				DisplayName: Small Music Box
+				Tooltip:
+					'''
+					It plays a nostalgic melody
+					Treasure Item
+					'''
+			}
+
+			Treasure018: {
+				DisplayName: Worn-out Playing Cards
+				Tooltip:
+					'''
+					They look like they've seen a lot of use
+					Treasure Item
+					'''
+			}
+
+			Treasure019: {
+				DisplayName: Leather Notebook
+				Tooltip:
+					'''
+					I wonder what's drawn inside
+					Treasure Item
+					'''
+			}
+
+			Treasure020: {
+				DisplayName: Tin Toy Car
+				Tooltip:
+					'''
+					A toy that children would love
+					Treasure Item
+					'''
+			}
+
+			Treasure021: {
+				DisplayName: Carpenter's Mallet
+				Tooltip:
+					'''
+					The kind of tool a grumpy carpenter might own
+					Treasure Item
+					'''
+			}
+
+			Treasure022: {
+				DisplayName: Stone Tablet Fragment
+				Tooltip:
+					'''
+					Are there other pieces out there?
+					Treasure Item
+					'''
+			}
+
+			Treasure023: {
+				DisplayName: Lead Soldier
+				Tooltip:
+					'''
+					A figurine of a soldier in armor
+					Treasure Item
+					'''
+			}
+
+			Treasure024: {
+				DisplayName: Beautiful Marble
+				Tooltip:
+					'''
+					It sparkles like the cosmos
+					Treasure Item
+					'''
+			}
+
+			Treasure025: {
+				DisplayName: Old Necklace
+				Tooltip:
+					'''
+					A necklace once worn by a noblewoman
+					Treasure Item
+					'''
+			}
+
+			Treasure026: {
+				DisplayName: Traveler's Canteen
+				Tooltip:
+					'''
+					A canteen cherished by a traveler
+					Treasure Item
+					'''
+			}
+
+			Treasure027: {
+				DisplayName: Caveman's Arrowhead
+				Tooltip:
+					'''
+					An arrowhead made of stone
+					Treasure Item
+					'''
+			}
+
+			Treasure028: {
+				DisplayName: Brass Bell
+				Tooltip:
+					'''
+					Maybe put it on a cat?
+					Treasure Item
+					'''
+			}
+
+			Treasure029: {
+				DisplayName: White Recorder
+				Tooltip:
+					'''
+					Plays a lovely melody
+					Treasure Item
+					'''
+			}
+
+			Treasure030: {
+				DisplayName: Weathered Binoculars
+				Tooltip:
+					'''
+					To the far reaches of the horizon
+					Treasure Item
+					'''
+			}
+
+			Treasure031: {
+				DisplayName: Stone Currency
+				Tooltip:
+					'''
+					Appears to be ancient currency
+					Treasure Item
+					'''
+			}
+
+			Treasure032: {
+				DisplayName: Stylish Postcard
+				Tooltip:
+					'''
+					An unused postcard
+					Treasure Item
+					'''
+			}
+
+			Treasure033: {
+				DisplayName: Dog Tag
+				Tooltip:
+					'''
+					Belonged to a brave, fallen soldier
+					Treasure Item
+					'''
+			}
+
+			Treasure034: {
+				DisplayName: Old Kiseru Pipe
+				Tooltip:
+					'''
+					Said to have belonged to a legendary master thief
+					Treasure Item
+					'''
+			}
+
+			Treasure035: {
+				DisplayName: Old Stock Certificate
+				Tooltip:
+					'''
+					It seems to have expired
+					Treasure Item
+					'''
+			}
+
+			Treasure036: {
+				DisplayName: Gold Quill Pen
+				Tooltip:
+					'''
+					Writes incredibly smoothly
+					Treasure Item
+					'''
+			}
+
+			Treasure037: {
+				DisplayName: Master Calligrapher's Inkstone
+				Tooltip:
+					'''
+					Produces smooth, high-quality ink
+					Treasure Item
+					'''
+			}
+
+			Treasure038: {
+				DisplayName: Ordinary Fish Rubbing
+				Tooltip:
+					'''
+					A print of the first fish ever caught
+					Treasure Item
+					'''
+			}
+
+			Treasure039: {
+				DisplayName: Pink Pearl
+				Tooltip:
+					'''
+					An unpolished pink pearl
+					Treasure Item
+					'''
+			}
+
+			Treasure040: {
+				DisplayName: Mother-of-Pearl Inlaid Wooden Dish
+				Tooltip:
+					'''
+					Features beautiful butterflies and flowers inlaid with shell
+					Treasure Item
+					'''
+			}
+
+			Treasure041: {
+				DisplayName: Star-Shaped Stone
+				Tooltip:
+					'''
+					A stone with a rare shape
+					Treasure Item
+					'''
+			}
+
+			Treasure042: {
+				DisplayName: Rusted Anchor
+				Tooltip:
+					'''
+					An anchor from a sunken ship
+					Treasure Item
+					'''
+			}
+
+			Treasure043: {
+				DisplayName: Bell of Happiness
+				Tooltip: A treasure item said to bring happiness when rung
+			}
+
+			Treasure044: {
+				DisplayName: Tribal Mask
+				Tooltip: A treasure item said to alter one's personality when worn
+			}
+
+			Treasure045: {
+				DisplayName: Leather Pouch
+				Tooltip: A treasure item apparently used to carry water
+			}
+
+			Treasure046: {
+				DisplayName: Coffee Cup Set
+				Tooltip: A rather expensive cup and saucer set; a treasure item
+			}
+
+			Treasure047: {
+				DisplayName: White Vanity Box
+				Tooltip: A beautiful box for holding cosmetics; a treasure item
+			}
+
+			Treasure048: {
+				DisplayName: Broken Camera
+				Tooltip: A retro camera; it no longer functions; a treasure item
+			}
+
+			Treasure049: {
+				DisplayName: Silver Medal
+				Tooltip: A symbol of honor; a treasure item
+			}
+
+			Treasure050: {
+				DisplayName: Grimoire Fragment
+				Tooltip: A treasure item featuring a drawn magic circle
+			}
+
+			Treasure051: {
+				DisplayName: Crystal Skull
+				Tooltip: A treasure item; apparently, there are twelve of these
+			}
+
+			Treasure052: {
+				DisplayName: Elven Ear Ornament
+				Tooltip: A treasure item that captivates when glimpsed against the nape of the neck
+			}
+
+			Treasure053: {
+				DisplayName: Smith's Hammer
+				Tooltip: A hammer once owned by a dwarf; a treasure item
+			}
+
+			Treasure054: {
+				DisplayName: Halfling's Ring
+				Tooltip: A treasure item said to bear a monumental mission...
+			}
+
+			Treasure055: {
+				DisplayName: Grimoire
+				Tooltip: A book of dark magic; said to allow pacts with demons; a treasure item
+			}
+
+			Treasure056: {
+				DisplayName: Boss Room Key
+				Tooltip:
+					'''
+					A boss awaits beyond where this is used
+					Treasure Item
+					'''
+			}
+
+			Treasure057: {
+				DisplayName: Stargazer's Telescope
+				Tooltip:
+					'''
+					A telescope that reveals the connections between stars
+					Treasure Item
+					'''
+			}
+
+			Treasure058: {
+				DisplayName: Golden Crown
+				Tooltip:
+					'''
+					Symbolizes absolute authority
+					Treasure Item
+					'''
+			}
+
+			Treasure059: {
+				DisplayName: Jade Black Tortoise
+				Tooltip:
+					'''
+					A sacred beast resembling a turtle
+					Treasure Item
+					'''
+			}
+
+			Treasure060: {
+				DisplayName: Ivory White Tiger
+				Tooltip:
+					'''
+					A sacred beast in the form of a lion
+					Treasure Item
+					'''
+			}
+
+			Treasure061: {
+				DisplayName: Vermilion Bird of Blood-Red Stone
+				Tooltip:
+					'''
+					A sacred beast—a blazing bird
+					Treasure Item
+					'''
+			}
+
+			Treasure062: {
+				DisplayName: Azure Dragon of Blue Crystal
+				Tooltip:
+					'''
+					A sacred beast that summons raging torrents
+					Treasure Item
+					'''
+			}
+
+			Treasure063: {
+				DisplayName: Royal Seal
+				Tooltip:
+					'''
+					A wax seal from a noble house
+					Treasure Item
+					'''
+			}
+
+			Treasure064: {
+				DisplayName: Silver Tiara
+				Tooltip:
+					'''
+					The tiara of the world's most beautiful queen
+					Treasure Item
+					'''
+			}
+
+			Treasure065: {
+				DisplayName: Masterpiece Sheet Music
+				Tooltip:
+					'''
+					Care to play it?
+					Treasure Item
+					'''
+			}
+
+			Treasure066: {
+				DisplayName: Phantom's Mask
+				Tooltip:
+					'''
+					The Phantom of the Opera lies within
+					Treasure Item
+					'''
+			}
+
+			Treasure067: {
+				DisplayName: Jeweled Chalice
+				Tooltip:
+					'''
+					A chalice studded with beautiful gems
+					Treasure Item
+					'''
+			}
+
+			Treasure068: {
+				DisplayName: Magic Compass
+				Tooltip:
+					'''
+					Something seems to lie in the direction it points...
+					Treasure Item
+					'''
+			}
+
+			Treasure069: {
+				DisplayName: Dragon Scale
+				Tooltip:
+					'''
+					A scale impervious to ordinary swords
+					Treasure Item
+					'''
+			}
+
+			Treasure070: {
+				DisplayName: Mysterious Hourglass
+				Tooltip:
+					'''
+					Can this thing really measure time?
+					Treasure Item
+					'''
+			}
+
+			Treasure071: {
+				DisplayName: Sun and Moon Pendant
+				Tooltip:
+					'''
+					Meant to be worn separately by a couple
+					Treasure Item
+					'''
+			}
+
+			Treasure072: {
+				DisplayName: Shooting Star Hair Clip
+				Tooltip:
+					'''
+					Feel like an idol
+					Treasure Item
+					'''
+			}
+
+			Treasure073: {
+				DisplayName: Princess's Hand Mirror
+				Tooltip:
+					'''
+					Mirror, mirror... who is the fairest of them all?
+					Treasure Item
+					'''
+			}
+
+			Treasure074: {
+				DisplayName: Ancient Key Ring
+				Tooltip:
+					'''
+					Keys that unlock the bonds of ancient soldiers
+					Treasure Item
+					'''
+			}
+
+			Treasure075: {
+				DisplayName: Golden Feather
+				Tooltip:
+					'''
+					Possessing this is a sign of great fortune
+					Treasure Item
+					'''
+			}
+
+			Treasure076: {
+				DisplayName: Spirit's Tambourine
+				Tooltip:
+					'''
+					Makes you want to dance and forget your worries
+					Treasure Item
+					'''
+			}
+
+			Treasure077: {
+				DisplayName: Dragon's Coin
+				Tooltip:
+					'''
+					Proof of being drawn to a dragon's mission
+					Treasure Item
+					'''
+			}
+
+			Treasure078: {
+				DisplayName: Healing Cross
+				Tooltip:
+					'''
+					All is forgiven...
+					Treasure Item
+					'''
+			}
+
+			Treasure079: {
+				DisplayName: Alchemist's Flask
+				Tooltip:
+					'''
+					Said to have birthed an unknown lifeform
+					Treasure Item
+					'''
+			}
+
+			Treasure080: {
+				DisplayName: Royal Seal
+				Tooltip:
+					'''
+					The emblem of a renowned royal family
+					Treasure Item
+					'''
+			}
+
+			Treasure081: {
+				DisplayName: Master Swordsman's Tsuba
+				Tooltip:
+					'''
+					The soul of a master swordsman dwells within...
+					Treasure Item
+					'''
+			}
+
+			Treasure082: {
+				DisplayName: Kaiju Fang
+				Tooltip:
+					'''
+					The fang of a monster that nearly destroyed humanity
+					Treasure Item
+					'''
+			}
+
+			Treasure083: {
+				DisplayName: Phoenix Feather
+				Tooltip:
+					'''
+					A feather that seems capable of bringing one back to life
+					Treasure Item
+					'''
+			}
+
+			Treasure084: {
+				DisplayName: Ancient Civilization Core
+				Tooltip:
+					'''
+					One can sense a mysterious energy...
+					Treasure Item
+					'''
+			}
+
+			Treasure085: {
+				DisplayName: Moonlight Gem of Longevity
+				Tooltip:
+					'''
+					Bathe in its light to gain a long life
+					Treasure Item
+					'''
+			}
+
+			Treasure086: {
+				DisplayName: Star-Iron Ore
+				Tooltip:
+					'''
+					Meteoritic iron from a distant star
+					Treasure Item
+					'''
+			}
+
+			Treasure087: {
+				DisplayName: Horn of the Spirit King
+				Tooltip:
+					'''
+					Blow it once to summon a host of reinforcements
+					Treasure Item
+					'''
+			}
+
+			Treasure088: {
+				DisplayName: Möbius Hourglass
+				Tooltip:
+					'''
+					Cycles through eternity... 
+					Treasure Item
+					'''
+			}
+
+			Treasure089: {
+				DisplayName: Crown of the Sea King
+				Tooltip:
+					'''
+					The majesty of the king who rules the seas
+					Treasure Item
+					'''
+			}
+
+			Treasure090: {
+				DisplayName: Key to the Sky City
+				Tooltip:
+					'''
+					It is said that no one has ever actually seen the city itself... 
+					Treasure Item
+					'''
+			}
+
+			Treasure091: {
+				DisplayName: Blueprint
+				Tooltip:
+					'''
+					A divine blueprint. It details a weapon capable of bringing about ruin.
+					Treasure Item
+					'''
+			}
+
+			Treasure092: {
+				DisplayName: Demon Lord's Standard
+				Tooltip:
+					'''
+					The Demon Lord has been slain!
+					Treasure Item
+					'''
+			}
+
+			Treasure093: {
+				DisplayName: Floppy Disk
+				Tooltip:
+					'''
+					Reads and writes data using magnetism.
+					Treasure Item
+					'''
+			}
+
+			Treasure094: {
+				DisplayName: Rare Metal
+				Tooltip:
+					'''
+					A metal of immense rarity and value.
+					Treasure Item
+					'''
+			}
+
+			Treasure095: {
+				DisplayName: Gravity Control Chip
+				Tooltip:
+					'''
+					Apparently, installing this allows you to control the surrounding gravity...
+					Treasure Item
+					'''
+			}
+
+			Treasure096: {
+				DisplayName: Alien Communicator
+				Tooltip:
+					'''
+					You really shouldn't call them...
+					Treasure Item
+					'''
+			}
+
+			Treasure097: {
+				DisplayName: Black Box
+				Tooltip:
+					'''
+					Packed with hidden information.
+					Treasure Item
+					'''
+			}
+
+			Treasure098: {
+				DisplayName: ID Card
+				Tooltip:
+					'''
+					An ID card for a space battleship crew member.
+					Treasure Item
+					'''
+			}
+
+			Treasure099: {
+				DisplayName: Specimen of the New Humanity
+				Tooltip:
+					'''
+					It's wriggling inside the formalin...
+					Treasure Item
+					'''
+			}
+
+			Treasure100: {
+				DisplayName: Quantum Computing Unit
+				Tooltip:
+					'''
+					Unfathomable computing power.
+					Treasure Item
+					'''
+			}
+
+			Treasure101: {
+				DisplayName: Space-Time Compass
+				Tooltip:
+					'''
+					Will you use this to alter history...?
+					Treasure Item
+					'''
+			}
+
+			Treasure102: {
+				DisplayName: Crystal of Emptiness
+				Tooltip:
+					'''
+					Do not touch. It reduces all to nothingness.
+					Treasure Item
+					'''
+			}
+
+			Treasure103: {
+				DisplayName: Digital Cryptocurrency
+				Tooltip:
+					'''
+					If it isn't accepted in this world, it's nothing more than data... 
+					Treasure Item
+					'''
+			}
+
+			Treasure104: {
+				DisplayName: Constellation Plate
+				Tooltip:
+					'''
+					Where shall we go? On and on, to the edge of that nebula... 
+					Treasure Item
+					'''
+			}
+
+			Treasure105: {
+				DisplayName: Heart of the Divine Dragon
+				Tooltip:
+					'''
+					To obtain eternal life... 
+					Treasure Item
+					'''
+			}
+
+			Treasure106: {
+				DisplayName: Seed of the World Tree
+				Tooltip:
+					'''
+					Overflowing vitality that knows no ruin... 
+					Treasure Item
+					'''
+			}
+
+			Treasure107: {
+				DisplayName: Philosopher's Stone
+				Tooltip:
+					'''
+					It seems I've touched something that should never have been touched... 
+					Treasure Item
+					'''
+			}
+
+			Treasure108: {
+				DisplayName: Tip of Longinus
+				Tooltip:
+					'''
+					The Spear of Destiny. It was all preordained... 
+					Treasure Item
+					'''
+			}
+
+			Treasure109: {
+				DisplayName: Golden Pyramid
+				Tooltip:
+					'''
+					All knowledge lies within... 
+					Treasure Item
+					'''
+			}
+
+			Treasure110: {
+				DisplayName: Eye of Horus
+				Tooltip:
+					'''
+					It sees right through everything... 
+					Treasure Item
+					'''
+			}
+
+			Treasure111: {
+				DisplayName: Angel's Halo
+				Tooltip:
+					'''
+					Apparently, it cuts you if you try to grab it with your bare hands... 
+					Treasure Item
+					'''
+			}
+
+			Treasure112: {
+				DisplayName: Demon Seal Talisman
+				Tooltip:
+					'''
+					The time has come to break the seal! 
+					Treasure Item
+					'''
+			}
+
+			Treasure113: {
+				DisplayName: Galactic Anchor
+				Tooltip:
+					'''
+					Memories of the sea of ​​stars come flooding back... 
+					Treasure Item
+					'''
+			}
+
+			Treasure114: {
+				DisplayName: Multidimensional Crystal
+				Tooltip:
+					'''
+					Once drawn in by its beauty, there is no escape... 
+					Treasure Item
+					'''
+			}
+
+			Treasure115: {
+				DisplayName: Chronos Gear
+				Tooltip:
+					'''
+					Said to hold the power to freely manipulate destiny...
+					Treasure Item
+					'''
+			}
+
+			Treasure116: {
+				DisplayName: World Clock
+				Tooltip:
+					'''
+					A terrifying timepiece said to mark the moment of doom
+					Treasure Item
+					'''
+			}
+
+			Treasure117: {
+				DisplayName: Perpetual Motion Engine
+				Tooltip:
+					'''
+					The ultimate dream of science
+					Treasure Item
+					'''
+			}
+
+			Treasure118: {
+				DisplayName: Super-Civilization Core
+				Tooltip:
+					'''
+					A mysterious substance bestowed upon humanity by the gods
+					Treasure Item
+					'''
+			}
+
+			Treasure119: {
+				DisplayName: Galactic Star Chart
+				Tooltip:
+					'''
+					To the regions beyond the ever-expanding cosmos
+					Treasure Item
+					'''
+			}
+
+			Treasure120: {
+				DisplayName: Akashic Records
+				Tooltip:
+					'''
+					All knowledge resides here
+					Treasure Item
+					'''
+			}
+
+			Treasure121: {
+				DisplayName: Excalibur
+				Tooltip:
+					'''
+					He who wields this holy sword shall never know defeat.
+					Treasure Item
+					'''
+			}
+
+			Treasure122: {
+				DisplayName: Holy Grail
+				Tooltip:
+					'''
+					It is said that drinking the blood drawn into this cup
+					grants eternal life...
+					Treasure Item
+					'''
+			}
+
+			Treasure123: {
+				DisplayName: Treasure of Atlantis
+				Tooltip:
+					'''
+					A treasure of a geometric civilization, said to slumber on the ocean floor.
+					Treasure Item
+					'''
+			}
+
+			Treasure124: {
+				DisplayName: Dark Matter
+				Tooltip:
+					'''
+					A substance of super-gravity that swallows even light.
+					Treasure Item
+					'''
+			}
+
+			Treasure125: {
+				DisplayName: Celestial Staff
+				Tooltip:
+					'''
+					It is said to offer a glimpse of the world...
+					Treasure Item
+					'''
+			}
+
+			Treasure126: {
+				DisplayName: Nothingness
+				Tooltip:
+					'''
+
+					Treasure Item
+					'''
+			}
+
+			Treasure127: {
+				DisplayName: Blueprint for World Creation
+				Tooltip:
+					'''
+					A diagram filled with dreams, drawn on the back of an advertisement.
+					Treasure Item
+					'''
+			}
+
+			Treasure128: {
+				DisplayName: Pen of World Creation
+				Tooltip:
+					'''
+					It is a simple pencil.
+					Treasure Item
+					'''
+			}
+		}
+	}
+}

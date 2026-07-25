@@ -1,0 +1,530 @@
+Mods: {
+    MinerManagementMOD: {
+        Items: {
+            Treasure001: {
+                DisplayName: "古びたコイン"
+                Tooltip: "よく見かける銅のコイン\nトレジャーアイテム"
+            }
+            Treasure002: {
+                DisplayName: "錆びた歯車"
+                Tooltip: "かけてしまった歯車\nトレジャーアイテム"
+            }
+            Treasure003: {
+                DisplayName: "壊れた懐中時計"
+                Tooltip: "もう針は動いていない\nトレジャーアイテム"
+            }
+            Treasure004: {
+                DisplayName: "木彫りの人形"
+                Tooltip: "魔除けに使われるらしい\nトレジャーアイテム"
+            }
+            Treasure005: {
+                DisplayName: "鉄の鍵"
+                Tooltip: "どこの鍵だろう\nトレジャーアイテム"
+            }
+            Treasure006: {
+                DisplayName: "すり減ったサイコロ"
+                Tooltip: "何万回？何千回？投げられたのだろう？\nトレジャーアイテム"
+            }
+            Treasure007: {
+                DisplayName: "黄ばんだ地図"
+                Tooltip: "お宝が眠っている…？\nトレジャーアイテム"
+            }
+            Treasure008: {
+                DisplayName: "壊れたコンパス"
+                Tooltip: "使えそうではない\nトレジャーアイテム"
+            }
+            Treasure009: {
+                DisplayName: "古びた万年筆"
+                Tooltip: "ペン先がひしゃげている\nトレジャーアイテム"
+            }
+            Treasure010: {
+                DisplayName: "炭鉱のランタン"
+                Tooltip: "使い古しのランタン\nトレジャーアイテム"
+            }
+
+            Treasure011: {
+                DisplayName: "船の模型入りビン"
+                Tooltip: "繊細に作られた船が見える\nトレジャーアイテム"
+            }
+            Treasure012: {
+                DisplayName: "華やかなボタン"
+                Tooltip: "貴婦人の物だろうか\nトレジャーアイテム"
+            }
+            Treasure013: {
+                DisplayName: "割れたツボ"
+                Tooltip: "もしかして高額なツボだった？\nトレジャーアイテム"
+            }
+            Treasure014: {
+                DisplayName: "鋭い釣り針"
+                Tooltip: "これによって多くの獲物が釣られた\nトレジャーアイテム"
+            }
+            Treasure015: {
+                DisplayName: "銀の匙"
+                Tooltip: "毒に反応して黒く変色するらしい\nトレジャーアイテム"
+            }
+            Treasure016: {
+                DisplayName: "木彫りの怪鳥"
+                Tooltip: "何かの守り神らしい\nトレジャーアイテム"
+            }
+            Treasure017: {
+                DisplayName: "小さいオルゴール"
+                Tooltip: "思い出の曲がながれる\nトレジャーアイテム"
+            }
+            Treasure018: {
+                DisplayName: "古びたトランプ"
+                Tooltip: "かなり使い込まれていたらしい\nトレジャーアイテム"
+            }
+            Treasure019: {
+                DisplayName: "革の手帳"
+                Tooltip: "何が描かれているのだろうか\nトレジャーアイテム"
+            }
+            Treasure020: {
+                DisplayName: "ブリキのミニカー"
+                Tooltip: "こどもが好きそうなおもちゃ。\nトレジャーアイテム"
+            }
+
+            Treasure021: {
+                DisplayName: "大工の小槌"
+                Tooltip: "気難しい大工が持っていそうだ\nトレジャーアイテム"
+            }
+            Treasure022: {
+                DisplayName: "石板の欠片"
+                Tooltip: "別のピースがある？\nトレジャーアイテム"
+            }
+            Treasure023: {
+                DisplayName: "鉛の兵士"
+                Tooltip: "甲冑の兵士の人形\nトレジャーアイテム"
+            }
+            Treasure024: {
+                DisplayName: "綺麗なビー玉"
+                Tooltip: "宇宙のようにキラキラしている\nトレジャーアイテム"
+            }
+            Treasure025: {
+                DisplayName: "古びたネックレス"
+                Tooltip: "貴婦人の身に着けていたネックレス\nトレジャーアイテム"
+            }
+            Treasure026: {
+                DisplayName: "旅人の水筒"
+                Tooltip: "旅人が愛用していた水筒\nトレジャーアイテム"
+            }
+            Treasure027: {
+                DisplayName: "原始人の矢じり"
+                Tooltip: "石でできた矢じり\nトレジャーアイテム"
+            }
+            Treasure028: {
+                DisplayName: "真鍮の鈴"
+                Tooltip: "猫につけておく？\nトレジャーアイテム"
+            }
+            Treasure029: {
+                DisplayName: "白い縦笛"
+                Tooltip: "良い音色を奏でる\nトレジャーアイテム"
+            }
+            Treasure030: {
+                DisplayName: "古びた双眼鏡"
+                Tooltip: "地平線のどこまでも\nトレジャーアイテム"
+            }
+
+            Treasure031: {
+                DisplayName: "石のお金"
+                Tooltip: "大昔のお金らしい\nトレジャーアイテム"
+            }
+            Treasure032: {
+                DisplayName: "洒落た絵葉書"
+                Tooltip: "無記入の絵葉書\nトレジャーアイテム"
+            }
+            Treasure033: {
+                DisplayName: "ドッグタグ"
+                Tooltip: "今は亡き、勇敢な兵士\nトレジャーアイテム"
+            }
+            Treasure034: {
+                DisplayName: "古びたキセル"
+                Tooltip: "かの天下の大泥棒が持っていたらしい\nトレジャーアイテム"
+            }
+            Treasure035: {
+                DisplayName: "ふるい株券"
+                Tooltip: "もう有効期限は過ぎているようだ\nトレジャーアイテム"
+            }
+            Treasure036: {
+                DisplayName: "金の羽ペン"
+                Tooltip: "書き味は最高\nトレジャーアイテム"
+            }
+            Treasure037: {
+                DisplayName: "筆豪の硯石"
+                Tooltip: "なめらかなスミができる\nトレジャーアイテム"
+            }
+            Treasure038: {
+                DisplayName: "ありふれた魚拓"
+                Tooltip: "初めて釣った魚の魚拓\nトレジャーアイテム"
+            }
+            Treasure039: {
+                DisplayName: "ピンクパール"
+                Tooltip: "未加工のピンクパール\nトレジャーアイテム"
+            }
+            Treasure040: {
+                DisplayName: "螺鈿細工の木製お皿"
+                Tooltip: "美しい蝶と花が貝殻で埋め込まれている\nトレジャーアイテム"
+            }
+
+            Treasure041: {
+                DisplayName: "星形の石"
+                Tooltip: "珍しいかたちの石\nトレジャーアイテム"
+            }
+            Treasure042: {
+                DisplayName: "錆びた碇"
+                Tooltip: "沈没した船の碇\nトレジャーアイテム"
+            }
+            Treasure043: {
+                DisplayName: "幸せのベル"
+                Tooltip: "鳴らすと幸せが訪れるという\nトレジャーアイテム"
+            }
+            Treasure044: {
+                DisplayName: "部族のお面"
+                Tooltip: "つけると性格が変わるらしい\nトレジャーアイテム"
+            }
+            Treasure045: {
+                DisplayName: "革の袋"
+                Tooltip: "水を入れて持ち運ぶらしい\nトレジャーアイテム"
+            }
+            Treasure046: {
+                DisplayName: "コーヒーカップセット"
+                Tooltip: "ちょっとお高いカップとソーサーのセット\nトレジャーアイテム"
+            }
+            Treasure047: {
+                DisplayName: "白い化粧箱"
+                Tooltip: "お化粧道具を入れる綺麗な箱\nトレジャーアイテム"
+            }
+            Treasure048: {
+                DisplayName: "壊れたカメラ"
+                Tooltip: "レトロなカメラ。もう作動しないようだ\nトレジャーアイテム"
+            }
+            Treasure049: {
+                DisplayName: "銀の勲章"
+                Tooltip: "名誉の証である\nトレジャーアイテム"
+            }
+            Treasure050: {
+                DisplayName: "魔導書の切れ端"
+                Tooltip: "何かの魔法陣が描かれている\nトレジャーアイテム"
+            }
+
+            Treasure051: {
+                DisplayName: "水晶ドクロ"
+                Tooltip: "これが12個あるらしい\nトレジャーアイテム"
+            }
+            Treasure052: {
+                DisplayName: "エルフの耳飾り"
+                Tooltip: "ちらちらのぞかせるうなじは虜にされる\nトレジャーアイテム"
+            }
+            Treasure053: {
+                DisplayName: "スミスハンマー"
+                Tooltip: "ドワーフが持っていたハンマー\nトレジャーアイテム"
+            }
+            Treasure054: {
+                DisplayName: "小人のリング"
+                Tooltip: "とても大きな使命を抱えているらしい…\nトレジャーアイテム"
+            }
+            Treasure055: {
+                DisplayName: "グリモワール"
+                Tooltip: "闇の魔術書。悪魔と契約できるらしい\nトレジャーアイテム"
+            }
+            Treasure056: {
+                DisplayName: "ボス部屋の鍵"
+                Tooltip: "これを使った先にボスがいる\nトレジャーアイテム"
+            }
+            Treasure057: {
+                DisplayName: "星読みの望遠鏡"
+                Tooltip: "星同士のつながりもわかる望遠鏡\nトレジャーアイテム"
+            }
+            Treasure058: {
+                DisplayName: "金の王冠"
+                Tooltip: "すべての権力を持っている\nトレジャーアイテム"
+            }
+            Treasure059: {
+                DisplayName: "翡翠の玄武"
+                Tooltip: "カメのような聖獣\nトレジャーアイテム"
+            }
+            Treasure060: {
+                DisplayName: "象牙の白虎"
+                Tooltip: "獅子の姿の聖獣\nトレジャーアイテム"
+            }
+
+            Treasure061: {
+                DisplayName: "血色石の朱雀"
+                Tooltip: "燃え上がる鳥の聖獣\nトレジャーアイテム"
+            }
+            Treasure062: {
+                DisplayName: "青水晶の青龍"
+                Tooltip: "激流を生み出す聖獣\nトレジャーアイテム"
+            }
+            Treasure063: {
+                DisplayName: "王家の封蝋"
+                Tooltip: "気高き家門の封蝋\nトレジャーアイテム"
+            }
+            Treasure064: {
+                DisplayName: "銀のティアラ"
+                Tooltip: "世界一美しい女王のティアラ\nトレジャーアイテム"
+            }
+            Treasure065: {
+                DisplayName: "名曲の楽譜"
+                Tooltip: "奏でてみる？\nトレジャーアイテム"
+            }
+            Treasure066: {
+                DisplayName: "怪人のマスク"
+                Tooltip: "オペラ座の怪人はこの中にいる\nトレジャーアイテム"
+            }
+            Treasure067: {
+                DisplayName: "宝石の杯"
+                Tooltip: "美しい宝石がちりばめられた杯\nトレジャーアイテム"
+            }
+            Treasure068: {
+                DisplayName: "魔法の羅針盤"
+                Tooltip: "指し示す方に何かがあるらしい…\nトレジャーアイテム"
+            }
+            Treasure069: {
+                DisplayName: "ドラゴンスケイル"
+                Tooltip: "普通の剣では傷つかないウロコ\nトレジャーアイテム"
+            }
+            Treasure070: {
+                DisplayName: "不思議な砂時計"
+                Tooltip: "こんなもので時間が計れるのか？\nトレジャーアイテム"
+            }
+
+            Treasure071: {
+                DisplayName: "月と太陽のペンダント"
+                Tooltip: "カップルが別々に身に着けるようだ\nトレジャーアイテム"
+            }
+            Treasure072: {
+                DisplayName: "流れ星の髪留め"
+                Tooltip: "アイドル気分を味わうことが出来る\nトレジャーアイテム"
+            }
+            Treasure073: {
+                DisplayName: "王女の手鏡"
+                Tooltip: "鏡よ鏡。世界で美しいのはだれ？\nトレジャーアイテム"
+            }
+            Treasure074: {
+                DisplayName: "古の鍵束"
+                Tooltip: "古代兵士の拘束を解くカギ\nトレジャーアイテム"
+            }
+            Treasure075: {
+                DisplayName: "黄金の羽根"
+                Tooltip: "これを持っているということはとても幸運である\nトレジャーアイテム"
+            }
+            Treasure076: {
+                DisplayName: "精霊のタンバリン"
+                Tooltip: "悩み事も忘れて踊りたくなる\nトレジャーアイテム"
+            }
+            Treasure077: {
+                DisplayName: "ドラゴンズコイン"
+                Tooltip: "ドラゴンの使命に引き寄せられた証\nトレジャーアイテム"
+            }
+            Treasure078: {
+                DisplayName: "癒しの十字架"
+                Tooltip: "すべては許される…\nトレジャーアイテム"
+            }
+            Treasure079: {
+                DisplayName: "錬金術師のフラスコ"
+                Tooltip: "未知の生命体が誕生したという\nトレジャーアイテム"
+            }
+            Treasure080: {
+                DisplayName: "王家の印象"
+                Tooltip: "名の知れた王家のエンブレム\nトレジャーアイテム"
+            }
+
+            Treasure081: {
+                DisplayName: "剣豪の鍔"
+                Tooltip: "剣豪の魂がここに宿っている…\nトレジャーアイテム"
+            }
+            Treasure082: {
+                DisplayName: "怪獣の牙"
+                Tooltip: "人類を滅ぼしかけた怪獣の牙\nトレジャーアイテム"
+            }
+            Treasure083: {
+                DisplayName: "フェニックスの羽根"
+                Tooltip: "使えば復活しそうな羽根\nトレジャーアイテム"
+            }
+            Treasure084: {
+                DisplayName: "古代文明のコア"
+                Tooltip: "不思議なエネルギーを感じる…\nトレジャーアイテム"
+            }
+            Treasure085: {
+                DisplayName: "月光の宝寿"
+                Tooltip: "光を浴びれば長寿になれる\nトレジャーアイテム"
+            }
+            Treasure086: {
+                DisplayName: "星鉄の原石"
+                Tooltip: "どこかの星からやって来た隕鉄\nトレジャーアイテム"
+            }
+            Treasure087: {
+                DisplayName: "精霊王の角笛"
+                Tooltip: "一度吹き込めば、大勢の援軍がやってくる\nトレジャーアイテム"
+            }
+            Treasure088: {
+                DisplayName: "メビウスの砂時計"
+                Tooltip: "永遠の時を繰り返す…\nトレジャーアイテム"
+            }
+            Treasure089: {
+                DisplayName: "海王の王冠"
+                Tooltip: "海を制する王の威厳\nトレジャーアイテム"
+            }
+            Treasure090: {
+                DisplayName: "天空都市の鍵"
+                Tooltip: "肝心の都市は誰も見たことがないという…\nトレジャーアイテム"
+            }
+
+            Treasure091: {
+                DisplayName: "ブループリント"
+                Tooltip: "神の設計図。破滅をもたらす兵器が書かれている\nトレジャーアイテム"
+            }
+            Treasure092: {
+                DisplayName: "魔王族の軍旗"
+                Tooltip: "魔王、討ち取ったり！\nトレジャーアイテム"
+            }
+            Treasure093: {
+                DisplayName: "フロッピーディスク"
+                Tooltip: "磁気でデータを読み書きする\nトレジャーアイテム"
+            }
+            Treasure094: {
+                DisplayName: "レアメタル"
+                Tooltip: "とても希少価値の高い金属\nトレジャーアイテム"
+            }
+            Treasure095: {
+                DisplayName: "重力制御チップ"
+                Tooltip: "これを組み込むだけで、辺りの重力を制御できるらしい…\nトレジャーアイテム"
+            }
+            Treasure096: {
+                DisplayName: "異星人の通信機"
+                Tooltip: "彼らを呼んではいけない…\nトレジャーアイテム"
+            }
+            Treasure097: {
+                DisplayName: "ブラックボックス"
+                Tooltip: "隠された情報が詰まっている\nトレジャーアイテム"
+            }
+            Treasure098: {
+                DisplayName: "IDカード"
+                Tooltip: "宇宙戦艦クルーのIDカード\nトレジャーアイテム"
+            }
+            Treasure099: {
+                DisplayName: "新人類の標本"
+                Tooltip: "ホルマリンの中でうごめいている…\nトレジャーアイテム"
+            }
+            Treasure100: {
+                DisplayName: "量子演算装置"
+                Tooltip: "とんでもない演算パワー\nトレジャーアイテム"
+            }
+
+            Treasure101: {
+                DisplayName: "時空の羅針盤"
+                Tooltip: "これを見て歴史を変えるのか…？\nトレジャーアイテム"
+            }
+            Treasure102: {
+                DisplayName: "空虚の結晶"
+                Tooltip: "触れるな。無に帰する。\nトレジャーアイテム"
+            }
+            Treasure103: {
+                DisplayName: "電子仮想通貨"
+                Tooltip: "この世界で通用しなければ、ただのデータに過ぎない…\nトレジャーアイテム"
+            }
+            Treasure104: {
+                DisplayName: "星座プレート"
+                Tooltip: "どこへ行こう？あの星雲の果てへどこまでも\nトレジャーアイテム"
+            }
+            Treasure105: {
+                DisplayName: "神龍の心臓"
+                Tooltip: "永遠の命を手に入れよう…\nトレジャーアイテム"
+            }
+            Treasure106: {
+                DisplayName: "世界樹の種"
+                Tooltip: "あふれる生命力に滅びはない\nトレジャーアイテム"
+            }
+            Treasure107: {
+                DisplayName: "賢者の石"
+                Tooltip: "触れてはならぬものに触れてしまったようだ…\nトレジャーアイテム"
+            }
+            Treasure108: {
+                DisplayName: "ロンギヌスの穂先"
+                Tooltip: "運命の槍。全ては決まっていたのだ…\nトレジャーアイテム"
+            }
+            Treasure109: {
+                DisplayName: "黄金の三角錐"
+                Tooltip: "知識は全てここにある\nトレジャーアイテム"
+            }
+            Treasure110: {
+                DisplayName: "ウジャトの眼"
+                Tooltip: "全てを見透かしていますよ\nトレジャーアイテム"
+            }
+
+            Treasure111: {
+                DisplayName: "天使の輪"
+                Tooltip: "素手で掴むと切れてしまうらしい\nトレジャーアイテム"
+            }
+            Treasure112: {
+                DisplayName: "魔神の封印札"
+                Tooltip: "今こそ封印を解き放つ時！\nトレジャーアイテム"
+            }
+            Treasure113: {
+                DisplayName: "銀河の錨"
+                Tooltip: "星の海の追憶がよみがえってくる…\nトレジャーアイテム"
+            }
+            Treasure114: {
+                DisplayName: "多次元結晶"
+                Tooltip: "引き込まれる美しさからは抜け出すことが出来ない…\nトレジャーアイテム"
+            }
+            Treasure115: {
+                DisplayName: "クロノスの歯車"
+                Tooltip: "運命を自由に操作できる力を持つという…\nトレジャーアイテム"
+            }
+            Treasure116: {
+                DisplayName: "世界時計"
+                Tooltip: "滅びの時間を指し示すという恐ろしい時計\nトレジャーアイテム"
+            }
+            Treasure117: {
+                DisplayName: "永久機関"
+                Tooltip: "至高の科学のロマン\nトレジャーアイテム"
+            }
+            Treasure118: {
+                DisplayName: "超文明コア"
+                Tooltip: "神々が人類に与えた未知なる物質\nトレジャーアイテム"
+            }
+            Treasure119: {
+                DisplayName: "銀河の航路図"
+                Tooltip: "膨張をつづける宇宙のさらにその先へ\nトレジャーアイテム"
+            }
+            Treasure120: {
+                DisplayName: "アカシックレコード"
+                Tooltip: "すべての知識はここに\nトレジャーアイテム"
+            }
+
+             Treasure121: {
+                DisplayName: "エクスカリバー"
+                Tooltip: "この聖剣を持つ者は決して負けはしない\nトレジャーアイテム"
+            }
+             Treasure122: {
+                DisplayName: "聖杯"
+                Tooltip: "この杯に汲まれた血を飲めば、\n永遠の命を得ることが出来るという…\nトレジャーアイテム"
+            }
+             Treasure123: {
+                DisplayName: "アトランティスの秘宝"
+                Tooltip: "海底に眠っているという幾何学文明の秘宝\nトレジャーアイテム"
+            } 
+            Treasure124: {
+                DisplayName: "ダークマター"
+                Tooltip: "光をも飲み込む超重力の物質\nトレジャーアイテム"
+            } 
+            Treasure125: {
+                DisplayName: "天界の錫杖"
+                Tooltip: "世界を垣間見ることができるという…\nトレジャーアイテム"
+            } 
+            Treasure126: {
+                DisplayName: "無"
+                Tooltip: "\nトレジャーアイテム"
+            } 
+            Treasure127: {
+                DisplayName: "世界創造の設計図"
+                Tooltip: "広告紙の裏に描かれた夢いっぱいの図\nトレジャーアイテム"
+            } 
+            Treasure128: {
+                DisplayName: "世界創造のペン"
+                Tooltip: "それはシンプルな一本の鉛筆\nトレジャーアイテム"
+            }
+        }
+    }
+}

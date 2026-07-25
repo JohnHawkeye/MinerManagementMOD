@@ -38,7 +38,7 @@ namespace MinerManagementMOD.Systems
             // 既に採掘員がいるなら何もしない
             foreach (NPC npc in Main.ActiveNPCs)
             {
-                if (npc.type == ModContent.NPCType<MinerNPC>())
+                if (npc.type == ModContent.NPCType<GuardNPC>())
                 {
                     minerSpawned = true;
                     return;
@@ -47,11 +47,11 @@ namespace MinerManagementMOD.Systems
 
             IEntitySource source = new EntitySource_Misc("MinerSpawn");
 
-            NPC.NewNPC(
-                source,
-                (int)player.Center.X + 64,
-                (int)player.Center.Y,
-                ModContent.NPCType<MinerNPC>());
+            // NPC.NewNPC(
+            //     source,
+            //     (int)player.Center.X + 64,
+            //     (int)player.Center.Y,
+            //     ModContent.NPCType<MinerNPC>());
 
             NPC.NewNPC(
                 source,

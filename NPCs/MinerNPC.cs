@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MinerManagementMOD.Items;
 
 namespace MinerManagementMOD.NPCs
 {
@@ -40,12 +41,17 @@ namespace MinerManagementMOD.NPCs
 
         public int MinedBlockCount = 0;
         private const int MaxMineBlocks = 150;
+        private int fallingWaitTimer = 0;
+
+        private int torchCounter = 0;
+        private const int TorchInterval = 16;
 
         public enum MinerState
         {
             Idle,
             MovingToMiningArea,
             Mining,
+            FallingMining,
             Advancing,
             KnockedOut
         }
@@ -54,7 +60,6 @@ namespace MinerManagementMOD.NPCs
         {
 
             Main.npcFrameCount[Type] = 26;
-
             NPC.aiStyle = -1;
         }
 
@@ -104,6 +109,10 @@ namespace MinerManagementMOD.NPCs
                     MineNextBlock();
                     break;
 
+                case MinerState.FallingMining:
+                    MineFallingBlocks();
+                    break;
+
                 case MinerState.Advancing:
                     AdvanceMining();
                     break;
@@ -138,7 +147,7 @@ namespace MinerManagementMOD.NPCs
             Player player = Main.player[Main.myPlayer];
 
             miningDirection = player.direction;
-            
+
             NPC.direction = miningDirection;
             NPC.spriteDirection = miningDirection;
 
@@ -166,14 +175,25 @@ namespace MinerManagementMOD.NPCs
             int targetX = miningColumn.X;
 
             // 上 → 中 → 下
-            int targetY = miningColumn.Y - 2 + miningHeight;
+            int targetY =  miningColumn.Y - miningHeight;
 
             Tile tile = Framing.GetTileSafely(targetX, targetY);
+           
+            // 落下ブロックなら専用モードへ
+            if (tile.HasTile &&
+                TileID.Sets.Falling[tile.TileType])
+            {
+                miningHeight = 0;
+                fallingWaitTimer = 0;
+                CurrentState = MinerState.FallingMining;
+                return;
+            }
 
             if (tile.HasTile &&
                 Helpers.MiningHelper.CanMine(tile.TileType))
             {
                 WorldGen.KillTile(targetX, targetY);
+                TryDropMiningCrate(targetX, targetY);
 
                 Tile tileAfter = Framing.GetTileSafely(targetX, targetY);
 
@@ -205,10 +225,87 @@ namespace MinerManagementMOD.NPCs
             if (miningHeight >= 3)
             {
                 miningHeight = 0;
-
                 advanceTargetX = NPC.Center.X + miningDirection * 16;
 
+                torchCounter++;
+                if (torchCounter >= TorchInterval)
+                {
+                    torchCounter = 0;
+                    TryPlaceTorch();
+                }
+
                 CurrentState = MinerState.Advancing;
+
+            }
+        }
+
+        private void MineFallingBlocks()
+        {
+            miningTimer++;
+
+            if (miningTimer < GetMiningDelay())
+            {
+                isSwingingPickaxe = true;
+                return;
+            }
+
+            miningTimer = 0;
+            isSwingingPickaxe = false;
+
+            int targetX = miningColumn.X;
+            int targetY = miningColumn.Y;
+
+            Tile tile = Framing.GetTileSafely(targetX, targetY);
+
+            if (tile.HasTile &&
+                TileID.Sets.Falling[tile.TileType])
+            {
+                WorldGen.KillTile(targetX, targetY);
+                TryDropMiningCrate(targetX, targetY);
+
+                Tile after = Framing.GetTileSafely(targetX, targetY);
+
+                if (!after.HasTile)
+                {
+                    MinedBlockCount++;
+
+                    if (MinedBlockCount >= MaxMineBlocks)
+                    {
+                        StopMining();
+                        return;
+                    }
+                }
+            }
+
+            // 砂が落ちるまで待機
+            fallingWaitTimer++;
+
+            if (fallingWaitTimer < 15)
+                return;
+
+            fallingWaitTimer = 0;
+
+            bool hasFalling = false;
+
+            for (int y = miningColumn.Y - 2; y <= miningColumn.Y; y++)
+            {
+                Tile check = Framing.GetTileSafely(targetX, y);
+
+                if (check.HasTile &&
+                    TileID.Sets.Falling[check.TileType])
+                {
+                    hasFalling = true;
+                    break;
+                }
+            }
+
+            if (!hasFalling)
+            {
+                fallingWaitTimer = 0;
+                miningHeight = 0;
+                advanceTargetX = NPC.Center.X + miningDirection * 16f;
+                CurrentState = MinerState.Advancing;
+                return;
             }
         }
 
@@ -268,6 +365,68 @@ namespace MinerManagementMOD.NPCs
 
             NPC.velocity.X = 0;
             CurrentState = MinerState.MovingToMiningArea;
+        }
+
+        private void TryDropMiningCrate(int x, int y)
+        {
+            // 3%の確率
+            if (Main.rand.NextFloat() > 0.03f)
+                return;
+
+
+            Item.NewItem(
+                null,
+                new Rectangle(
+                    x * 16,
+                    y * 16,
+                    16,
+                    16
+                ),
+                ModContent.ItemType<BuriedBox>()
+            );
+        }
+
+        private void TryPlaceTorch()
+        {
+            Player player = Main.player[Main.myPlayer];
+
+            if (!player.active)
+                return;
+
+            // プレイヤーのインベントリから通常の松明を探す
+            int torchSlot = -1;
+
+            for (int i = 0; i < player.inventory.Length; i++)
+            {
+                if (player.inventory[i].type == ItemID.Torch &&
+                    player.inventory[i].stack > 0)
+                {
+                    torchSlot = i;
+                    break;
+                }
+            }
+
+            // 松明が無い
+            if (torchSlot == -1)
+                return;
+
+            int x = (int)(NPC.Center.X / 16);
+            int y = (int)(NPC.Bottom.Y / 16);
+
+            // 足元がブロックで、その上が空いているなら設置
+            if (!Main.tile[x, y].HasTile)
+                return;
+
+            if (Main.tile[x, y - 1].HasTile)
+                return;
+
+            if (WorldGen.PlaceTile(x, y - 1, TileID.Torches))
+            {
+                player.inventory[torchSlot].stack--;
+
+                if (player.inventory[torchSlot].stack <= 0)
+                    player.inventory[torchSlot].TurnToAir();
+            }
         }
 
         //chat

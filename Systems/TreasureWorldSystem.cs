@@ -30,23 +30,48 @@ namespace MinerManagementMOD.Systems
         {
             progress.Message = "作者の気持ちを詰め込んでいます...";
 
+            List<int> treasureIDs = new List<int>();
+            for (int i = 1; i <= 128; i++)
+            {
+                treasureIDs.Add(i);
+            }
+
+            // Fisher-Yatesシャッフル
+            for (int i = treasureIDs.Count - 1; i > 0; i--)
+            {
+                int j = WorldGen.genRand.Next(i + 1);
+
+                int temp = treasureIDs[i];
+                treasureIDs[i] = treasureIDs[j];
+                treasureIDs[j] = temp;
+            }
+
+            int treasureIndex = 0;
+
             foreach (Chest chest in Main.chest)
             {
                 if (chest == null)
                     continue;
 
-                 // 空きスロットを探す
+                if (treasureIndex >= treasureIDs.Count)
+                    break;
+
+                // 空きスロットを探す
                 for (int i = 0; i < Chest.maxItems; i++)
                 {
                     if (!chest.item[i].IsAir)
                         continue;
 
-                    int id = WorldGen.genRand.Next(1, 49);
 
-                    chest.item[i].SetDefaults(
-                        ModContent.Find<ModItem>($"Treasure{id:000}").Type);
+                    int id = treasureIDs[treasureIndex++];
+                    string itemName = $"Treasure{id:000}";
 
-                    chest.item[i].stack = 1;
+                    if (Mod.TryFind(itemName, out ModItem modItem))
+                    {
+                        chest.item[i].SetDefaults(modItem.Type);
+                        chest.item[i].stack = 1;
+                    }
+
                     break;
                 }
             }

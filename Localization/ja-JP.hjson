@@ -39,6 +39,14 @@ Mods: {
                 DisplayName: 銅の剣100個セット
                 Tooltip: クエスト用のアイテム。銅の剣100が入ったボックス。
             }
+            BuriedBox: {
+                DisplayName: 埋もれた箱
+                Tooltip: 中に何が入っているのだろう？
+            }
+            MiningMachineItem: {
+				DisplayName: 鉱物掘削機Tier1
+				Tooltip: "プレイヤーの位置に掘削機を設置。\n自動で鉱物を採掘します。\n回収はインベントリを閉じた状態で右クリック。"
+			}
         }
     }
 }
