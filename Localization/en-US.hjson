@@ -20,6 +20,7 @@ Mods: {
 			MinerNPC.DisplayName: Miner N P C
 			GuardNPC.DisplayName: Guard N P C
 			OldMinerNPC.DisplayName: Old Miner N P C
+			HunterNPC.DisplayName: Hunter N P C
 		}
 
 		Items: {
@@ -92,12 +93,24 @@ Mods: {
 				DisplayName: Magic Hand
 				Tooltip: ""
 			}
+
+			DrillClusterItem: {
+				DisplayName: Drill Cluster Item
+				Tooltip: ""
+			}
+
+			CrystalVacuum: {
+				DisplayName: Crystal Vacuum
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
 			MiningMachineProjectile.DisplayName: Mining Machine Projectile
 			RemoteBombProj.DisplayName: Remote Bomb Proj
 			MagicHandProjectile.DisplayName: Magic Hand Projectile
+			DrillClusterProjectile.DisplayName: Drill Cluster Projectile
+			HunterRifleProjectile.DisplayName: Hunter Rifle Projectile
 		}
 	}
 }

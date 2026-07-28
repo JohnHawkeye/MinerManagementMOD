@@ -39,6 +39,14 @@
     "Items\\RemoteBomb.cs": "MinerManagementMOD.Items",
     "Items\\Detonator.cs": "MinerManagementMOD.Items",
     "Items\\MagicHand.cs": "MinerManagementMOD.Items",
-    "Projectiles\\MagicHandProjectile.cs": "MinerManagementMOD.Projectiles"
+    "Projectiles\\MagicHandProjectile.cs": "MinerManagementMOD.Projectiles",
+    "Projectiles\\DrillClusterProjectile.cs": "MinerManagementMOD.Projectiles",
+    "Items\\DrillClusterItem.cs": "MinerManagementMOD.Items",
+    "Items\\CrystalVacuum.cs": "MinerManagementMOD.Items",
+    "Items\\CrystalVacuumGlobalItem.cs": "MinerManagementMOD.Items",
+    "Systems\\RecipeGroups.cs": "MinerManagementMOD.Systems",
+    "NPCs\\HunterNPC.cs": "MinerManagementMOD.NPCs",
+    "Projectiles\\HunterRifleProjectile.cs": "MinerManagementMOD.Projectiles",
+    "Commands\\ResetMinersCommand.cs": "MinerManagementMOD.Commands"
   }
 }

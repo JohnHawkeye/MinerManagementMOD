@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 
 namespace MinerManagementMOD.Helpers
@@ -12,12 +13,19 @@ namespace MinerManagementMOD.Helpers
             // 土・石
             TileID.Dirt,
             TileID.Stone,
+            TileID.RedMoss,
+            TileID.GreenMoss,
+            TileID.BrownMoss,
+            TileID.BlueMoss,
+            TileID.PurpleMoss,
+            TileID.LavaMoss,
             TileID.Grass,
             TileID.CorruptGrass,
             TileID.CrimsonGrass,
             TileID.HallowedGrass,
             TileID.JungleGrass,
             TileID.Mud,
+            TileID.MushroomGrass,
 
             // 砂
             TileID.Sand,
@@ -87,9 +95,27 @@ namespace MinerManagementMOD.Helpers
             TileID.LifeFruit
         };
 
-        public static bool CanMine(int tileType)
+        // ハードモード限定鉱石(ヘルストーンより上位)
+        public static readonly HashSet<int> HardmodeOnlyTiles = new()
+            {
+                TileID.Cobalt,
+                TileID.Palladium,
+                TileID.Mythril,
+                TileID.Orichalcum,
+                TileID.Adamantite,
+                TileID.Titanium,
+                TileID.Chlorophyte
+            };
+
+        public static bool CanMine(int tileType,bool allowHardmodeOre = true)
         {
-            return MineableTiles.Contains(tileType);
+            if(!MineableTiles.Contains(tileType))
+                return false;
+
+            if(!allowHardmodeOre && HardmodeOnlyTiles.Contains(tileType))
+                return false;
+
+            return true;
         }
 
     }

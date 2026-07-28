@@ -1,5 +1,28 @@
 Mods: {
 	MinerManagementMOD: {
+        NPCs: {
+			OreMerchant: {
+				TownNPCMood: {
+					HateCrowded: こんなに混んでいるのは 嫌だよ。
+					DislikeCrowded: 人混みが嫌いです。
+					LoveSpace: 充分なスペースが あるのがいいね。
+					FarFromHome: 家から遠すぎる。
+					NoHome: 家を持っていないのが 嫌なんです。
+					Content: 私は満足しています。
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				DisplayName: Ore Merchant
+				Census.SpawnCondition: Conditions unknown
+			}
+
+			MinerNPC.DisplayName: 鉱夫
+			GuardNPC.DisplayName: ガード
+			OldMinerNPC.DisplayName: Old Miner N P C
+			HunterNPC.DisplayName: ハンター
+		}
+
         Items: {
             CopperAmberRing: {
                 DisplayName: カッパーアンバーリング
@@ -62,6 +85,16 @@ Mods: {
 			MagicHand: {
 				DisplayName: マジックハンド
 				Tooltip: "これで直接触らなくて済む！"
+			}
+
+            DrillClusterItem: {
+				DisplayName: ドリルクラスターTier1
+				Tooltip: "採掘できるドリルを発射する。\nヘルストーンを採掘可能。"
+			}
+
+			CrystalVacuum: {
+				DisplayName: クリスタルバキューム
+				Tooltip: "吸引力の変わらない、ただ一つの回収機\nクリックした場所のクリスタルだけをぐいーんと吸い込んでくれます。"
 			}
         }
     }

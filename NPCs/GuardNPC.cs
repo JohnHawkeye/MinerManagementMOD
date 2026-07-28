@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace MinerManagementMOD.NPCs
 {
@@ -36,6 +37,7 @@ namespace MinerManagementMOD.NPCs
         private Item weapon;
         private bool isSwingingSword = false;
         private int swingFrame = 0;
+        private int swordFrameTimer = 0;
         private int attackTimer = 0;
         private bool hasHitThisSwing = false;
 
@@ -83,6 +85,22 @@ namespace MinerManagementMOD.NPCs
 
             if (!player.active || player.dead)
                 return;
+
+            float distanceToPlayer = Vector2.Distance(NPC.Center, player.Center);
+            if (distanceToPlayer > 600f)
+            {
+                NPC.Center = player.Center;
+                // 速度をリセット 
+                NPC.velocity = Vector2.Zero;
+                // ワープ音 
+                SoundEngine.PlaySound(SoundID.Item8, player.Center);
+                // マルチプレイ時にも位置を同期 
+                NPC.netUpdate = true;
+                targetEnemy = null;
+                CancelAttack();
+                CurrentState = GuardState.Following;
+                return;
+            }
 
             switch (CurrentState)
             {
@@ -138,6 +156,7 @@ namespace MinerManagementMOD.NPCs
             if (Vector2.Distance(NPC.Center, player.Center) > MaxFollowRange)
             {
                 targetEnemy = null;
+                CancelAttack();
                 CurrentState = GuardState.Following;
                 return;
             }
@@ -146,6 +165,7 @@ namespace MinerManagementMOD.NPCs
             if (targetEnemy == null || !targetEnemy.active || targetEnemy.life <= 0)
             {
                 targetEnemy = null;
+                CancelAttack();
                 CurrentState = GuardState.Following;
                 return;
             }
@@ -156,6 +176,7 @@ namespace MinerManagementMOD.NPCs
             if (enemyDistance > SearchRange)
             {
                 targetEnemy = null;
+                CancelAttack();
                 CurrentState = GuardState.Following;
                 return;
             }
@@ -187,27 +208,26 @@ namespace MinerManagementMOD.NPCs
 
         private void AttackEnemy(Player player)
         {
-            float enemyDistance =
-                Vector2.Distance(NPC.Center, targetEnemy.Center);
-
-            if (enemyDistance > AttackDistance)
-            {
-                CurrentState = GuardState.MovingToEnemy;
-                return;
-            }
             if (targetEnemy == null ||
                 !targetEnemy.active ||
                 targetEnemy.life <= 0)
             {
                 targetEnemy = null;
+                CancelAttack();
                 CurrentState = GuardState.Following;
                 return;
             }
 
-            NPC.direction =
-                targetEnemy.Center.X > NPC.Center.X ? 1 : -1;
+            float enemyDistance =
+                Vector2.Distance(NPC.Center, targetEnemy.Center);
 
-            NPC.spriteDirection = NPC.direction;
+            // 攻撃していない時だけ追いかける
+            if (!isSwingingSword &&
+                enemyDistance > AttackDistance)
+            {
+                CurrentState = GuardState.MovingToEnemy;
+                return;
+            }
 
             NPC.velocity.X = 0;
 
@@ -218,35 +238,39 @@ namespace MinerManagementMOD.NPCs
             {
                 attackTimer = 0;
 
+                // 向きを固定
+                NPC.direction =
+                    targetEnemy.Center.X > NPC.Center.X ? 1 : -1;
+
+                NPC.spriteDirection = NPC.direction;
+
                 isSwingingSword = true;
                 swingFrame = 0;
+                swordFrameTimer = 0;
                 hasHitThisSwing = false;
             }
 
             if (!isSwingingSword)
                 return;
 
-            NPC.frameCounter++;
+            swordFrameTimer++;
 
-            if (NPC.frameCounter >= 5)
+            if (swordFrameTimer >= 5)
             {
-                NPC.frameCounter = 0;
+                swordFrameTimer = 0;
 
                 swingFrame++;
 
-                // 真ん中のフレームで攻撃
                 if (swingFrame == 2 &&
                     !hasHitThisSwing)
                 {
                     DamageEnemy();
-
                     hasHitThisSwing = true;
                 }
 
                 if (swingFrame >= 5)
                 {
-                    swingFrame = 0;
-                    isSwingingSword = false;
+                    CancelAttack();
                 }
             }
         }
@@ -317,7 +341,17 @@ namespace MinerManagementMOD.NPCs
 
             return nearest;
         }
+        private void CancelAttack()
+        {
+            isSwingingSword = false;
+            swingFrame = 0;
+            swordFrameTimer = 0;
+            attackTimer = 0;
+            hasHitThisSwing = false;
 
+            NPC.frameCounter = 0;
+            NPC.frame.Y = 0;
+        }
         public override bool CanChat()
         {
             return true;
@@ -333,6 +367,7 @@ namespace MinerManagementMOD.NPCs
             //武器攻撃
             if (isSwingingSword)
             {
+                NPC.frameCounter = 0;
                 NPC.frame.Y = frameHeight * (17 + swingFrame);
                 return;
             }
@@ -377,6 +412,15 @@ namespace MinerManagementMOD.NPCs
                         NPC.frame.Y = 0;
                 }
             }
+        }
+
+        public override void PostDraw(
+            SpriteBatch spriteBatch,
+            Vector2 screenPos,
+            Color drawColor)
+        {
+            DrawLeadArmor(spriteBatch, screenPos);
+            DrawSword(spriteBatch, screenPos);
         }
 
         private void DrawSword(SpriteBatch spriteBatch, Vector2 screenPos)
@@ -445,12 +489,79 @@ namespace MinerManagementMOD.NPCs
                 effects,
                 0f);
         }
-        public override void PostDraw(
+        private void DrawLeadArmor(
             SpriteBatch spriteBatch,
-            Vector2 screenPos,
-            Color drawColor)
+            Vector2 screenPos)
         {
-            DrawSword(spriteBatch, screenPos);
+            Main.instance.LoadArmorHead(
+                ArmorIDs.Head.LeadHelmet);
+
+            Main.instance.LoadArmorBody(
+                ArmorIDs.Body.LeadChainmail);
+
+            Main.instance.LoadArmorLegs(
+                ArmorIDs.Legs.LeadGreaves);
+
+            Texture2D helmet =
+                TextureAssets.ArmorHead[
+                    ArmorIDs.Head.LeadHelmet
+                ].Value;
+
+            Texture2D body =
+                TextureAssets.ArmorBody[
+                    ArmorIDs.Body.LeadChainmail
+                ].Value;
+
+            Texture2D legs =
+                TextureAssets.ArmorLeg[
+                    ArmorIDs.Legs.LeadGreaves
+                ].Value;
+
+            SpriteEffects effects =
+                NPC.spriteDirection == -1
+                    ? SpriteEffects.FlipHorizontally
+                    : SpriteEffects.None;
+
+            Color color =
+                Lighting.GetColor(
+                    (int)NPC.Center.X / 16,
+                    (int)NPC.Center.Y / 16);
+
+            // 胴
+            spriteBatch.Draw(
+                body,
+                NPC.Center - screenPos + new Vector2(0f, 2f),
+                null,
+                color,
+                0f,
+                new Vector2(body.Width / 2f, body.Height / 2f),
+                1f,
+                effects,
+                0f);
+
+            // 脚
+            spriteBatch.Draw(
+                legs,
+                NPC.Center - screenPos + new Vector2(0f, 14f),
+                null,
+                color,
+                0f,
+                new Vector2(legs.Width / 2f, legs.Height / 2f),
+                1f,
+                effects,
+                0f);
+
+            // 頭
+            spriteBatch.Draw(
+                helmet,
+                NPC.Center - screenPos + new Vector2(0f, -15f),
+                null,
+                color,
+                0f,
+                new Vector2(helmet.Width / 2f, helmet.Height / 2f),
+                1f,
+                effects,
+                0f);
         }
     }
 }

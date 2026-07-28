@@ -26,6 +26,9 @@ namespace MinerManagementMOD.Players
 
         private void CheckTreasureChest(int chestIndex)
         {
+            if(chestIndex < 0 || chestIndex >= Main.chest.Length)
+                return;
+                
             Chest chest = Main.chest[chestIndex];
 
             if (chest == null)

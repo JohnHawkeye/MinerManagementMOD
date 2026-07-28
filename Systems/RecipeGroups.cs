@@ -1,0 +1,23 @@
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace MinerManagementMOD
+{
+    public class RecipeGroups : ModSystem
+    {
+        public override void AddRecipeGroups()
+        {
+            RecipeGroup cobaltOrPalladium = new RecipeGroup(
+                () => "Cobalt or Palladium Bar",
+                ItemID.CobaltBar,
+                ItemID.PalladiumBar
+            );
+
+            RecipeGroup.RegisterGroup(
+                "CobaltOrPalladium",
+                cobaltOrPalladium
+            );
+        }
+    }
+}

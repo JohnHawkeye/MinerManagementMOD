@@ -132,6 +132,16 @@ namespace MinerManagementMOD.Projectiles
                     {
                         int chestX = x - tile.TileFrameX / 18 % 2;
                         int chestY = y - tile.TileFrameY / 18 % 2;
+
+                        int chestIndex = Chest.FindChest(chestX,chestY);
+                        if(chestIndex <0)
+                            continue;
+
+                        Player player = Main.player[Projectile.owner];
+
+                        player.OpenChest(chestX,chestY,chestIndex);
+
+                        Wiring.TripWire(chestX,chestY,2,2);
                         Wiring.HitSwitch(chestX, chestY);
                         ActivateSuccess();
                         return;

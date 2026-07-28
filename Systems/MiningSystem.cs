@@ -11,6 +11,9 @@ namespace MinerManagementMOD.Systems
     {
         private bool minerSpawned;
 
+        private int hunterRespawnTimer = -1;
+        private int guardRespawnTimer = -1;
+
         public override void OnWorldLoad()
         {
             minerSpawned = false;
@@ -35,31 +38,60 @@ namespace MinerManagementMOD.Systems
             if (player == null || !player.active || player.dead)
                 return;
 
-            // 既に採掘員がいるなら何もしない
+            // いるなら何もしない
+            bool hunterAlive = false;
+            bool guardAlive = false;
+
             foreach (NPC npc in Main.ActiveNPCs)
             {
+                if (npc.type == ModContent.NPCType<HunterNPC>())
+                {
+                    hunterAlive = true;
+                }
                 if (npc.type == ModContent.NPCType<GuardNPC>())
                 {
-                    minerSpawned = true;
-                    return;
+                    guardAlive = true;
                 }
             }
+            if (!hunterAlive)
+            {
+                if (hunterRespawnTimer == -1)
+                    hunterRespawnTimer = 300; //5秒
+                else if (--hunterRespawnTimer <= 0)
+                {
+                    NPC.NewNPC(
+                        new EntitySource_Misc("HunterRespawn"),
+                        (int)player.Center.X,
+                        (int)player.Center.Y,
+                        ModContent.NPCType<HunterNPC>());
 
-            IEntitySource source = new EntitySource_Misc("MinerSpawn");
+                    hunterRespawnTimer = -1;
+                }
+            }
+            else
+            {
+                hunterRespawnTimer = -1;
+            }
+            
+            if (!guardAlive)
+            {
+                if (guardRespawnTimer == -1)
+                    guardRespawnTimer = 300;
+                else if (--guardRespawnTimer <= 0)
+                {
+                    NPC.NewNPC(
+                        new EntitySource_Misc("GuardRespawn"),
+                        (int)player.Center.X,
+                        (int)player.Center.Y,
+                        ModContent.NPCType<GuardNPC>());
 
-            // NPC.NewNPC(
-            //     source,
-            //     (int)player.Center.X + 64,
-            //     (int)player.Center.Y,
-            //     ModContent.NPCType<MinerNPC>());
-
-            NPC.NewNPC(
-                source,
-                (int)player.Center.X + 64,
-                (int)player.Center.Y,
-                ModContent.NPCType<GuardNPC>());
-
-            minerSpawned = true;
+                    guardRespawnTimer = -1;
+                }
+            }
+            else
+            {
+                guardRespawnTimer = -1;
+            }
         }
     }
 }

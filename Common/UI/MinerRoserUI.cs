@@ -304,7 +304,7 @@ namespace MinerManagementMOD.Common.UI
                     // NPCの少し横へワープ
                     SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
                     Main.LocalPlayer.Teleport(
-                        npc.Center + new Vector2(0f, 0f),
+                        npc.Center + new Vector2(0f, -24f),
                         TeleportationStyleID.RodOfDiscord
                     );
                     SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
