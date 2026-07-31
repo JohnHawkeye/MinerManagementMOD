@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 
 namespace MinerManagementMOD.Items
 {
-    public class RemoteBomb : ModItem
+    public class RemoteBomb2 : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -31,7 +31,7 @@ namespace MinerManagementMOD.Items
 
             Item.UseSound = SoundID.Item1;
 
-            Item.shoot = ModContent.ProjectileType<Projectiles.RemoteBombProj>();
+            Item.shoot = ModContent.ProjectileType<Projectiles.RemoteBombProj2>();
             Item.shootSpeed = 8f;
 
             Item.value = Item.buyPrice(silver: 1);
@@ -45,10 +45,9 @@ namespace MinerManagementMOD.Items
 
         public override void AddRecipes()
         {
-            CreateRecipe(5)
-                .AddIngredient(ItemID.Bomb, 5)
-                .AddIngredient(ItemID.Wire, 2)
-                .AddIngredient(ItemID.Gel, 1)
+            CreateRecipe(50)
+                .AddIngredient<RemoteBomb>(50)
+                .AddRecipeGroup("DemoniteOrCrimtane",1)
                 .AddIngredient<SilverMinerCoin>(50)
                 .AddTile(TileID.Anvils)
                 .Register();

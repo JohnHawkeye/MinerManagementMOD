@@ -18,6 +18,18 @@ namespace MinerManagementMOD
                 "CobaltOrPalladium",
                 cobaltOrPalladium
             );
+
+            // デモナイトまたはクリムタン
+            RecipeGroup demoniteOrCrimtane = new RecipeGroup(
+                () => "Demonite or Crimtane Bar",
+                ItemID.DemoniteBar,
+                ItemID.CrimtaneBar
+            );
+
+            RecipeGroup.RegisterGroup(
+                "DemoniteOrCrimtane",
+                demoniteOrCrimtane
+            );
         }
     }
 }

@@ -18,13 +18,13 @@ namespace MinerManagementMOD.Systems
         public int MiningPower = 1;
         public int MiningSpeed = 1;
         public int CarryCapacity = 100;
+        public int OreBonusChance = 30;
 
         public MinerData(int id, string name, string texture)
         {
             ID = id;
             Name = name;
             TexturePath = texture;
-
         }
     }
 
@@ -81,6 +81,7 @@ namespace MinerManagementMOD.Systems
                     ["MiningPower"] = miner.MiningPower,
                     ["MiningSpeed"] = miner.MiningSpeed,
                     ["CarryCapacity"] = miner.CarryCapacity,
+                    ["OreBonusChance"] = miner.OreBonusChance,
                     ["Name"] = miner.Name
                 });
             }
@@ -105,6 +106,7 @@ namespace MinerManagementMOD.Systems
                 Miners[i].MiningPower = data.GetInt("MiningPower");
                 Miners[i].MiningSpeed = data.GetInt("MiningSpeed");
                 Miners[i].CarryCapacity = data.GetInt("CarryCapacity");
+                Miners[i].OreBonusChance = data.GetInt("OreBonusChance");
 
                 Miners[i].Name = data.GetString("Name");
             }
@@ -122,6 +124,7 @@ namespace MinerManagementMOD.Systems
                 "MinerManagementMOD/Assets/UI/MinerPortrait");
 
             Miners[0].IsHired = true;
+            Miners[0].OreBonusChance = 30;
             nextMinerID++;
 
             for (int i = 1; i < MaxMiner; i++)
@@ -132,6 +135,7 @@ namespace MinerManagementMOD.Systems
                     "MinerManagementMOD/Assets/UI/EmptyPortrait");
 
                 Miners[i].IsHired = false;
+                Miners[i].OreBonusChance = 30;
                 nextMinerID++;
             }
         }

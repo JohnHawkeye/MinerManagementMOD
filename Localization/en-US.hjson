@@ -103,6 +103,36 @@ Mods: {
 				DisplayName: Crystal Vacuum
 				Tooltip: ""
 			}
+
+			DrillRocket: {
+				DisplayName: Drill Rocket
+				Tooltip: ""
+			}
+
+			RemoteBomb2: {
+				DisplayName: Remote Bomb2
+				Tooltip: ""
+			}
+
+			CopperMinerCoin: {
+				DisplayName: Copper Miner Coin
+				Tooltip: ""
+			}
+
+			GoldMinerCoin: {
+				DisplayName: Gold Miner Coin
+				Tooltip: ""
+			}
+
+			PlatinumMinerCoin: {
+				DisplayName: Platinum Miner Coin
+				Tooltip: ""
+			}
+
+			SilverMinerCoin: {
+				DisplayName: Silver Miner Coin
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -111,6 +141,8 @@ Mods: {
 			MagicHandProjectile.DisplayName: Magic Hand Projectile
 			DrillClusterProjectile.DisplayName: Drill Cluster Projectile
 			HunterRifleProjectile.DisplayName: Hunter Rifle Projectile
+			GuardSwordProjectile.DisplayName: Guard Sword Projectile
+			RemoteBombProj2.DisplayName: Remote Bomb Proj2
 		}
 	}
 }

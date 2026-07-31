@@ -96,6 +96,37 @@ Mods: {
 				DisplayName: クリスタルバキューム
 				Tooltip: "吸引力の変わらない、ただ一つの回収機\nクリックした場所のクリスタルだけをぐいーんと吸い込んでくれます。"
 			}
+            
+			DrillRocket: {
+				DisplayName: ドリルロケット
+				Tooltip: "ドリルクラスターを使うための弾薬。"
+			}
+
+			RemoteBomb2: {
+				DisplayName: リモートボムタイプ２
+				Tooltip: "ヘルストーン、メテオライトも爆破可能になったリモートボム。"
+			}
+
+			
+			CopperMinerCoin: {
+				DisplayName: 鉱夫の証（カッパー）
+				Tooltip: "誇り高き鉱夫の証。クラフトや鉱夫のグレードアップなどに使う。"
+			}
+
+			GoldMinerCoin: {
+				DisplayName: 鉱夫の証（ゴールド）
+				Tooltip: "誇り高き鉱夫の証。クラフトや鉱夫のグレードアップなどに使う。"
+			}
+
+			PlatinumMinerCoin: {
+				DisplayName: 鉱夫の証（プラチナ）
+				Tooltip: "誇り高き鉱夫の証。クラフトや鉱夫のグレードアップなどに使う。"
+			}
+
+			SilverMinerCoin: {
+				DisplayName: 鉱夫の証（シルバー）
+				Tooltip: "誇り高き鉱夫の証。クラフトや鉱夫のグレードアップなどに使う。"
+			}
         }
     }
 }

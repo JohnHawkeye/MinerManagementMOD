@@ -42,7 +42,9 @@ namespace MinerManagementMOD.Items
                 if (proj.owner != player.whoAmI)
                     continue;
 
-                if (proj.type != ModContent.ProjectileType<Projectiles.RemoteBombProj>())
+                int bomb1 = ModContent.ProjectileType<Projectiles.RemoteBombProj>();
+                int bomb2 = ModContent.ProjectileType<Projectiles.RemoteBombProj2>();
+                if (proj.type != bomb1 && proj.type != bomb2)
                     continue;
 
                 proj.Kill();
@@ -67,6 +69,7 @@ namespace MinerManagementMOD.Items
                 .AddIngredient(ItemID.Wire, 15)
                 .AddIngredient(ItemID.IronBar, 5)
                 .AddIngredient(ItemID.Ruby, 1)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
 
@@ -74,6 +77,7 @@ namespace MinerManagementMOD.Items
                 .AddIngredient(ItemID.Wire, 15)
                 .AddIngredient(ItemID.LeadBar, 5)
                 .AddIngredient(ItemID.Ruby, 1)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

@@ -52,7 +52,7 @@ namespace MinerManagementMOD.Items
             CreateRecipe()
                 .AddIngredient(ItemID.CopperBar, 10)
                 .AddIngredient(ItemID.Sapphire, 1)
-                .AddIngredient(ItemID.GoldCoin, 10)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
 
@@ -60,7 +60,7 @@ namespace MinerManagementMOD.Items
             CreateRecipe()
                 .AddIngredient(ItemID.TinBar, 10)
                 .AddIngredient(ItemID.Sapphire, 1)
-                .AddIngredient(ItemID.GoldCoin, 10)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

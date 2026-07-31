@@ -80,6 +80,7 @@ namespace MinerManagementMOD.Helpers
             TileID.Demonite,
             TileID.Crimtane,
             TileID.Hellstone,
+            TileID.Meteorite,
             TileID.Chlorophyte,
 
             // 宝石

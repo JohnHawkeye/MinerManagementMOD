@@ -597,87 +597,7 @@ namespace MinerManagementMOD.NPCs
                 0f
             );
         }
-        private void DrawObsidianArmor(
-            SpriteBatch spriteBatch,
-            Vector2 screenPos)
-        {
-
-            Main.instance.LoadArmorHead(
-                ArmorIDs.Head.ObsidianOutlawHat);
-
-            Main.instance.LoadArmorBody(
-                ArmorIDs.Body.ObsidianLongcoat);
-
-            Main.instance.LoadArmorLegs(
-                ArmorIDs.Legs.ObsidianPants);
-
-            Texture2D helmet =
-                TextureAssets.ArmorHead[
-                    ArmorIDs.Head.ObsidianOutlawHat
-                ].Value;
-
-            Texture2D body =
-                TextureAssets.ArmorBody[
-                    ArmorIDs.Body.ObsidianLongcoat
-                ].Value;
-
-            Texture2D legs =
-                TextureAssets.ArmorLeg[
-                    ArmorIDs.Legs.ObsidianPants
-                ].Value;
-
-            SpriteEffects effects =
-                NPC.spriteDirection == -1
-                    ? SpriteEffects.FlipHorizontally
-                    : SpriteEffects.None;
-
-            Color color =
-                Lighting.GetColor(
-                    (int)NPC.Center.X / 16,
-                    (int)NPC.Center.Y / 16);
-
-            // 胴
-            spriteBatch.Draw(
-                body,
-                NPC.Center - screenPos + new Vector2(0f, 2f),
-                null,
-                color,
-                0f,
-                new Vector2(
-                    body.Width / 2f,
-                    body.Height / 2f),
-                1f,
-                effects,
-                0f);
-
-            // 脚
-            spriteBatch.Draw(
-                legs,
-                NPC.Center - screenPos + new Vector2(0f, 14f),
-                null,
-                color,
-                0f,
-                new Vector2(
-                    legs.Width / 2f,
-                    legs.Height / 2f),
-                1f,
-                effects,
-                0f);
-
-            // 頭
-            spriteBatch.Draw(
-                helmet,
-                NPC.Center - screenPos + new Vector2(0f, -15f),
-                null,
-                color,
-                0f,
-                new Vector2(
-                    helmet.Width / 2f,
-                    helmet.Height / 2f),
-                1f,
-                effects,
-                0f);
-        }
+        
 
         // ==========================================
         // 描画
@@ -688,7 +608,7 @@ namespace MinerManagementMOD.NPCs
             Vector2 screenPos,
             Color drawColor)
         {
-            DrawObsidianArmor(spriteBatch, screenPos);
+
             DrawRifle(
                 spriteBatch,
                 screenPos

@@ -16,6 +16,7 @@ namespace MinerManagementMOD.Projectiles
         private HandState state = HandState.Extend;
         private Vector2 startPosition;
         private int grabbedItem = -1;
+        private bool collected = false;
 
         public override void SetDefaults()
         {
@@ -65,6 +66,8 @@ namespace MinerManagementMOD.Projectiles
                     if (item.active)
                     {
                         item.Center = Projectile.Center;
+                        item.velocity = Vector2.Zero;
+                        item.noGrabDelay = 999;
                     }
                 }
 
@@ -72,8 +75,9 @@ namespace MinerManagementMOD.Projectiles
                     startPosition -
                     Projectile.Center;
 
-                if (direction.Length() < 20f)
+                if (!collected && direction.Length() < 20f)
                 {
+                    collected = true;
                     // アイテム回収
                     if (grabbedItem != -1)
                     {
@@ -81,11 +85,13 @@ namespace MinerManagementMOD.Projectiles
 
                         if (item.active)
                         {
-                            player.GetItem(
-                                player.whoAmI,
-                                item,
-                                GetItemSettings.InventoryEntityToPlayerInventorySettings
+                            player.QuickSpawnItem(
+                                player.GetSource_Misc("MagicHand"),
+                                item.type,
+                                item.stack
                             );
+                            
+                            item.TurnToAir();
                         }
                     }
 
@@ -133,15 +139,18 @@ namespace MinerManagementMOD.Projectiles
                         int chestX = x - tile.TileFrameX / 18 % 2;
                         int chestY = y - tile.TileFrameY / 18 % 2;
 
-                        int chestIndex = Chest.FindChest(chestX,chestY);
-                        if(chestIndex <0)
+                        int chestIndex = Chest.FindChest(chestX, chestY);
+                        if (chestIndex < 0)
+                            continue;
+
+                        if(Chest.IsLocked(chestX,chestY))
                             continue;
 
                         Player player = Main.player[Projectile.owner];
 
-                        player.OpenChest(chestX,chestY,chestIndex);
+                        player.OpenChest(chestX, chestY, chestIndex);
 
-                        Wiring.TripWire(chestX,chestY,2,2);
+                        Wiring.TripWire(chestX, chestY, 2, 2);
                         Wiring.HitSwitch(chestX, chestY);
                         ActivateSuccess();
                         return;
@@ -193,6 +202,10 @@ namespace MinerManagementMOD.Projectiles
             foreach (Item item in Main.item)
             {
                 if (!item.active)
+                    continue;
+
+                // 他の取得処理中のアイテムは無視
+                if (item.noGrabDelay > 0)
                     continue;
 
                 float distance =

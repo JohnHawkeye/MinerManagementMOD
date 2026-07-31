@@ -7,6 +7,8 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MinerManagementMOD.Items;
+using Terraria.Audio;
+using MinerManagementMOD.Systems;
 
 namespace MinerManagementMOD.NPCs
 {
@@ -20,6 +22,7 @@ namespace MinerManagementMOD.NPCs
         public int MiningPower;
         public int MiningSpeed;
         public int CarryCapacity;
+        public int OreBonusChance;
         public bool HasLight;
 
         //
@@ -88,6 +91,7 @@ namespace MinerManagementMOD.NPCs
         {
             miningTool = new Item();
             miningTool.SetDefaults(ItemID.CopperPickaxe);
+
         }
 
 
@@ -203,8 +207,10 @@ namespace MinerManagementMOD.NPCs
                     continue;
 
                 hasNormalBlock = true;
+                ushort minedType = tile.TileType;
 
                 WorldGen.KillTile(targetX, targetY);
+                TryMiningBonusDrop(targetX, targetY, minedType);
                 TryDropMiningCrate(targetX, targetY);
 
                 Tile after = Framing.GetTileSafely(targetX, targetY);
@@ -297,8 +303,6 @@ namespace MinerManagementMOD.NPCs
 
             fallingWaitTimer = 0;
 
-            bool hasFalling = false;
-
             for (int y = miningColumn.Y - 2; y <= miningColumn.Y; y++)
             {
                 Tile check = Framing.GetTileSafely(targetX, y);
@@ -370,6 +374,116 @@ namespace MinerManagementMOD.NPCs
             CurrentState = MinerState.MovingToMiningArea;
         }
 
+        private void TryMiningBonusDrop(
+            int x,
+            int y,
+            ushort tileType)
+        {
+            Main.NewText($"TileType = {tileType}");
+            //鉱石系だけ対象
+            if (!IsOre(tileType))
+                return;
+            //10%発動
+            if (Main.rand.Next(100) >= 30)
+                return;
+
+
+            Item.NewItem(
+                null,
+                new Rectangle(
+                    x * 16,
+                    y * 16,
+                    16,
+                    16
+                ),
+                GetOreItem(tileType)
+            );
+            SoundEngine.PlaySound(
+                SoundID.ResearchComplete, new Vector2(x * 16 + 8, y * 16 + 8));
+            CreateMiningBonusEffect(
+                new Vector2(x * 16 + 8, y * 16 + 8)
+            );
+        }
+
+        private bool IsOre(ushort tileType)
+        {
+            return tileType == TileID.Copper
+                || tileType == TileID.Tin
+                || tileType == TileID.Iron
+                || tileType == TileID.Lead
+                || tileType == TileID.Silver
+                || tileType == TileID.Tungsten
+                || tileType == TileID.Gold
+                || tileType == TileID.Platinum
+                || tileType == TileID.Demonite
+                || tileType == TileID.Crimtane
+                || tileType == TileID.Meteorite
+                || tileType == TileID.Hellstone
+                || tileType == TileID.Cobalt
+                || tileType == TileID.Palladium
+                || tileType == TileID.Mythril
+                || tileType == TileID.Orichalcum
+                || tileType == TileID.Titanium
+                || tileType == TileID.Adamantite;
+        }
+
+        private int GetOreItem(ushort tileType)
+        {
+            switch (tileType)
+            {
+                case TileID.Copper:
+                    return ItemID.CopperOre;
+
+                case TileID.Tin:
+                    return ItemID.TinOre;
+
+                case TileID.Iron:
+                    return ItemID.IronOre;
+
+                case TileID.Lead:
+                    return ItemID.LeadOre;
+
+                case TileID.Silver:
+                    return ItemID.SilverOre;
+
+                case TileID.Tungsten:
+                    return ItemID.TungstenOre;
+
+                case TileID.Gold:
+                    return ItemID.GoldOre;
+
+                case TileID.Platinum:
+                    return ItemID.PlatinumOre;
+
+                case TileID.Demonite:
+                    return ItemID.DemoniteOre;
+
+                case TileID.Crimtane:
+                    return ItemID.CrimtaneOre;
+
+                case TileID.Meteorite:
+                    return ItemID.MeteoriteBar; //後で修正推奨
+
+                case TileID.Hellstone:
+                    return ItemID.Hellstone;
+
+                case TileID.Cobalt:
+                    return ItemID.CobaltOre;
+                case TileID.Palladium:
+                    return ItemID.PalladiumOre;
+                case TileID.Mythril:
+                    return ItemID.MythrilOre;
+                case TileID.Orichalcum:
+                    return ItemID.OrichalcumOre;
+                case TileID.Titanium:
+                    return ItemID.TitaniumOre;
+                case TileID.Adamantite:
+                    return ItemID.AdamantiteOre;
+
+                default:
+                    return ItemID.StoneBlock;
+            }
+        }
         private void TryDropMiningCrate(int x, int y)
         {
             // 3%の確率
@@ -591,6 +705,41 @@ namespace MinerManagementMOD.NPCs
                 1f,
                 effects,
                 0f);
+        }
+
+        private void CreateMiningBonusEffect(Vector2 position)
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(
+                    position,
+                    DustID.GoldFlame,
+                    Main.rand.NextVector2Circular(2f, 2f)
+                );
+
+                dust.noGravity = true;
+                dust.scale = 1.2f;
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                Dust.NewDustPerfect(
+                    position,
+                    DustID.WhiteTorch,
+                    Main.rand.NextVector2Circular(3f, 3f)
+                ).noGravity = true;
+            }
+
+            CombatText.NewText(
+                new Rectangle(
+                    (int)position.X,
+                    (int)position.Y,
+                    16,
+                    16
+                ),
+                Color.Gold,
+                "Lucky!"
+            );
         }
 
         public override void PostDraw(

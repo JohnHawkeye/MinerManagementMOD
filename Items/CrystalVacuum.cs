@@ -126,7 +126,7 @@ namespace MinerManagementMOD.Items
                 .AddRecipeGroup("CobaltOrPalladium", 10)
                 .AddIngredient(ItemID.Wire, 10)
                 .AddIngredient(ItemID.TreasureMagnet, 1)
-                .AddIngredient(ItemID.GoldCoin, 50)
+                .AddIngredient<GoldMinerCoin>(50)
                 .AddTile(TileID.Anvils)
                 .Register();
 

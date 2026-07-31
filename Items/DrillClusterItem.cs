@@ -28,7 +28,7 @@ namespace MinerManagementMOD.Items
             Item.shoot = ModContent.ProjectileType<DrillClusterProjectile>();
             Item.shootSpeed = 6f; // ゆっくり飛ばす
 
-            Item.useAmmo = AmmoID.None;  // 弾不要
+            Item.useAmmo = ModContent.ItemType<DrillRocket>();  // 弾不要
             Item.noMelee = false;        // 武器としてダメージ判定を持たせる
 
             Item.UseSound = SoundID.Item1;
@@ -69,6 +69,7 @@ namespace MinerManagementMOD.Items
                 .AddIngredient(ItemID.DemoniteBar, 10)
                 .AddIngredient(ItemID.ShadowScale, 5)
                 .AddIngredient(ItemID.Wire, 10)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
 
@@ -77,6 +78,7 @@ namespace MinerManagementMOD.Items
                 .AddIngredient(ItemID.DemoniteBar, 10)
                 .AddIngredient(ItemID.TissueSample, 5)
                 .AddIngredient(ItemID.Wire, 10)
+                .AddIngredient<GoldMinerCoin>(10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

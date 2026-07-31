@@ -47,6 +47,12 @@
     "Systems\\RecipeGroups.cs": "MinerManagementMOD.Systems",
     "NPCs\\HunterNPC.cs": "MinerManagementMOD.NPCs",
     "Projectiles\\HunterRifleProjectile.cs": "MinerManagementMOD.Projectiles",
-    "Commands\\ResetMinersCommand.cs": "MinerManagementMOD.Commands"
+    "Commands\\ResetMinersCommand.cs": "MinerManagementMOD.Commands",
+    "Projectiles\\GuardSwordProjectile.cs": "MinerManagementMOD.Projectiles",
+    "Items\\DrillRocket.cs": "MinerManagementMOD.Items",
+    "Items\\CopperMinerCoin.cs": "MinerManagementMOD.Items",
+    "Items\\SilverMinerCoin.cs": "MinerManagementMOD.Items",
+    "Items\\GoldMinerCoin.cs": "MinerManagementMOD.Items",
+    "Items\\PlatinumMinerCoin.cs": "MinerManagementMOD.Items"
   }
 }

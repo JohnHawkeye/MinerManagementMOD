@@ -60,6 +60,7 @@ namespace MinerManagementMOD.Systems
 
                 miner.MiningPower = data.MiningPower;
                 miner.MiningSpeed = data.MiningSpeed;
+                miner.OreBonusChance = data.OreBonusChance;
                 miner.CarryCapacity = data.CarryCapacity;
                 miner.HasLight = data.HasLight;
 
