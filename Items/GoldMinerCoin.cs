@@ -19,7 +19,7 @@ namespace MinerManagementMOD.Items
             Item.maxStack = 999;
 
             // 銅貨1枚と同じ価値
-            Item.value = Item.buyPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 5);
 
             Item.rare = ItemRarityID.White;
         }

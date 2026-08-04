@@ -10,6 +10,7 @@ using MinerManagementMOD.Systems;
 using Terraria.ID;
 using MinerManagementMOD.NPCs;
 using Terraria.Audio;
+using MinerManagementMOD.Items;
 
 namespace MinerManagementMOD.Common.UI
 {
@@ -19,11 +20,12 @@ namespace MinerManagementMOD.Common.UI
 
         private UIText nameText;
         private UIText pageText;
+        private UIText miningLevelText;
 
         private UITextPanel<string> summonButton;
         private UITextPanel<string> gotoButton;
         private UITextPanel<string> lightButton;
-
+        private UITextPanel<string> levelUpButton;
 
         private UITextPanel<string> leftButton;
         private UITextPanel<string> rightButton;
@@ -128,6 +130,14 @@ namespace MinerManagementMOD.Common.UI
 
             Panel.Append(nameText);
 
+            //mininglevel
+            miningLevelText = new UIText("");
+
+            miningLevelText.Left.Set(90, 0);
+            miningLevelText.Top.Set(120, 0);
+
+            Panel.Append(miningLevelText);
+
             //-----------------------------------------------------
             //summon button
             //-----------------------------------------------------
@@ -167,6 +177,18 @@ namespace MinerManagementMOD.Common.UI
 
             Panel.Append(lightButton);
 
+            //mining level up
+            levelUpButton = new UITextPanel<string>("レベルアップ\n1 Platinum");
+
+            levelUpButton.Width.Set(120, 0);
+            levelUpButton.Height.Set(50, 0);
+
+            levelUpButton.Left.Set(390, 0);
+            levelUpButton.Top.Set(140, 0);
+
+            levelUpButton.OnLeftClick += LevelUpButtonClicked;
+
+            Panel.Append(levelUpButton);
 
             //---------------------------------------------------
             // ←
@@ -281,10 +303,7 @@ namespace MinerManagementMOD.Common.UI
             MinerData data =
                 MinerRosterSystem.Miners[currentPage];
 
-            MinerManager.SpawnMiner(
-                Main.LocalPlayer,
-                data
-            );
+            MinerManager.SpawnMiner(Main.LocalPlayer, data);
 
             RefreshPage();
         }
@@ -342,6 +361,35 @@ namespace MinerManagementMOD.Common.UI
             RefreshPage();
         }
 
+        private void LevelUpButtonClicked(UIMouseEvent evt, UIElement listeningElement)
+        {
+            MinerData miner = MinerRosterSystem.Miners[currentPage];
+
+            if (!miner.IsHired)
+                return;
+
+            Player player = Main.LocalPlayer;
+
+            int platinumMinerCoin =
+                ModContent.ItemType<PlatinumMinerCoin>();
+
+            if (player.CountItem(platinumMinerCoin) < 1)
+            {
+                Main.NewText("プラチナマイナーコインが必要です。", 255, 100, 100);
+                return;
+            }
+
+            player.ConsumeItem(platinumMinerCoin);
+
+            miner.MiningLevel++;
+
+            Main.NewText(
+                $"{miner.Name}の採掘レベルが{miner.MiningLevel}になりました！",
+                100, 255, 100);
+
+            RefreshPage();
+        }
+
         private void CloseWindow(UIMouseEvent evt, UIElement listeningElement)
         {
             MinerUISystem.Visible = false;
@@ -392,6 +440,9 @@ namespace MinerManagementMOD.Common.UI
                 lightButton.TextColor = Color.White;
             }
 
+            //mining level
+            miningLevelText.SetText($"採掘レベル : {miner.MiningLevel}");
+
             if (miner == null)
                 return;
 
@@ -415,6 +466,9 @@ namespace MinerManagementMOD.Common.UI
 
                 if (lightButton.Parent == null)
                     Panel.Append(lightButton);
+
+                if (levelUpButton.Parent == null)
+                    Panel.Append(levelUpButton);
             }
             else
             {
@@ -426,6 +480,9 @@ namespace MinerManagementMOD.Common.UI
 
                 if (lightButton.Parent != null)
                     lightButton.Remove();
+
+                if (levelUpButton.Parent != null)
+                    levelUpButton.Remove();
 
                 if (hireButton.Parent == null)
                     Panel.Append(hireButton);

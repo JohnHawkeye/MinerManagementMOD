@@ -49,7 +49,7 @@ namespace MinerManagementMOD.Items
                 .AddIngredient(ItemID.Bomb, 5)
                 .AddIngredient(ItemID.Wire, 2)
                 .AddIngredient(ItemID.Gel, 1)
-                .AddIngredient<SilverMinerCoin>(50)
+                .AddIngredient<SilverMinerCoin>(5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

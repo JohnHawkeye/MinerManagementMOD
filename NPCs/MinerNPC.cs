@@ -18,11 +18,12 @@ namespace MinerManagementMOD.NPCs
         //data paras
         public int MinerID;
         public string MinerName;
-
+        public int MiningLevel;
         public int MiningPower;
         public int MiningSpeed;
         public int CarryCapacity;
         public int OreBonusChance;
+
         public bool HasLight;
 
         //
@@ -55,6 +56,7 @@ namespace MinerManagementMOD.NPCs
             MovingToMiningArea,
             Mining,
             FallingMining,
+            OreMiningMode,
             Advancing,
             KnockedOut
         }
@@ -121,6 +123,10 @@ namespace MinerManagementMOD.NPCs
                     MineFallingBlocks();
                     break;
 
+                case MinerState.OreMiningMode:
+                    MineNearbyOre();
+                    break;
+
                 case MinerState.Advancing:
                     AdvanceMining();
                     break;
@@ -182,13 +188,12 @@ namespace MinerManagementMOD.NPCs
 
             int targetX = miningColumn.X;
 
-            bool hasNormalBlock = false;
             bool hasFallingBlock = false;
 
-            //---------------------------------------
-            // ① 通常ブロックを探して掘る
-            //---------------------------------------
-            for (int offset = 2; offset >= 0; offset--)
+            // 下 → 中 → 上 の順に確認
+            int[] checkOrder = { 0, 1, 2 };
+
+            foreach (int offset in checkOrder)
             {
                 int targetY = miningColumn.Y - offset;
 
@@ -197,19 +202,28 @@ namespace MinerManagementMOD.NPCs
                 if (!tile.HasTile)
                     continue;
 
+                // 落下ブロックは後で処理
                 if (TileID.Sets.Falling[tile.TileType])
                 {
                     hasFallingBlock = true;
                     continue;
                 }
 
-                if (!Helpers.MiningHelper.CanMine(tile.TileType))
+                // 掘れないブロック
+                if (!Helpers.MiningHelper.CanMine(tile.TileType,MiningLevel >=2))
                     continue;
 
-                hasNormalBlock = true;
+                if (IsOre(tile.TileType))
+                {
+                    CurrentState = MinerState.OreMiningMode;
+                    NPC.velocity.X = 0;
+                    return;
+                }
+
                 ushort minedType = tile.TileType;
 
                 WorldGen.KillTile(targetX, targetY);
+
                 TryMiningBonusDrop(targetX, targetY, minedType);
                 TryDropMiningCrate(targetX, targetY);
 
@@ -225,15 +239,12 @@ namespace MinerManagementMOD.NPCs
                         return;
                     }
                 }
+
+                // 1ブロックだけ掘って終了
+                return;
             }
 
-            // 通常ブロックが残っているなら今回は終了
-            if (hasNormalBlock)
-                return;
-
-            //---------------------------------------
-            // ② 落下ブロックだけになったら専用処理へ
-            //---------------------------------------
+            // 通常ブロックは無いが落下ブロックがある
             if (hasFallingBlock)
             {
                 fallingWaitTimer = 0;
@@ -241,9 +252,7 @@ namespace MinerManagementMOD.NPCs
                 return;
             }
 
-            //---------------------------------------
-            // ③ 何も無ければ前進
-            //---------------------------------------
+            // 下・中・上すべて空なので前進
             advanceTargetX = NPC.Center.X + miningDirection * 16f;
 
             torchCounter++;
@@ -298,7 +307,7 @@ namespace MinerManagementMOD.NPCs
             // 砂が落ちるまで待機
             fallingWaitTimer++;
 
-            if (fallingWaitTimer < 15)
+            if (fallingWaitTimer < 8)
                 return;
 
             fallingWaitTimer = 0;
@@ -315,6 +324,135 @@ namespace MinerManagementMOD.NPCs
             }
 
             CurrentState = MinerState.Mining;
+        }
+
+        private void MineNearbyOre()
+        {
+            if (!NPC.collideY)
+            {
+                isSwingingPickaxe = false;
+                return;
+            }
+            Point? ore = FindNearbyOre();
+
+            //鉱石なし
+            if (ore == null)
+            {
+                CurrentState = MinerState.Mining;
+                return;
+            }
+
+            Point targetOre = ore.Value;
+            miningTimer++;
+
+            if (miningTimer < GetMiningDelay())
+            {
+                isSwingingPickaxe = true;
+                return;
+            }
+
+            miningTimer = 0;
+            isSwingingPickaxe = false;
+
+            Tile tile =
+                Framing.GetTileSafely(
+                    targetOre.X,
+                    targetOre.Y
+                );
+
+            if (tile.HasTile && IsOre(tile.TileType)&&
+                Helpers.MiningHelper.CanMine(tile.TileType,MiningLevel >= 2))
+            {
+                ushort type = tile.TileType;
+
+                WorldGen.KillTile(
+                    targetOre.X,
+                    targetOre.Y
+                );
+
+                TryMiningBonusDrop(
+                    targetOre.X,
+                    targetOre.Y,
+                    type
+                );
+
+                MinedBlockCount++;
+
+                if (MinedBlockCount >= MaxMineBlocks)
+                {
+                    StopMining();
+                }
+            }
+        }
+
+        private Point? FindNearbyOre()
+        {
+            int centerX =
+                (int)(NPC.Center.X / 16);
+
+            int centerY =
+                (int)(NPC.Center.Y / 16);
+
+            Point? nearest = null;
+            float nearestDistance = float.MaxValue;
+
+            for (int x = -3; x <= 3; x++)
+            {
+                for (int y = -3; y <= 3; y++)
+                {
+                    Tile tile =
+                        Framing.GetTileSafely(
+                            centerX + x,
+                            centerY + y
+                        );
+
+                    if (tile.HasTile &&
+                        IsOre(tile.TileType)&&
+                        Helpers.MiningHelper.CanMine(tile.TileType, MiningLevel >= 2))
+                    {
+                        float distance =
+                            Vector2.Distance(
+                                new Vector2(centerX, centerY),
+                                new Vector2(centerX + x, centerY + y)
+                            );
+
+                        if (distance < nearestDistance)
+                        {
+                            nearestDistance = distance;
+                            nearest =
+                                new Point(
+                                    centerX + x,
+                                    centerY + y
+                                );
+                        }
+                    }
+                }
+            }
+            return nearest;
+        }
+
+        private bool CheckMiningColumn()
+        {
+            int x =
+                (int)(NPC.Center.X / 16) + miningDirection;
+            int y =
+                (int)(NPC.Bottom.Y / 16) - 1;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Tile tile =
+                    Framing.GetTileSafely(
+                        x,
+                        y - i
+                    );
+
+                if (tile.HasTile)
+                {
+                    if (Helpers.MiningHelper.CanMine(tile.TileType))
+                        return true;
+                }
+            }
+            return false;
         }
 
         //stop mining
@@ -344,8 +482,11 @@ namespace MinerManagementMOD.NPCs
                 return;
             }
 
-            if (!NPC.collideX)
+            if (!CheckMiningColumn())
+            {
+                NPC.velocity.X = miningDirection * 2.5f;
                 return;
+            }
 
             // 壁の列を記録
             miningColumn = new Point(
@@ -379,7 +520,7 @@ namespace MinerManagementMOD.NPCs
             int y,
             ushort tileType)
         {
-            Main.NewText($"TileType = {tileType}");
+            //Main.NewText($"TileType = {tileType}");
             //鉱石系だけ対象
             if (!IsOre(tileType))
                 return;
@@ -424,7 +565,8 @@ namespace MinerManagementMOD.NPCs
                 || tileType == TileID.Mythril
                 || tileType == TileID.Orichalcum
                 || tileType == TileID.Titanium
-                || tileType == TileID.Adamantite;
+                || tileType == TileID.Adamantite
+                || tileType == TileID.Chlorophyte;
         }
 
         private int GetOreItem(ushort tileType)
@@ -479,6 +621,9 @@ namespace MinerManagementMOD.NPCs
                     return ItemID.TitaniumOre;
                 case TileID.Adamantite:
                     return ItemID.AdamantiteOre;
+
+                case TileID.Chlorophyte:
+                    return ItemID.ChlorophyteOre;
 
                 default:
                     return ItemID.StoneBlock;

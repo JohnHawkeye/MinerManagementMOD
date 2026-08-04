@@ -26,6 +26,10 @@ namespace MinerManagementMOD.Helpers
             TileID.JungleGrass,
             TileID.Mud,
             TileID.MushroomGrass,
+            TileID.Ebonstone,
+            TileID.Crimstone,
+            TileID.Pearlstone,
+            TileID.BreakableIce,
 
             // 砂
             TileID.Sand,
@@ -95,6 +99,7 @@ namespace MinerManagementMOD.Helpers
             TileID.Heart,
             TileID.LifeFruit
         };
+
 
         // ハードモード限定鉱石(ヘルストーンより上位)
         public static readonly HashSet<int> HardmodeOnlyTiles = new()

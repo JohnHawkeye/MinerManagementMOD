@@ -53,6 +53,13 @@
     "Items\\CopperMinerCoin.cs": "MinerManagementMOD.Items",
     "Items\\SilverMinerCoin.cs": "MinerManagementMOD.Items",
     "Items\\GoldMinerCoin.cs": "MinerManagementMOD.Items",
-    "Items\\PlatinumMinerCoin.cs": "MinerManagementMOD.Items"
+    "Items\\PlatinumMinerCoin.cs": "MinerManagementMOD.Items",
+    "NPCs\\HealerNPC.cs": "MinerManagementMOD.NPCs",
+    "Systems\\TreasureBookSystem.cs": "MinerManagementMOD.Systems",
+    "Common\\UI\\TreasureBookUI.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\TreasureBookUISystem.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\TreasureSlot.cs": "MinerManagementMOD.Common.UI",
+    "Common\\UI\\TreasureDetailUI.cs": "MinerManagementMOD.Common.UI",
+    "Commands\\ResetTreasureBookCommands.cs": "MinerManagementMOD.Commands"
   }
 }

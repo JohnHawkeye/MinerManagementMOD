@@ -21,6 +21,7 @@ Mods: {
 			GuardNPC.DisplayName: Guard N P C
 			OldMinerNPC.DisplayName: Old Miner N P C
 			HunterNPC.DisplayName: Hunter N P C
+			HealerNPC.DisplayName: Healer N P C
 		}
 
 		Items: {

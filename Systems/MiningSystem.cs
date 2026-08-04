@@ -13,6 +13,7 @@ namespace MinerManagementMOD.Systems
 
         private int hunterRespawnTimer = -1;
         private int guardRespawnTimer = -1;
+        private int healerRespawnTimer = -1;
 
         public override void OnWorldLoad()
         {
@@ -41,6 +42,7 @@ namespace MinerManagementMOD.Systems
             // いるなら何もしない
             bool hunterAlive = false;
             bool guardAlive = false;
+            bool healerAlive = false;
 
             foreach (NPC npc in Main.ActiveNPCs)
             {
@@ -51,6 +53,10 @@ namespace MinerManagementMOD.Systems
                 if (npc.type == ModContent.NPCType<GuardNPC>())
                 {
                     guardAlive = true;
+                }
+                if (npc.type == ModContent.NPCType<HealerNPC>())
+                {
+                    healerAlive = true;
                 }
             }
             if (!hunterAlive)
@@ -72,7 +78,7 @@ namespace MinerManagementMOD.Systems
             {
                 hunterRespawnTimer = -1;
             }
-            
+
             if (!guardAlive)
             {
                 if (guardRespawnTimer == -1)
@@ -91,6 +97,27 @@ namespace MinerManagementMOD.Systems
             else
             {
                 guardRespawnTimer = -1;
+            }
+            
+            if (!healerAlive)
+            {
+                if (healerRespawnTimer == -1)
+                    healerRespawnTimer = 300; //5秒
+
+                else if (--healerRespawnTimer <= 0)
+                {
+                    NPC.NewNPC(
+                        new EntitySource_Misc("HealerRespawn"),
+                        (int)player.Center.X,
+                        (int)player.Center.Y,
+                        ModContent.NPCType<HealerNPC>());
+
+                    healerRespawnTimer = -1;
+                }
+            }
+            else
+            {
+                healerRespawnTimer = -1;
             }
         }
     }

@@ -19,7 +19,7 @@ namespace MinerManagementMOD.Items
             Item.maxStack = 999;
 
             // 銅貨1枚と同じ価値
-            Item.value = Item.buyPrice(platinum: 1);
+            Item.value = Item.buyPrice(platinum: 5);
 
             Item.rare = ItemRarityID.White;
         }
@@ -28,6 +28,10 @@ namespace MinerManagementMOD.Items
         {
             CreateRecipe()
                 .AddIngredient(ItemID.PlatinumCoin)
+                .Register();
+
+            CreateRecipe()
+                .AddIngredient(ItemID.GoldCoin,100)
                 .Register();
         }
     }

@@ -24,12 +24,9 @@ namespace MinerManagementMOD.Systems
             return false;
         }
 
-
-
         public static void SpawnMiner(Player player, MinerData data)
         {
             
-
             // 既に存在する場合
             if(IsMinerSpawned(data.ID))
             {
@@ -41,7 +38,6 @@ namespace MinerManagementMOD.Systems
                 return;
             }
 
-
             int npcID = NPC.NewNPC(
                 null,
                 (int)player.Center.X,
@@ -49,15 +45,13 @@ namespace MinerManagementMOD.Systems
                 ModContent.NPCType<MinerNPC>()
             );
 
-
             NPC npc = Main.npc[npcID];
-
 
             if(npc.ModNPC is MinerNPC miner)
             {
                 miner.MinerID = data.ID;
                 miner.MinerName = data.Name;
-
+                miner.MiningLevel = data.MiningLevel;
                 miner.MiningPower = data.MiningPower;
                 miner.MiningSpeed = data.MiningSpeed;
                 miner.OreBonusChance = data.OreBonusChance;

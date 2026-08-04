@@ -15,6 +15,7 @@ namespace MinerManagementMOD.Systems
 
         public bool HasLight = false;
 
+        public int MiningLevel = 1;
         public int MiningPower = 1;
         public int MiningSpeed = 1;
         public int CarryCapacity = 100;
@@ -78,6 +79,7 @@ namespace MinerManagementMOD.Systems
                 {
                     ["IsHired"] = miner.IsHired,
                     ["HasLight"] = miner.HasLight,
+                    ["MiningLevel"] = miner.MiningLevel,
                     ["MiningPower"] = miner.MiningPower,
                     ["MiningSpeed"] = miner.MiningSpeed,
                     ["CarryCapacity"] = miner.CarryCapacity,
@@ -102,6 +104,10 @@ namespace MinerManagementMOD.Systems
 
                 Miners[i].IsHired = data.GetBool("IsHired");
                 Miners[i].HasLight = data.GetBool("HasLight");
+                if (data.ContainsKey("MiningLevel"))
+                    Miners[i].MiningLevel = data.GetInt("MiningLevel");
+                else
+                    Miners[i].MiningLevel = 1;
 
                 Miners[i].MiningPower = data.GetInt("MiningPower");
                 Miners[i].MiningSpeed = data.GetInt("MiningSpeed");

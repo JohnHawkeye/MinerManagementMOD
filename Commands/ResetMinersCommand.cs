@@ -24,5 +24,6 @@ namespace MinerManagementMOD.Commands
                 "鉱夫名簿を初期化しました。",
                 Color.Yellow);
         }
+
     }
 }
