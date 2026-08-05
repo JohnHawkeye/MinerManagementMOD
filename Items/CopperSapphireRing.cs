@@ -19,7 +19,7 @@ namespace MinerManagementMOD.Items
 
             Item.maxStack = 999;
 
-            Item.value = Item.sellPrice(silver: 18);
+            Item.value = Item.sellPrice(silver: 90);
             Item.rare = ItemRarityID.Blue;
 
             // 使用不可

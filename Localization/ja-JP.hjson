@@ -107,6 +107,10 @@ Mods: {
 				Tooltip: "ヘルストーン、メテオライトも爆破可能になったリモートボム。"
 			}
 
+			BioBombItem: {
+				DisplayName: バイオームボム
+				Tooltip: "投げ当てた位置にバイオームに応じたブロックを生成できる爆弾。"
+			}
 			
 			CopperMinerCoin: {
 				DisplayName: 鉱夫の証（カッパー）

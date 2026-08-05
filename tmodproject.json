@@ -60,6 +60,11 @@
     "Common\\UI\\TreasureBookUISystem.cs": "MinerManagementMOD.Common.UI",
     "Common\\UI\\TreasureSlot.cs": "MinerManagementMOD.Common.UI",
     "Common\\UI\\TreasureDetailUI.cs": "MinerManagementMOD.Common.UI",
-    "Commands\\ResetTreasureBookCommands.cs": "MinerManagementMOD.Commands"
+    "Commands\\ResetTreasureBookCommands.cs": "MinerManagementMOD.Commands",
+    "NPCs\\TopazCrab.cs": "MinerManagementMOD.NPCs",
+    "Projectiles\\TopazCrabShell.cs": "MinerManagementMOD.Projectiles",
+    "Projectiles\\TopazCrabLight.cs": "MinerManagementMOD.Projectiles",
+    "NPCs\\TopazShieldCore.cs": "MinerManagementMOD.NPCs",
+    "Projectiles\\TopazCrabDeathPiece.cs": "MinerManagementMOD.Projectiles"
   }
 }

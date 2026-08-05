@@ -25,6 +25,7 @@ namespace MinerManagementMOD.Market
             ItemID.OrichalcumOre,
             ItemID.AdamantiteOre,
             ItemID.TitaniumOre,
+            ItemID.CrystalShard,
 
             // 邪悪鉱石
             ItemID.DemoniteOre,
@@ -32,7 +33,7 @@ namespace MinerManagementMOD.Market
 
             // ジャングル
             ItemID.ChlorophyteOre,
-
+            
             // エンドゲーム
             //ItemID.LunarOre,
 

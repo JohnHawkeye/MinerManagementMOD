@@ -22,6 +22,8 @@ Mods: {
 			OldMinerNPC.DisplayName: Old Miner N P C
 			HunterNPC.DisplayName: Hunter N P C
 			HealerNPC.DisplayName: Healer N P C
+			TopazCrab.DisplayName: Topaz Crab
+			TopazShieldCore.DisplayName: Topaz Shield Core
 		}
 
 		Items: {
@@ -134,6 +136,11 @@ Mods: {
 				DisplayName: Silver Miner Coin
 				Tooltip: ""
 			}
+
+			BioBombItem: {
+				DisplayName: Bio Bomb Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -144,6 +151,10 @@ Mods: {
 			HunterRifleProjectile.DisplayName: Hunter Rifle Projectile
 			GuardSwordProjectile.DisplayName: Guard Sword Projectile
 			RemoteBombProj2.DisplayName: Remote Bomb Proj2
+			BioBombProjectile.DisplayName: Bio Bomb Projectile
+			TopazCrabShell.DisplayName: Topaz Crab Shell
+			TopazCrabLight.DisplayName: Topaz Crab Light
+			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
 		}
 	}
 }

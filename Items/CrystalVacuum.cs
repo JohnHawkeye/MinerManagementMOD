@@ -25,7 +25,7 @@ namespace MinerManagementMOD.Items
             Item.noMelee = true;
             Item.autoReuse = true;
             Item.maxStack = 1;
-            Item.value = Item.sellPrice(gold: 2);
+            Item.value = Item.sellPrice(gold: 250);
             Item.rare = ItemRarityID.Pink;
             Item.UseSound = SoundID.Item4;
         }

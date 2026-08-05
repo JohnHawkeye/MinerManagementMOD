@@ -19,7 +19,7 @@ namespace MinerManagementMOD.Items
 
             Item.noUseGraphic = true;
             Item.noMelee = true;
-
+            Item.value = Item.buyPrice(copper: 50);
             Item.consumable = true;
             Item.maxStack = 999;
 
@@ -32,8 +32,22 @@ namespace MinerManagementMOD.Items
 
         public override bool CanUseItem(Player player)
         {
-            
+
             return true;
+        }
+
+        public override void AddRecipes()
+        {
+            Recipe recipe = CreateRecipe(50);
+
+            recipe.AddIngredient(ItemID.MeteoriteBar, 1);
+            recipe.AddIngredient(ItemID.DirtBlock, 100);
+            recipe.AddIngredient(ItemID.StoneBlock, 100);
+            recipe.AddIngredient(ItemID.Bomb, 50);
+            recipe.AddIngredient<CopperMinerCoin>(10);
+            recipe.AddTile(TileID.Anvils);
+
+            recipe.Register();
         }
     }
 }
