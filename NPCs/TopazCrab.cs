@@ -8,8 +8,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using MinerManagementMOD.Projectiles;
-using System.Runtime.InteropServices;
-using Microsoft.Build.Framework;
+using MinerManagementMOD.Helpers;
+using Terraria.GameContent.ItemDropRules;
+using MinerManagementMOD.Items;
 
 namespace MinerManagementMOD.NPCs
 {
@@ -38,6 +39,7 @@ namespace MinerManagementMOD.NPCs
 
         private bool breakEye = false;
         private bool deathEffectPlayed = false;
+        private bool lastHitWasPickaxe;
 
         private enum BossState
         {
@@ -83,9 +85,9 @@ namespace MinerManagementMOD.NPCs
             NPC.width = 160;
             NPC.height = 128;
 
-            NPC.damage = 30;
-            NPC.defense = 60;
-            NPC.lifeMax = 5000;
+            NPC.damage = 24;
+            NPC.defense = 12;
+            NPC.lifeMax = 3000;
 
             NPC.knockBackResist = 0f;
 
@@ -99,23 +101,86 @@ namespace MinerManagementMOD.NPCs
             Music = MusicID.Boss1;
         }
 
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            // Topaz 30～50個
+            npcLoot.Add(
+                ItemDropRule.Common(
+                    ItemID.Topaz,
+                    1,
+                    30,
+                    50
+                )
+            );
+
+
+            // カッパーマイナーコイン 100個固定
+            npcLoot.Add(
+                ItemDropRule.Common(
+                    ModContent.ItemType<CopperMinerCoin>(),
+                    1,
+                    100,
+                    100
+                )
+            );
+
+
+            // トパーズストーンブロック 300個
+            npcLoot.Add(
+                ItemDropRule.Common(
+                    ItemID.TopazStoneBlock,
+                    1,
+                    300,
+                    300
+                )
+            );
+
+
+            // ハート 2～5個
+            npcLoot.Add(
+                ItemDropRule.Common(
+                    ItemID.Heart,
+                    1,
+                    2,
+                    5
+                )
+            );
+        }
+
+        public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
+        {
+            lastHitWasPickaxe = item.pick > 0;
+
+            if (!lastHitWasPickaxe)
+            {
+                modifiers.SourceDamage *= 0f;
+                return;
+            }
+
+            int damage =
+                MiningPowerHelper.GetMiningDamage(player, item);
+
+            modifiers.SetMaxDamage(damage);
+
+        }
+
+        public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
+        {
+            // 飛び道具は無効
+            modifiers.SetMaxDamage(1);
+        }
+
         public override bool CheckDead()
         {
             if (!deathEffectPlayed)
             {
                 deathEffectPlayed = true;
-
-                NPC.life = 1;
-
                 PlayDeathEffect();
-
                 SpawnDeathPieces();
-
-                NPC.active = false;
             }
-
-            return false;
+            return true;
         }
+
         public override void AI()
         {
 
@@ -786,6 +851,7 @@ namespace MinerManagementMOD.NPCs
                         ModContent.NPCType<TopazShieldCore>());
 
                 Main.npc[index].ai[0] = NPC.whoAmI;
+                Main.npc[index].netUpdate = true;
 
                 coreIndex[i] = index;
             }
@@ -928,7 +994,9 @@ namespace MinerManagementMOD.NPCs
             SoundEngine.PlaySound(
                 SoundID.Shatter,
                 NPC.Center);
-
+            SoundEngine.PlaySound(
+                SoundID.Item14,
+                NPC.Center);
 
             // トパーズの光
             for (int i = 0; i < 100; i++)
@@ -978,12 +1046,12 @@ namespace MinerManagementMOD.NPCs
         private void SpawnDeathPieces()
         {
             Vector2[] velocities =
-            {
-        new Vector2(-6,-8),
-        new Vector2(6,-8),
-        new Vector2(-4,-5),
-        new Vector2(4,-5)
-    };
+                {
+                new Vector2(-6,-8),
+                new Vector2(6,-8),
+                new Vector2(-4,-5),
+                new Vector2(4,-5)
+            };
 
 
             for (int i = 0; i < 4; i++)
@@ -999,6 +1067,75 @@ namespace MinerManagementMOD.NPCs
 
 
                 Main.projectile[p].ai[0] = i;
+            }
+        }
+
+        public override void HitEffect(NPC.HitInfo hit)
+        {
+            if (!lastHitWasPickaxe)
+                return;
+
+            // 死亡時は別処理にする
+            if (NPC.life <= 0)
+                return;
+
+
+            // ツルハシ攻撃ではない場合は通常処理
+            if (hit.Damage <= 0)
+                return;
+
+
+            // ==========================
+            // フェーズ1
+            // 土・石の採掘ダスト
+            // ==========================
+
+            if (NPC.life > NPC.lifeMax * 0.5f)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    Dust.NewDust(
+                        NPC.position,
+                        NPC.width,
+                        NPC.height,
+                        DustID.Stone,
+                        Main.rand.NextFloat(-2f, 2f),
+                        Main.rand.NextFloat(-2f, 2f)
+                    );
+                }
+
+                SoundEngine.PlaySound(
+                    SoundID.Tink,
+                    NPC.Center
+                );
+            }
+
+
+            // ==========================
+            // フェーズ2以降
+            // トパーズの輝き
+            // ==========================
+
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    Dust dust = Dust.NewDustDirect(
+                        NPC.position,
+                        NPC.width,
+                        NPC.height,
+                        DustID.GemTopaz
+                    );
+
+                    dust.velocity *= 1.5f;
+                    dust.noGravity = true;
+                }
+
+
+                SoundEngine.PlaySound(
+                    SoundID.Item27,
+                    NPC.Center
+                );
             }
         }
     }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MinerManagementMOD.Common.UI;
 using MinerManagementMOD.Systems;
 using Terraria;

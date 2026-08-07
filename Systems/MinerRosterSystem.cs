@@ -73,8 +73,18 @@ namespace MinerManagementMOD.Systems
         {
             var minerList = new List<TagCompound>();
 
+            if (Miners == null)
+            {
+                tag["Miners"] = minerList;
+                return;
+            }
+
+
             foreach (var miner in Miners)
             {
+                if (miner == null)
+                    continue;
+
                 minerList.Add(new TagCompound
                 {
                     ["IsHired"] = miner.IsHired,
@@ -84,7 +94,7 @@ namespace MinerManagementMOD.Systems
                     ["MiningSpeed"] = miner.MiningSpeed,
                     ["CarryCapacity"] = miner.CarryCapacity,
                     ["OreBonusChance"] = miner.OreBonusChance,
-                    ["Name"] = miner.Name
+                    ["Name"] = miner.Name ?? "名無し"
                 });
             }
 
@@ -93,6 +103,11 @@ namespace MinerManagementMOD.Systems
 
         public override void LoadWorldData(TagCompound tag)
         {
+            if(Miners == null)
+            {
+                ResetAll();
+            }
+            
             if (!tag.ContainsKey("Miners"))
                 return;
 

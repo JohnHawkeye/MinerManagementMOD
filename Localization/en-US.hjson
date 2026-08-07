@@ -141,6 +141,16 @@ Mods: {
 				DisplayName: Bio Bomb Item
 				Tooltip: ""
 			}
+
+			FoolTicket: {
+				DisplayName: Fool Ticket
+				Tooltip: ""
+			}
+
+			LockPick: {
+				DisplayName: Lock Pick
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

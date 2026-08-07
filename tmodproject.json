@@ -65,6 +65,17 @@
     "Projectiles\\TopazCrabShell.cs": "MinerManagementMOD.Projectiles",
     "Projectiles\\TopazCrabLight.cs": "MinerManagementMOD.Projectiles",
     "NPCs\\TopazShieldCore.cs": "MinerManagementMOD.NPCs",
-    "Projectiles\\TopazCrabDeathPiece.cs": "MinerManagementMOD.Projectiles"
+    "Projectiles\\TopazCrabDeathPiece.cs": "MinerManagementMOD.Projectiles",
+    "Helpers\\MiningPowerHelper.cs": "MinerManagementMOD.Helpers",
+    "Common\\Players\\MMMPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Items\\TopazCrabStone.cs": "MinerManagementMOD.Items",
+    "Items\\CrabClaw.cs": "MinerManagementMOD.Items",
+    "Common\\GlobalNPCDrops.cs": "MinerManagementMOD.Common",
+    "Items\\FoolTicket.cs": "MinerManagementMOD.Items",
+    "Systems\\FakeChestSystem.cs": "MinerManagementMOD.Systems",
+    "Common\\Players\\LockPickingPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Items\\LockPick.cs": "MinerManagementMOD.Items",
+    "Common\\UI\\LockPickingUI.cs": "MinerManagementMOD.Common.UI",
+    "Systems\\LockPikingUISystem.cs": "MinerManagementMOD.Systems"
   }
 }

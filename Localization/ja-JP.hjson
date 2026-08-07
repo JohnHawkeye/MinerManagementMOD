@@ -131,6 +131,25 @@ Mods: {
 				DisplayName: 鉱夫の証（シルバー）
 				Tooltip: "誇り高き鉱夫の証。クラフトや鉱夫のグレードアップなどに使う。"
 			}
+
+			TopazCrabStone: {
+				DisplayName: トパーズクラブストーン
+				Tooltip: "トパーズクラブを召喚するアイテム。"
+			}
+			CrabClaw: {
+				DisplayName: カニのはさみ
+				Tooltip: "おいしそうなカニのハサミ"
+			}
+
+			FoolTicket: {
+				DisplayName: はずれ券
+				Tooltip: "ざんねんでした。はずれです。"
+			}
+
+			LockPick: {
+				DisplayName: ロックピック
+				Tooltip: "鍵のかかったゴールドチェストを開錠できる。"
+			}
         }
     }
 }
