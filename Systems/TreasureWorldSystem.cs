@@ -41,6 +41,98 @@ namespace MinerManagementMOD.Systems
                 (treasureIDs[i], treasureIDs[j]) = (treasureIDs[j], treasureIDs[i]);
             }
 
+            int normalChestCount = CountGoldChests();
+
+            int extraGoldChestCount =
+                (int)(normalChestCount * 0.25f);
+
+            for (int i = 0; i < extraGoldChestCount; i++)
+            {
+                PlaceGoldChest(false);
+            }
+
+            FillAllChests(treasureIDs);
+
+            int fakeChestCount =
+                (int)(normalChestCount * Main.rand.NextFloat(0.15f, 0.20f));
+
+            for (int i = 0; i < fakeChestCount; i++)
+            {
+                PlaceGoldChest(true);
+            }
+
+            LockRandomGoldChests(0.30f);
+        }
+
+        private static int FindEmptySlot(Chest chest)
+        {
+            for (int i = 0; i < Chest.maxItems; i++)
+            {
+                if (chest.item[i].IsAir)
+                    return i;
+            }
+
+            return -1;
+        }
+
+        private bool PlaceGoldChest(bool fakeChest)
+        {
+            for (int attempt = 0; attempt < 500; attempt++)
+            {
+                int x = WorldGen.genRand.Next(
+                    100,
+                    Main.maxTilesX - 100);
+
+                int y = WorldGen.genRand.Next(
+                    (int)Main.worldSurface,
+                    (int)(Main.maxTilesY * 0.55f));
+
+                if (IsDungeonArea(x, y))
+                    continue;
+
+                if (x < 10 || x > Main.maxTilesX - 10)
+                    continue;
+
+                if (y < 10 || y > Main.maxTilesY - 10)
+                    continue;
+
+                WorldGen.KillTile(x, y);
+                WorldGen.KillTile(x + 1, y);
+
+                int chestIndex = WorldGen.PlaceChest(
+                    x,
+                    y,
+                    (ushort)TileID.Containers,
+                    false,
+                    1); // Gold Chest
+
+                if (chestIndex >= 0)
+                {
+                    WorldGen.PlaceTile(
+                        x,
+                        y + 1,
+                        TileID.Stone);
+
+                    WorldGen.PlaceTile(
+                        x + 1,
+                        y + 1,
+                        TileID.Stone);
+
+                    if (fakeChest)
+                    {
+                        Chest chest = Main.chest[chestIndex];
+                        AddFoolTicket(chest);
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void FillAllChests(List<int> treasureIDs)
+        {
             int treasureIndex = 0;
 
             foreach (Chest chest in Main.chest)
@@ -170,96 +262,6 @@ namespace MinerManagementMOD.Systems
                     }
                 }
             }
-
-            int normalChestCount = CountExistingChests();
-
-            int fakeChestCount = (int)(normalChestCount * Main.rand.NextFloat(0.15f, 0.20f));
-
-            int placedCount = 0;
-
-            for (int i = 0; i < fakeChestCount; i++)
-            {
-                PlaceFakeChest();
-                placedCount++;
-            }
-
-            LockRandomGoldChests(0.30f);
-        }
-
-        private static int FindEmptySlot(Chest chest)
-        {
-            for (int i = 0; i < Chest.maxItems; i++)
-            {
-                if (chest.item[i].IsAir)
-                    return i;
-            }
-
-            return -1;
-        }
-
-        private void PlaceFakeChest()
-        {
-            // 設置場所探索
-            for (int attempt = 0; attempt < 500; attempt++)
-            {
-                // 地下～洞窟範囲
-                int x = WorldGen.genRand.Next(
-                    100,
-                    Main.maxTilesX - 100);
-
-                int y = WorldGen.genRand.Next(
-                    (int)Main.worldSurface,
-                    (int)(Main.maxTilesY * 0.55f));
-
-
-                // ダンジョン付近は除外
-                if (IsDungeonArea(x, y))
-                    continue;
-
-
-                // 範囲外防止
-                if (x < 10 || x > Main.maxTilesX - 10)
-                    continue;
-
-                if (y < 10 || y > Main.maxTilesY - 10)
-                    continue;
-
-
-                // チェスト設置位置を消去
-                WorldGen.KillTile(x, y);
-                WorldGen.KillTile(x + 1, y);
-
-
-                // ゴールドチェスト設置
-                int chestIndex = WorldGen.PlaceChest(
-                    x,
-                    y,
-                    (ushort)TileID.Containers,
-                    false,
-                    1);
-
-
-                if (chestIndex >= 0)
-                {
-                    // 足場用ストーン2個
-                    WorldGen.PlaceTile(
-                        x,
-                        y + 1,
-                        TileID.Stone);
-
-                    WorldGen.PlaceTile(
-                        x + 1,
-                        y + 1,
-                        TileID.Stone);
-
-
-                    Chest chest = Main.chest[chestIndex];
-
-                    AddFoolTicket(chest);
-
-                    return;
-                }
-            }
         }
 
         private bool IsDungeonArea(int x, int y)
@@ -324,6 +326,27 @@ namespace MinerManagementMOD.Systems
             return count;
         }
 
+        private int CountGoldChests()
+        {
+            int count = 0;
+
+            foreach (Chest chest in Main.chest)
+            {
+                if (chest == null)
+                    continue;
+
+                Tile tile = Framing.GetTileSafely(chest.x, chest.y);
+
+                if (!tile.HasTile || tile.TileType != TileID.Containers)
+                    continue;
+
+                if (TileObjectData.GetTileStyle(tile) == 1)
+                    count++;
+            }
+
+            return count;
+        }
+
         private static void LockRandomGoldChests(float lockChance = 0.3f)
         {
             for (int i = 0; i < Main.maxChests; i++)
@@ -348,7 +371,23 @@ namespace MinerManagementMOD.Systems
                     continue;
 
                 // ロック済みゴールドチェストへ変更
-                tile.TileFrameX += 36;
+                LockChest(chest);
+            }
+        }
+
+        private static void LockChest(Chest chest)
+        {
+            for (int x = chest.x; x < chest.x + 2; x++)
+            {
+                for (int y = chest.y; y < chest.y + 2; y++)
+                {
+                    Tile tile = Framing.GetTileSafely(x, y);
+
+                    if (!tile.HasTile || tile.TileType != TileID.Containers)
+                        continue;
+
+                    tile.TileFrameX += 36;
+                }
             }
         }
     }
