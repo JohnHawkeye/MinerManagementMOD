@@ -11,7 +11,7 @@ namespace MinerManagementMOD.Items
             Item.width = 16;
             Item.height = 16;
 
-            Item.maxStack = 1;
+            Item.maxStack = 999;
 
             Item.value = 0;
             Item.rare = ItemRarityID.White;

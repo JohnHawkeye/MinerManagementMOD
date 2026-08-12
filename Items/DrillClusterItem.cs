@@ -75,7 +75,7 @@ namespace MinerManagementMOD.Items
 
             // ティッシュサンプル版(クリムゾン)
             CreateRecipe()
-                .AddIngredient(ItemID.DemoniteBar, 10)
+                .AddIngredient(ItemID.CrimtaneBar, 10)
                 .AddIngredient(ItemID.TissueSample, 5)
                 .AddIngredient(ItemID.Wire, 10)
                 .AddIngredient<GoldMinerCoin>(10)

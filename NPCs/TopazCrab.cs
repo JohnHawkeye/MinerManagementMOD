@@ -777,7 +777,7 @@ namespace MinerManagementMOD.NPCs
             shieldBreakEffectPlayed = false;
 
             shieldScale = 1f;
-            shieldAlpha = 1f;
+            shieldAlpha = 0.6f;
 
             shieldBreaking = false;
 

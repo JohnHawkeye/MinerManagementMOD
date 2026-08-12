@@ -40,7 +40,6 @@ namespace MinerManagementMOD.Items
         {
             Recipe recipe = CreateRecipe(50);
 
-            recipe.AddIngredient(ItemID.MeteoriteBar, 1);
             recipe.AddIngredient(ItemID.DirtBlock, 100);
             recipe.AddIngredient(ItemID.StoneBlock, 100);
             recipe.AddIngredient(ItemID.Bomb, 50);

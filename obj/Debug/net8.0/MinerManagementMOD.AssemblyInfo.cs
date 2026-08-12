@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MinerManagementMOD")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7fae8ae2ae0c4b11dff203744f421c565d547080")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dafff2b2ed31ed11dfbea3496b5af68c1f652bbd")]
 [assembly: System.Reflection.AssemblyProductAttribute("MinerManagementMOD")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MinerManagementMOD")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

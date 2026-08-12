@@ -524,10 +524,12 @@ namespace MinerManagementMOD.NPCs
             //鉱石系だけ対象
             if (!IsOre(tileType))
                 return;
-            //10%発動
+
+            //30%発動
             if (Main.rand.Next(100) >= 30)
                 return;
 
+            int bonusAmount = MiningLevel >= 2 ? 4:1;
 
             Item.NewItem(
                 null,
@@ -537,10 +539,12 @@ namespace MinerManagementMOD.NPCs
                     16,
                     16
                 ),
-                GetOreItem(tileType)
+                GetOreItem(tileType),
+                bonusAmount
             );
             SoundEngine.PlaySound(
                 SoundID.ResearchComplete, new Vector2(x * 16 + 8, y * 16 + 8));
+
             CreateMiningBonusEffect(
                 new Vector2(x * 16 + 8, y * 16 + 8)
             );
