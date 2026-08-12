@@ -76,6 +76,10 @@
     "Common\\Players\\LockPickingPlayer.cs": "MinerManagementMOD.Common.Players",
     "Items\\LockPick.cs": "MinerManagementMOD.Items",
     "Common\\UI\\LockPickingUI.cs": "MinerManagementMOD.Common.UI",
-    "Systems\\LockPikingUISystem.cs": "MinerManagementMOD.Systems"
+    "Systems\\LockPikingUISystem.cs": "MinerManagementMOD.Systems",
+    "Tiles\\SlotMachineTile.cs": "MinerManagementMOD.Tiles",
+    "Items\\SlotMachine.cs": "MinerManagementMOD.Items",
+    "Common\\UI\\SlotMachineUI.cs": "MinerManagementMOD.Common.UI",
+    "Systems\\SlotMachineUISystem.cs": "MinerManagementMOD.Systems"
   }
 }

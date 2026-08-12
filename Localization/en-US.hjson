@@ -151,6 +151,11 @@ Mods: {
 				DisplayName: Lock Pick
 				Tooltip: ""
 			}
+
+			SlotMachine: {
+				DisplayName: Slot Machine
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -166,5 +171,7 @@ Mods: {
 			TopazCrabLight.DisplayName: Topaz Crab Light
 			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
 		}
+
+		Tiles.SlotMachineTile.MapEntry: Slot Machine Tile
 	}
 }
