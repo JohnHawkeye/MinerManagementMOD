@@ -12,6 +12,7 @@ namespace MinerManagementMOD.Systems
 
         public string Name;
         public string TexturePath;
+        public string StyleInfo;
 
         public bool HasLight = false;
 
@@ -21,11 +22,13 @@ namespace MinerManagementMOD.Systems
         public int CarryCapacity = 100;
         public int OreBonusChance = 30;
 
-        public MinerData(int id, string name, string texture)
+        public MinerData(
+            int id, string name, string texture, string styleInfo)
         {
             ID = id;
             Name = name;
             TexturePath = texture;
+            StyleInfo = styleInfo;
         }
     }
 
@@ -47,7 +50,7 @@ namespace MinerManagementMOD.Systems
             ResetAll();
         }
 
-        public static MinerData CreateMiner(string name, string texture)
+        public static MinerData CreateMiner(string name, string texture, string styleInfo)
         {
             for (int i = 0; i < MaxMiner; i++)
             {
@@ -56,7 +59,8 @@ namespace MinerManagementMOD.Systems
                     MinerData data = new MinerData(
                         nextMinerID,
                         name,
-                        texture
+                        texture,
+                        styleInfo
                     );
 
                     nextMinerID++;
@@ -87,6 +91,7 @@ namespace MinerManagementMOD.Systems
 
                 minerList.Add(new TagCompound
                 {
+                    ["ID"] = miner.ID,
                     ["IsHired"] = miner.IsHired,
                     ["HasLight"] = miner.HasLight,
                     ["MiningLevel"] = miner.MiningLevel,
@@ -94,7 +99,8 @@ namespace MinerManagementMOD.Systems
                     ["MiningSpeed"] = miner.MiningSpeed,
                     ["CarryCapacity"] = miner.CarryCapacity,
                     ["OreBonusChance"] = miner.OreBonusChance,
-                    ["Name"] = miner.Name ?? "名無し"
+                    ["Name"] = miner.Name ?? "名無し",
+                    ["StyleInfo"] = miner.StyleInfo ?? ""
                 });
             }
 
@@ -103,11 +109,11 @@ namespace MinerManagementMOD.Systems
 
         public override void LoadWorldData(TagCompound tag)
         {
-            if(Miners == null)
+            if (Miners == null)
             {
                 ResetAll();
             }
-            
+
             if (!tag.ContainsKey("Miners"))
                 return;
 
@@ -117,8 +123,12 @@ namespace MinerManagementMOD.Systems
             {
                 var data = minerList[i];
 
+                if(data.ContainsKey("ID"))
+                    Miners[i].ID = data.GetInt("ID");
+
                 Miners[i].IsHired = data.GetBool("IsHired");
                 Miners[i].HasLight = data.GetBool("HasLight");
+
                 if (data.ContainsKey("MiningLevel"))
                     Miners[i].MiningLevel = data.GetInt("MiningLevel");
                 else
@@ -129,7 +139,13 @@ namespace MinerManagementMOD.Systems
                 Miners[i].CarryCapacity = data.GetInt("CarryCapacity");
                 Miners[i].OreBonusChance = data.GetInt("OreBonusChance");
 
-                Miners[i].Name = data.GetString("Name");
+                if(data.ContainsKey("Name"))
+                    Miners[i].Name = data.GetString("Name");
+                
+                if (data.ContainsKey("StyleInfo"))
+                    Miners[i].StyleInfo = data.GetString("StyleInfo");
+                else
+                    Miners[i].StyleInfo = "";
             }
         }
 
@@ -139,26 +155,102 @@ namespace MinerManagementMOD.Systems
 
             Miners = new MinerData[MaxMiner];
 
-            Miners[0] = new MinerData(
-                nextMinerID,
-                "マイナー",
-                "MinerManagementMOD/Assets/UI/MinerPortrait");
+            // 1人目：通常鉱夫1
+            Miners[0] = CreateDefaultMiner(
+                nextMinerID++,
+                "ビル",
+                "MinerManagementMOD/Assets/UI/MinerPortrait",
+                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                miningLevel: 1,
+                miningPower: 1,
+                miningSpeed: 1,
+                carryCapacity: 100,
+                oreBonusChance: 30,
+                hasLight: false
+            );
 
             Miners[0].IsHired = true;
-            Miners[0].OreBonusChance = 30;
-            nextMinerID++;
 
-            for (int i = 1; i < MaxMiner; i++)
-            {
-                Miners[i] = new MinerData(
-                    nextMinerID,
-                    "空き",
-                    "MinerManagementMOD/Assets/UI/EmptyPortrait");
+            // 2人目：通常鉱夫2
+            Miners[1] = CreateDefaultMiner(
+                nextMinerID++,
+                "ベン",
+                "MinerManagementMOD/Assets/UI/MinerPortrait",
+                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                miningLevel: 1,
+                miningPower: 1,
+                miningSpeed: 1,
+                carryCapacity: 100,
+                oreBonusChance: 30,
+                hasLight: false
+            );
 
-                Miners[i].IsHired = false;
-                Miners[i].OreBonusChance = 30;
-                nextMinerID++;
-            }
+            // 3人目：魔法採掘師
+            Miners[2] = CreateDefaultMiner(
+                nextMinerID++,
+                "魔法採掘師",
+                "MinerManagementMOD/Assets/UI/MagicMiner",
+                "主人に付き添い、鉱石を探知したらその方向に魔法を飛ばして採掘する。\n稀に宝石ボーナスが得られる。",
+                miningLevel: 1,
+                miningPower: 1,
+                miningSpeed: 1,
+                carryCapacity: 80,
+                oreBonusChance: 30,
+                hasLight: false
+            );
+
+            // 4人目：通常鉱夫（仮）
+            Miners[3] = CreateDefaultMiner(
+                nextMinerID++,
+                "通常鉱夫3",
+                "MinerManagementMOD/Assets/UI/EmptyPortrait",
+                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                miningLevel: 1,
+                miningPower: 1,
+                miningSpeed: 1,
+                carryCapacity: 80,
+                oreBonusChance: 30,
+                hasLight: false
+            );
+
+            // 5人目：通常鉱夫（仮）
+            Miners[4] = CreateDefaultMiner(
+                nextMinerID++,
+                "通常鉱夫4",
+                "MinerManagementMOD/Assets/UI/EmptyPortrait",
+                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                miningLevel: 1,
+                miningPower: 1,
+                miningSpeed: 1,
+                carryCapacity: 80,
+                oreBonusChance: 30,
+                hasLight: false
+            );
+        }
+
+        public static MinerData CreateDefaultMiner(
+            int id,
+            string name,
+            string texture,
+            string styleInfo,
+            int miningLevel = 1,
+            int miningPower = 1,
+            int miningSpeed = 1,
+            int carryCapacity = 100,
+            int oreBonusChance = 30,
+            bool hasLight = false)
+        {
+            MinerData miner = new MinerData(id, name, texture, styleInfo);
+
+            miner.IsHired = false;
+            miner.MiningLevel = miningLevel;
+            miner.MiningPower = miningPower;
+            miner.MiningSpeed = miningSpeed;
+            miner.CarryCapacity = carryCapacity;
+            miner.OreBonusChance = oreBonusChance;
+            miner.HasLight = hasLight;
+
+            return miner;
         }
     }
 }

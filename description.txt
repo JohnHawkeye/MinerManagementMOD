@@ -1,1 +1,9 @@
-Modify this file with a description of your mod.
+このMODは純粋な鉱石採掘を楽しむために開発を始めたMODです。
+ワールド生成時に追加のゴールドチェスト、トレジャーアイテムの追加などが行われます。
+ゲームバランスはあまり考慮されていません。
+ですので、あまり重要なゲームのために使用せず、楽観的な試用で遊んでみてください。
+
+This mod was developed with the aim of simply enjoying ore mining.
+It adds features such as extra gold chests and treasure items during world generation.
+Game balance was not a primary consideration during development.
+Therefore, please avoid using it for serious playthroughs; instead, feel free to try it out casually.

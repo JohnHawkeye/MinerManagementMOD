@@ -1,4 +1,5 @@
 using MinerManagementMOD.Common.UI;
+using MinerManagementMOD.Systems;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,6 +11,11 @@ namespace MinerManagementMOD.Common.Players
         {
             // 鉱夫名簿
             if (MinerUISystem.Visible)
+            {
+                DisableItemUse();
+            }
+
+            if (SlotMachineUISystem.IsOpen)
             {
                 DisableItemUse();
             }

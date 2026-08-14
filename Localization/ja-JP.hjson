@@ -150,6 +150,11 @@ Mods: {
 				DisplayName: ロックピック
 				Tooltip: "鍵のかかったゴールドチェストを開錠できる。"
 			}
+
+			SlotMachine: {
+				DisplayName: スロットマシン
+				Tooltip: "それはスロカス、全ての始まり…。"
+			}
         }
     }
 }

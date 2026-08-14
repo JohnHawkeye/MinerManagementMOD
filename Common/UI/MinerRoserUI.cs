@@ -238,10 +238,8 @@ namespace MinerManagementMOD.Common.UI
             UIMouseEvent evt,
             UIElement listeningElement)
         {
-
             MinerData data =
                 MinerRosterSystem.Miners[currentPage];
-
 
             // 既に雇用済み
             if (data.IsHired)
@@ -249,27 +247,55 @@ namespace MinerManagementMOD.Common.UI
 
             Player player = Main.LocalPlayer;
 
-            // お金確認
-            if (player.CountItem(ItemID.GoldCoin) < 1)
+            // 3番目の鉱夫（MagicMiner）は
+            // プラチナマイナーコイン10枚
+            if (currentPage == 2)
             {
-                Main.NewText(
-                    "10ゴールド必要です。",
-                    255, 100, 100
-                );
-                return;
+                int platinumMinerCoin =
+                    ModContent.ItemType<PlatinumMinerCoin>();
+
+                if (player.CountItem(platinumMinerCoin) < 10)
+                {
+                    Main.NewText(
+                        "プラチナマイナーコインが10枚必要です。",
+                        255, 100, 100
+                    );
+                    return;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    player.ConsumeItem(platinumMinerCoin);
+                }
+            }
+            // それ以外の鉱夫は
+            // ゴールドマイナーコイン10枚
+            else
+            {
+                int goldMinerCoin =
+                    ModContent.ItemType<GoldMinerCoin>();
+
+                if (player.CountItem(goldMinerCoin) < 10)
+                {
+                    Main.NewText(
+                        "ゴールドマイナーコインが10枚必要です。",
+                        255, 100, 100
+                    );
+                    return;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    player.ConsumeItem(goldMinerCoin);
+                }
             }
 
-
-            player.BuyItem(10000);
-
+            // 雇用処理
             MinerData miner = MinerRosterSystem.Miners[currentPage];
-            miner.ID = MinerRosterSystem.GetNextID();
-            miner.Name = "新人鉱夫";
-            miner.TexturePath = "MinerManagementMOD/Assets/UI/MinerPortrait";
+
             miner.IsHired = true;
 
             RefreshPage();
-
 
             Main.NewText(
                 "新人鉱夫を雇いました！",
@@ -407,6 +433,19 @@ namespace MinerManagementMOD.Common.UI
             MinerData miner =
                 MinerRosterSystem.Miners[currentPage];
 
+            // 雇用料金表示
+            if (!miner.IsHired)
+            {
+                if (currentPage == 2)
+                {
+                    hireButton.SetText("雇う\n10P");
+                }
+                else
+                {
+                    hireButton.SetText("雇う\n10G");
+                }
+            }
+
             //Summon button
             if (miner.IsHired)
             {
@@ -454,7 +493,7 @@ namespace MinerManagementMOD.Common.UI
                         AssetRequestMode.ImmediateLoad));
             }
 
-            nameText.SetText(miner.IsHired ? miner.Name : "空き");
+            nameText.SetText(miner.Name);
 
             if (miner.IsHired)
             {
@@ -491,6 +530,21 @@ namespace MinerManagementMOD.Common.UI
             pageText.SetText(
                 $"{currentPage + 1}/{MinerRosterSystem.MaxMiner}"
                 );
+
+
+            miner = MinerRosterSystem.Miners[currentPage];
+
+            Main.NewText(
+                $"ID={miner.ID} / " +
+                $"Name={miner.Name} / " +
+                $"IsHired={miner.IsHired} / " +
+                $"Level={miner.MiningLevel} / " +
+                $"Power={miner.MiningPower} / " +
+                $"Speed={miner.MiningSpeed} / " +
+                $"Capacity={miner.CarryCapacity} / " +
+                $"Bonus={miner.OreBonusChance} / " +
+                $"Light={miner.HasLight}"
+            );
         }
 
     }

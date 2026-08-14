@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj": {}
+    "C:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj": {}
   },
   "projects": {
-    "c:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj": {
+    "C:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj",
+        "projectUniqueName": "C:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj",
         "projectName": "MinerManagementMOD",
-        "projectPath": "c:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj",
+        "projectPath": "C:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\MinerManagementMOD.csproj",
         "packagesPath": "C:\\Users\\vtulp\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\obj\\",
+        "outputPath": "C:\\Users\\vtulp\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MinerManagementMOD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\vtulp\\AppData\\Roaming\\NuGet\\NuGet.Config"

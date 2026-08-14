@@ -194,24 +194,6 @@ namespace MinerManagementMOD.UI
             {
                 for (int x = 0; x < Columns; x++)
                 {
-                    // 1マスの背景
-                    UIPanel cell = new UIPanel();
-
-                    cell.Width.Set(CellSize, 0f);
-                    cell.Height.Set(CellSize, 0f);
-
-                    cell.Left.Set(
-                        120f + x * CellSize,
-                        0f
-                    );
-
-                    cell.Top.Set(
-                        60f + y * CellSize,
-                        0f
-                    );
-
-                    panel.Append(cell);
-
                     // 絵柄画像
                     UIImage image = new UIImage(
                         GetSymbolTexture(SlotSymbol.Pickaxe)
@@ -220,10 +202,10 @@ namespace MinerManagementMOD.UI
                     image.Width.Set(CellSize, 0f);
                     image.Height.Set(CellSize, 0f);
 
-                    image.Left.Set(0f, 0f);
-                    image.Top.Set(0f, 0f);
+                    image.Left.Set(120f + x * CellSize, 0f);
+                    image.Top.Set(60f + y * CellSize, 0f);
 
-                    cell.Append(image);
+                    panel.Append(image);
 
                     symbolImages[x, y] = image;
                 }
@@ -361,7 +343,7 @@ namespace MinerManagementMOD.UI
             int ownedCoins = player.CountItem(goldMinerCoinType);
 
             // ゴールドコインを持っていなければ回せない
-            if (ownedCoins <betAmount)
+            if (ownedCoins < betAmount)
             {
                 Main.NewText(
                     $"ゴールドマイナーコインがありません！ Bet:{betAmount}"
@@ -371,7 +353,7 @@ namespace MinerManagementMOD.UI
             }
 
             // BET成功
-            for(int i = 0;i <betAmount; i++)
+            for (int i = 0; i < betAmount; i++)
             {
                 player.ConsumeItem(goldMinerCoinType);
             }
@@ -400,34 +382,9 @@ namespace MinerManagementMOD.UI
             // 当たりを取得
             winningSymbols.Clear();
 
-            // 小当たり
-            for (int i = (int)SlotSymbol.Pickaxe;
-                 i <= (int)SlotSymbol.Ore;
-                 i++)
+            for (int i = 0; i < symbols.Length; i++)
             {
-                if (counts[i] >= 3)
-                {
-                    winningSymbols.Add((SlotSymbol)i);
-                }
-            }
-
-            // 中当たり
-            for (int i = (int)SlotSymbol.Spade;
-                 i <= (int)SlotSymbol.Diamond;
-                 i++)
-            {
-                if (counts[i] >= 3)
-                {
-                    winningSymbols.Add((SlotSymbol)i);
-                }
-            }
-
-            // 大当たり
-            for (int i = (int)SlotSymbol.Ten;
-                 i <= (int)SlotSymbol.King;
-                 i++)
-            {
-                if (counts[i] >= 3)
+                if (counts[i] >= 5)
                 {
                     winningSymbols.Add((SlotSymbol)i);
                 }
@@ -464,67 +421,28 @@ namespace MinerManagementMOD.UI
                 }
             }
         }
+
         private SlotSymbol GetRandomSymbol()
         {
-            // 出現率
-            const int SmallWeight = 50;
-            const int MediumWeight = 30;
-            const int BigWeight = 20;
 
-            int totalWeight =
-                SmallWeight +
-                MediumWeight +
-                BigWeight;
-
-            int value = random.Next(totalWeight);
-
-            // 小当たり
-            if (value < SmallWeight)
-            {
-                return GetRandomSmallSymbol();
-            }
-
-            value -= SmallWeight;
-
-            // 中当たり
-            if (value < MediumWeight)
-            {
-                return GetRandomMediumSymbol();
-            }
-
-            // 大当たり
-            return GetRandomBigSymbol();
-        }
-        private SlotSymbol GetRandomSmallSymbol()
-        {
-            return random.Next(4) switch
+            return random.Next(symbols.Length) switch
             {
                 0 => SlotSymbol.Pickaxe,
                 1 => SlotSymbol.Rope,
                 2 => SlotSymbol.Bomb,
-                _ => SlotSymbol.Ore
-            };
-        }
+                3 => SlotSymbol.Ore,
 
-        private SlotSymbol GetRandomMediumSymbol()
-        {
-            return random.Next(4) switch
-            {
-                0 => SlotSymbol.Spade,
-                1 => SlotSymbol.Heart,
-                2 => SlotSymbol.Club,
-                _ => SlotSymbol.Diamond
-            };
-        }
+                4 => SlotSymbol.Ten,
+                5 => SlotSymbol.Jack,
+                6 => SlotSymbol.Queen,
+                7 => SlotSymbol.King,
 
-        private SlotSymbol GetRandomBigSymbol()
-        {
-            return random.Next(4) switch
-            {
-                0 => SlotSymbol.Ten,
-                1 => SlotSymbol.Jack,
-                2 => SlotSymbol.Queen,
-                _ => SlotSymbol.King
+                8 => SlotSymbol.Spade,
+                9 => SlotSymbol.Heart,
+                10 => SlotSymbol.Club,
+                11 => SlotSymbol.Diamond,
+
+                _ => SlotSymbol.Pickaxe
             };
         }
 
@@ -683,7 +601,10 @@ namespace MinerManagementMOD.UI
 
             winScale = scale;
 
-            // 現在の当たり絵柄を拡大
+            // ==========================================
+            // 現在の当たり絵柄を中央から拡大
+            // ==========================================
+
             for (int y = 0; y < Rows; y++)
             {
                 for (int x = 0; x < Columns; x++)
@@ -695,20 +616,33 @@ namespace MinerManagementMOD.UI
 
                     float size = CellSize * winScale;
 
-                    // サイズ変更
-                    image.Width.Set(size, 0f);
-                    image.Height.Set(size, 0f);
+                    // 元の画像位置
+                    float baseX = 120f + x * CellSize;
+                    float baseY = 60f + y * CellSize;
 
-                    // 中心を32×32マスの中央に維持
+                    // 32×32の中心を基準に拡大
                     float offset =
                         (CellSize - size) / 2f;
 
-                    image.Left.Set(offset, 0f);
-                    image.Top.Set(offset, 0f);
+                    image.Width.Set(size, 0f);
+                    image.Height.Set(size, 0f);
+
+                    image.Left.Set(
+                        baseX + offset,
+                        0f
+                    );
+
+                    image.Top.Set(
+                        baseY + offset,
+                        0f
+                    );
                 }
             }
 
+            // ==========================================
             // 演出終了
+            // ==========================================
+
             if (winEffectTimer >= WinEffectDuration)
             {
                 ResetWinningImages();
@@ -738,8 +672,16 @@ namespace MinerManagementMOD.UI
                     image.Width.Set(CellSize, 0f);
                     image.Height.Set(CellSize, 0f);
 
-                    image.Left.Set(0f, 0f);
-                    image.Top.Set(0f, 0f);
+                    // 本来の位置へ戻す
+                    image.Left.Set(
+                        120f + x * CellSize,
+                        0f
+                    );
+
+                    image.Top.Set(
+                        60f + y * CellSize,
+                        0f
+                    );
                 }
             }
 
@@ -788,21 +730,21 @@ namespace MinerManagementMOD.UI
             if (symbol >= SlotSymbol.Pickaxe &&
                 symbol <= SlotSymbol.Ore)
             {
-                return 2;
+                return 1;
             }
 
             // 中当たり
             if (symbol >= SlotSymbol.Spade &&
                 symbol <= SlotSymbol.Diamond)
             {
-                return 5;
+                return 2;
             }
 
             // 大当たり
             if (symbol >= SlotSymbol.Ten &&
                 symbol <= SlotSymbol.King)
             {
-                return 15;
+                return 5;
             }
 
             return 0;

@@ -80,6 +80,8 @@
     "Tiles\\SlotMachineTile.cs": "MinerManagementMOD.Tiles",
     "Items\\SlotMachine.cs": "MinerManagementMOD.Items",
     "Common\\UI\\SlotMachineUI.cs": "MinerManagementMOD.Common.UI",
-    "Systems\\SlotMachineUISystem.cs": "MinerManagementMOD.Systems"
+    "Systems\\SlotMachineUISystem.cs": "MinerManagementMOD.Systems",
+    "Common\\Items\\MMMGlobalItem.cs": "MinerManagementMOD.Common.Items",
+    "Projectiles\\MagicMiningProjectile.cs": "MinerManagementMOD.Projectiles"
   }
 }

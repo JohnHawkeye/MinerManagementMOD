@@ -608,11 +608,11 @@ namespace MinerManagementMOD.NPCs
                     return ItemID.CrimtaneOre;
 
                 case TileID.Meteorite:
-                    return ItemID.MeteoriteBar; //後で修正推奨
+                    return ItemID.Meteorite; 
 
                 case TileID.Hellstone:
                     return ItemID.Hellstone;
-
+                    
                 case TileID.Cobalt:
                     return ItemID.CobaltOre;
                 case TileID.Palladium:

@@ -24,6 +24,7 @@ Mods: {
 			HealerNPC.DisplayName: Healer N P C
 			TopazCrab.DisplayName: Topaz Crab
 			TopazShieldCore.DisplayName: Topaz Shield Core
+			MagicMinerNPC.DisplayName: Magic Miner N P C
 		}
 
 		Items: {
@@ -170,6 +171,7 @@ Mods: {
 			TopazCrabShell.DisplayName: Topaz Crab Shell
 			TopazCrabLight.DisplayName: Topaz Crab Light
 			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
+			MagicMiningProjectile.DisplayName: Magic Mining Projectile
 		}
 
 		Tiles.SlotMachineTile.MapEntry: Slot Machine Tile

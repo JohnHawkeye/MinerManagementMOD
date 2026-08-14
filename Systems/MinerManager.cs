@@ -38,11 +38,22 @@ namespace MinerManagementMOD.Systems
                 return;
             }
 
+            int npcType;
+
+            if(data.ID == 3)
+            {
+                npcType = ModContent.NPCType<MagicMinerNPC>();
+            }
+            else
+            {
+                npcType = ModContent.NPCType<MinerNPC>();
+            }
+
             int npcID = NPC.NewNPC(
                 null,
                 (int)player.Center.X,
                 (int)player.Center.Y,
-                ModContent.NPCType<MinerNPC>()
+                npcType
             );
 
             NPC npc = Main.npc[npcID];
@@ -60,7 +71,6 @@ namespace MinerManagementMOD.Systems
 
                 npc.GivenName = data.Name;
             }
-
 
             Main.NewText(
                 $"{data.Name} を召喚しました。",

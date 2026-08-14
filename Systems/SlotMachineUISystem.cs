@@ -3,11 +3,14 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using MinerManagementMOD.UI;
 using Microsoft.Xna.Framework;
+using log4net.DateFormatter;
 
 namespace MinerManagementMOD.Systems
 {
     public class SlotMachineUISystem : ModSystem
     {
+        public static bool IsOpen {get;private set;}
+
         internal SlotMachineUI SlotUI;
         private UserInterface userInterface;
 
@@ -89,14 +92,14 @@ namespace MinerManagementMOD.Systems
         {
             slotMachinePosition = new Point(tileX,tileY);
             userInterface?.SetState(SlotUI);
+            IsOpen = true;
         }
 
         public void Hide()
         {
             userInterface?.SetState(null);
+            IsOpen =false;
         }
 
-        public bool IsOpen =>
-            userInterface?.CurrentState != null;
     }
 }
