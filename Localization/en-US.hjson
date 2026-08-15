@@ -1,5 +1,12 @@
 Mods: {
 	MinerManagementMOD: {
+		Currency: {
+			CopperMinerCoin: カッパーマイナーコイン
+			SilverMinerCoin: シルバーマイナーコイン
+			GoldMinerCoin: ゴールドマイナーコイン
+			PlatinumMinerCoin: プラチナマイナーコイン
+		}
+
 		NPCs: {
 			OreMerchant: {
 				TownNPCMood: {
@@ -25,6 +32,23 @@ Mods: {
 			TopazCrab.DisplayName: Topaz Crab
 			TopazShieldCore.DisplayName: Topaz Shield Core
 			MagicMinerNPC.DisplayName: Magic Miner N P C
+
+			BunnyGirl: {
+				DisplayName: Bunny Girl
+
+				TownNPCMood: {
+					Content: 私は満足しています。
+					NoHome: 家を持っていないのが 嫌なんです。
+					FarFromHome: 家から遠すぎる。
+					LoveSpace: 充分なスペースが あるのがいいね。
+					DislikeCrowded: 人混みが嫌いです。
+					HateCrowded: こんなに混んでいるのは 嫌だよ。
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				Census.SpawnCondition: Conditions unknown
+			}
 		}
 
 		Items: {
@@ -157,6 +181,11 @@ Mods: {
 				DisplayName: Slot Machine
 				Tooltip: ""
 			}
+
+			MinerBlessingPotion: {
+				DisplayName: Miner Blessing Potion
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -172,6 +201,7 @@ Mods: {
 			TopazCrabLight.DisplayName: Topaz Crab Light
 			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
 			MagicMiningProjectile.DisplayName: Magic Mining Projectile
+			LoveHeart.DisplayName: Love Heart
 		}
 
 		Tiles.SlotMachineTile.MapEntry: Slot Machine Tile

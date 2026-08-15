@@ -1,5 +1,13 @@
 Mods: {
 	MinerManagementMOD: {
+
+        Currency: {
+            CopperMinerCoin: "カッパーマイナーコイン"
+            SilverMinerCoin: "シルバーマイナーコイン"
+            GoldMinerCoin: "ゴールドマイナーコイン"
+            PlatinumMinerCoin: "プラチナマイナーコイン"
+        }
+		
         NPCs: {
 			OreMerchant: {
 				TownNPCMood: {
@@ -154,6 +162,11 @@ Mods: {
 			SlotMachine: {
 				DisplayName: スロットマシン
 				Tooltip: "それはスロカス、全ての始まり…。"
+			}
+
+			MinerBlessingPotion: {
+				DisplayName: 鉱夫の祝福ポーション
+				Tooltip: "採掘王の祝福があなたに多大な力をもたらす…！"
 			}
         }
     }

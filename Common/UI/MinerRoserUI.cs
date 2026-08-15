@@ -532,19 +532,19 @@ namespace MinerManagementMOD.Common.UI
                 );
 
 
-            miner = MinerRosterSystem.Miners[currentPage];
+            // miner = MinerRosterSystem.Miners[currentPage];
 
-            Main.NewText(
-                $"ID={miner.ID} / " +
-                $"Name={miner.Name} / " +
-                $"IsHired={miner.IsHired} / " +
-                $"Level={miner.MiningLevel} / " +
-                $"Power={miner.MiningPower} / " +
-                $"Speed={miner.MiningSpeed} / " +
-                $"Capacity={miner.CarryCapacity} / " +
-                $"Bonus={miner.OreBonusChance} / " +
-                $"Light={miner.HasLight}"
-            );
+            // Main.NewText(
+            //     $"ID={miner.ID} / " +
+            //     $"Name={miner.Name} / " +
+            //     $"IsHired={miner.IsHired} / " +
+            //     $"Level={miner.MiningLevel} / " +
+            //     $"Power={miner.MiningPower} / " +
+            //     $"Speed={miner.MiningSpeed} / " +
+            //     $"Capacity={miner.CarryCapacity} / " +
+            //     $"Bonus={miner.OreBonusChance} / " +
+            //     $"Light={miner.HasLight}"
+            // );
         }
 
     }

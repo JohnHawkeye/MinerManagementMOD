@@ -50,6 +50,7 @@ namespace MinerManagementMOD.NPCs
             TileID.Crimtane,
             TileID.Hellstone,
             TileID.Meteorite,
+            
                         // 宝石
             TileID.Amethyst,
             TileID.Topaz,

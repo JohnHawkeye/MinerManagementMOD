@@ -384,7 +384,32 @@ namespace MinerManagementMOD.UI
 
             for (int i = 0; i < symbols.Length; i++)
             {
-                if (counts[i] >= 5)
+                SlotSymbol symbol = (SlotSymbol)i;
+
+                int requiredCount = symbol switch
+                {
+                    // 小当たり：3個
+                    SlotSymbol.Pickaxe => 3,
+                    SlotSymbol.Rope => 3,
+                    SlotSymbol.Bomb => 3,
+                    SlotSymbol.Ore => 3,
+
+                    // 大当たり：5個
+                    SlotSymbol.Ten => 5,
+                    SlotSymbol.Jack => 5,
+                    SlotSymbol.Queen => 5,
+                    SlotSymbol.King => 5,
+
+                    // 中当たり：4個
+                    SlotSymbol.Spade => 4,
+                    SlotSymbol.Heart => 4,
+                    SlotSymbol.Club => 4,
+                    SlotSymbol.Diamond => 4,
+
+                    _ => 999
+                };
+
+                if (counts[i] >= requiredCount)
                 {
                     winningSymbols.Add((SlotSymbol)i);
                 }
@@ -459,87 +484,6 @@ namespace MinerManagementMOD.UI
             }
 
             return counts;
-        }
-
-        private void CheckResult(int[] counts)
-        {
-            List<SlotSymbol> winningSymbols =
-                new List<SlotSymbol>();
-
-            // 小当たり
-            for (int i = (int)SlotSymbol.Pickaxe;
-                 i <= (int)SlotSymbol.Ore;
-                 i++)
-            {
-                if (counts[i] >= 3)
-                {
-                    winningSymbols.Add((SlotSymbol)i);
-                }
-            }
-
-            // 中当たり
-            for (int i = (int)SlotSymbol.Spade;
-                 i <= (int)SlotSymbol.Diamond;
-                 i++)
-            {
-                if (counts[i] >= 3)
-                {
-                    winningSymbols.Add((SlotSymbol)i);
-                }
-            }
-
-            // 大当たり
-            for (int i = (int)SlotSymbol.Ten;
-                 i <= (int)SlotSymbol.King;
-                 i++)
-            {
-                if (counts[i] >= 3)
-                {
-                    winningSymbols.Add((SlotSymbol)i);
-                }
-            }
-
-            // ハズレ
-            if (winningSymbols.Count == 0)
-            {
-                Main.NewText("ハズレ！");
-                return;
-            }
-
-            // 配当計算
-            int payout = 0;
-
-            foreach (SlotSymbol symbol in winningSymbols)
-            {
-                int multiplier = GetPayoutMultiplier(symbol);
-
-                payout += multiplier;
-            }
-
-            // ゴールドコインを払い出す
-            Player player = Main.LocalPlayer;
-
-            if (payout > 0)
-            {
-                player.QuickSpawnItem(
-                    player.GetSource_Misc("SlotMachine"),
-                    ModContent.ItemType<GoldMinerCoin>(),
-                    payout
-                );
-            }
-
-            // 結果表示
-            Main.NewText(
-                $"当たり！ ゴールドマイナーコイン {payout}枚獲得！"
-            );
-
-            // それぞれの当たりも表示
-            foreach (SlotSymbol symbol in winningSymbols)
-            {
-                Main.NewText(
-                    $"{symbol} ×3 → {GetPayoutMultiplier(symbol)}枚"
-                );
-            }
         }
 
         private void StartCurrentWinEffect()
@@ -737,10 +681,33 @@ namespace MinerManagementMOD.UI
             if (symbol >= SlotSymbol.Spade &&
                 symbol <= SlotSymbol.Diamond)
             {
-                return 2;
+                return 3;
             }
 
             // 大当たり
+            if (symbol >= SlotSymbol.Ten &&
+                symbol <= SlotSymbol.King)
+            {
+                return 10;
+            }
+
+            return 0;
+        }
+
+        private int GetRequiredCount(SlotSymbol symbol)
+        {
+            if (symbol >= SlotSymbol.Pickaxe &&
+                symbol <= SlotSymbol.Ore)
+            {
+                return 3;
+            }
+
+            if (symbol >= SlotSymbol.Spade &&
+                symbol <= SlotSymbol.Diamond)
+            {
+                return 4;
+            }
+
             if (symbol >= SlotSymbol.Ten &&
                 symbol <= SlotSymbol.King)
             {
