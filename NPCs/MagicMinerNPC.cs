@@ -58,6 +58,7 @@ namespace MinerManagementMOD.NPCs
             TileID.Emerald,
             TileID.Ruby,
             TileID.Diamond,
+            TileID.ExposedGems
         };
 
         private static readonly HashSet<int> HardmodeOres = new()
@@ -233,7 +234,11 @@ namespace MinerManagementMOD.NPCs
 
         private void TeleportToPlayer(Player player)
         {
-            NPC.Center = player.Center;
+            int offsetX = player.direction ==1 ? -48 :48;
+            Vector2 target = player.Center +new Vector2(offsetX,0);
+
+            target.Y = player.Bottom.Y - NPC.height /2f;
+            NPC.Center = target;
             NPC.velocity = Vector2.Zero;
             NPC.direction = player.direction;
             NPC.spriteDirection = player.direction;

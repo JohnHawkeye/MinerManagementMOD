@@ -148,6 +148,18 @@ namespace MinerManagementMOD.NPCs
                 shopSpecialCurrency = MinerCoinCurrencySystem.PlatinumCurrencyID
             });
 
+            npcShop.Add(new Item(ModContent.ItemType<SlopeAccessory>())
+            {
+                shopCustomPrice = 20,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            });
+
+            npcShop.Add(new Item(ModContent.ItemType<OreSeed>())
+            {
+                shopCustomPrice = 90,
+                shopSpecialCurrency = MinerCoinCurrencySystem.SilverCurrencyID
+            });
+
             npcShop.Register();
         }
 

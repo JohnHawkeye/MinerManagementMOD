@@ -83,6 +83,11 @@
     "Systems\\SlotMachineUISystem.cs": "MinerManagementMOD.Systems",
     "Common\\Items\\MMMGlobalItem.cs": "MinerManagementMOD.Common.Items",
     "Projectiles\\MagicMiningProjectile.cs": "MinerManagementMOD.Projectiles",
-    "Items\\MinerBlessingPotion.cs": "MinerManagementMOD.Items"
+    "Items\\MinerBlessingPotion.cs": "MinerManagementMOD.Items",
+    "Commands\\TileDebugCommand.cs": "MinerManagementMOD.Commands",
+    "Items\\SlopeAccessory.cs": "MinerManagementMOD.Items",
+    "Items\\OreSeed.cs": "MinerManagementMOD.Items",
+    "Tiles\\OreSeedTile.cs": "MinerManagementMOD.Tiles",
+    "TileEntities\\OreSeedTileEntity.cs": "MinerManagementMOD.TileEntities"
   }
 }

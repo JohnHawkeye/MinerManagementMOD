@@ -168,6 +168,11 @@ Mods: {
 				DisplayName: 鉱夫の祝福ポーション
 				Tooltip: "採掘王の祝福があなたに多大な力をもたらす…！"
 			}
+
+			SlopeAccessory: {
+				DisplayName: スロープごろごろ
+				Tooltip: "歩いた場所の角が丸くなる。"
+			}
         }
     }
 }

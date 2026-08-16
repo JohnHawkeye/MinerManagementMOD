@@ -186,6 +186,16 @@ Mods: {
 				DisplayName: Miner Blessing Potion
 				Tooltip: ""
 			}
+
+			SlopeAccessory: {
+				DisplayName: Slope Accessory
+				Tooltip: ""
+			}
+
+			OreSeed: {
+				DisplayName: Ore Seed
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -204,6 +214,9 @@ Mods: {
 			LoveHeart.DisplayName: Love Heart
 		}
 
-		Tiles.SlotMachineTile.MapEntry: Slot Machine Tile
+		Tiles: {
+			SlotMachineTile.MapEntry: Slot Machine Tile
+			OreSeedTile.MapEntry: Ore Seed Tile
+		}
 	}
 }

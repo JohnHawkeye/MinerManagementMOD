@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using MinerManagementMOD.Items;
+using Terraria.ModLoader.UI;
 
 namespace MinerManagementMOD.UI
 {
@@ -38,7 +39,10 @@ namespace MinerManagementMOD.UI
             Spade,
             Heart,
             Club,
-            Diamond
+            Diamond,
+
+            // ボーナス突入用シンボル
+            Bonus
         }
         // --------------------------------
         // BET
@@ -58,6 +62,20 @@ namespace MinerManagementMOD.UI
         // Bet変更ボタン
         private UIText decreaseBetButton;
         private UIText increaseBetButton;
+
+        //autobutton
+        private UIImageButton autoPlayButton;
+        private bool isAutoPlay;
+
+        private double autoPlayTimer;
+
+        private const double AutoPlayDelay = 0.5;
+
+        // Auto / Stop ボタン画像
+        private Asset<Texture2D> autoTexture;
+        private Asset<Texture2D> stopTexture;
+
+
 
         // --------------------------------
         // 当たり演出
@@ -108,6 +126,83 @@ namespace MinerManagementMOD.UI
         private readonly Random random = new Random();
 
         // --------------------------------
+        // ボーナスゲーム
+        // --------------------------------
+
+        // 通常スピン1回ごとのボーナス突入抽選率
+        // 1 / 100 = 1%
+        private const double BonusTriggerChance = 1.0/60.0;
+
+        // ボーナスゲームは5ラウンド
+        private const int BonusRounds = 5;
+
+        // 1ラウンドにつき3マスを崩す
+        private const int BonusBreakCountPerRound = 3;
+
+        // ボーナス終了後、通常モードへ戻るまでの待ち時間
+        private const double BonusFinishDelay = 5.0;
+
+        // ボーナス中にまだ残っている15マス
+        private readonly bool[,] bonusBroken =
+            new bool[Columns, Rows];
+
+        // 崩したマスに表示する倍率
+        private readonly string[,] bonusMultipliers =
+            new string[Columns, Rows];
+
+        // 倍率表示用UI
+        private readonly UIText[,] bonusMultiplierTexts =
+            new UIText[Columns, Rows];
+
+        private bool isBonusGame;
+        private bool isBonusIntro;
+        private double bonusIntroTimer;
+        private const double BonusIntroDuration = 3.0;
+        private UIText bonusIntroText;
+        private bool isBonusSpinning;
+
+        private bool isBonusRevealing;
+        private double bonusRevealTimer;
+        private int bonusRevealIndex;
+        private readonly List<int> bonusPendingPositions = new List<int>();
+        private const double BonusRevealDuration = 0.45;
+        private const double BonusRevealChangeTime = 0.18;
+
+        // ボーナス開始時に15マスへ先に倍率を割り当てる
+        private readonly string[,] bonusAssignedMultipliers =
+            new string[Columns, Rows];
+        private double bonusSpinTimer;
+        private double bonusChangeTimer;
+        private int bonusRound;
+        private int bonusTotalMultiplier;
+        private double bonusFinishTimer;
+        private bool isShowingBonusResult;
+
+        private const double BonusSpinDuration = 1.5;
+        private const double BonusChangeInterval = 0.08;
+
+        // 「ハズレ」の表示を含む5種類
+        private readonly string[] bonusResults =
+        {
+            "ハズレ",
+            "x1",
+            "x2",
+            "x5",
+            "x10"
+        };
+
+        // 重み付き抽選。
+        // ハズレが最も多く、x1/x2が次点、x5/x10は極めて低確率。
+        private readonly int[] bonusResultWeights =
+        {
+            700, // ハズレ 70.0%
+            200, // x1     20.0%
+             80, // x2      8.0%
+             18, // x5      1.8%
+              2  // x10     0.2%
+        };
+
+        // --------------------------------
         // スロット演出用
         // --------------------------------
 
@@ -131,8 +226,11 @@ namespace MinerManagementMOD.UI
             Append(panel);
 
             CreateSlotCells();
+            CreateBonusMultiplierTexts();
+            CreateBonusIntroText();
             RandomizeSymbols();
             CreatePlayButton();
+            CreateAutoPlayButton();
 
             CreateCoinDisplay();
             CreateBetControls();
@@ -145,6 +243,44 @@ namespace MinerManagementMOD.UI
 
             double deltaTime =
                 gameTime.ElapsedGameTime.TotalSeconds;
+
+            // --------------------------------
+            // ボーナスゲーム終了待ち
+            // --------------------------------
+
+            if (isShowingBonusResult)
+            {
+                bonusFinishTimer += deltaTime;
+
+                if (bonusFinishTimer >= BonusFinishDelay)
+                {
+                    EndBonusGame();
+                }
+
+                return;
+            }
+
+            // --------------------------------
+            // ボーナスゲーム中
+            // --------------------------------
+
+            if (isBonusIntro)
+            {
+                bonusIntroTimer += deltaTime;
+                if (bonusIntroText != null)
+                    bonusIntroText.SetText("ボーナスゲーム突入！！");
+
+                if (bonusIntroTimer >= BonusIntroDuration)
+                    BeginBonusBoard();
+
+                return;
+            }
+
+            if (isBonusGame)
+            {
+                UpdateBonusGame(deltaTime);
+                return;
+            }
 
             // --------------------------------
             // 当たり演出中
@@ -165,6 +301,7 @@ namespace MinerManagementMOD.UI
 
             if (!isSpinning)
             {
+                UpdateAutoPlay(deltaTime);
                 return;
             }
 
@@ -185,6 +322,32 @@ namespace MinerManagementMOD.UI
             if (spinTimer >= SpinDuration)
             {
                 StopSpin();
+            }
+        }
+
+        private void UpdateAutoPlay(double deltaTime)
+        {
+            if (!isAutoPlay)
+                return;
+
+            // 当たり演出中などは開始しない
+            if (isShowingWinEffect ||
+                isBonusGame ||
+                isShowingBonusResult)
+            {
+                return;
+            }
+
+            autoPlayTimer -= deltaTime;
+
+            if (autoPlayTimer <= 0.0)
+            {
+                autoPlayTimer = 0.0;
+
+                StartSpin();
+
+                // 次回までの待ち時間
+                autoPlayTimer = AutoPlayDelay;
             }
         }
 
@@ -212,6 +375,45 @@ namespace MinerManagementMOD.UI
             }
         }
 
+        private void CreateBonusMultiplierTexts()
+        {
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    UIText text = new UIText("");
+                    text.Width.Set(CellSize, 0f);
+                    text.Height.Set(CellSize, 0f);
+                    text.Left.Set(0f, 0f);
+                    text.Top.Set(0f, 0f);
+
+                    // 画像の上に倍率を表示するため、後からAppendする。
+                    text.TextColor = Color.White;
+                    text.HAlign = 0.5f;
+                    text.VAlign = 0.5f;
+                    text.OverflowHidden = false;
+
+                    // 各UIImageの子要素にするので、文字が対応するBlock2の中に固定される。
+                    symbolImages[x, y].Append(text);
+                    bonusMultiplierTexts[x, y] = text;
+                }
+            }
+        }
+
+        private void CreateBonusIntroText()
+        {
+            bonusIntroText = new UIText("ボーナスゲーム突入！！", 1.5f);
+            bonusIntroText.Width.Set(380f, 0f);
+            bonusIntroText.Height.Set(50f, 0f);
+            bonusIntroText.Left.Set(20f, 0f);
+            bonusIntroText.Top.Set(32f, 0f);
+            bonusIntroText.HAlign = 0.5f;
+            bonusIntroText.VAlign = 0.5f;
+            bonusIntroText.TextColor = Color.Gold;
+            bonusIntroText.SetText("");
+            panel.Append(bonusIntroText);
+        }
+
         private void CreatePlayButton()
         {
             playButton = new UIImageButton(
@@ -233,6 +435,68 @@ namespace MinerManagementMOD.UI
             };
 
             panel.Append(playButton);
+        }
+
+        private void CreateAutoPlayButton()
+        {
+            autoTexture = ModContent.Request<Texture2D>(
+                "MinerManagementMOD/Assets/UI/Slot/Auto"
+            );
+
+            stopTexture = ModContent.Request<Texture2D>(
+                "MinerManagementMOD/Assets/UI/Slot/Stop"
+            );
+
+            autoPlayButton = new UIImageButton(autoTexture);
+
+            autoPlayButton.Width.Set(32f, 0f);
+            autoPlayButton.Height.Set(32f, 0f);
+
+            // Playボタンの右横
+            autoPlayButton.Left.Set(260f, 0f);
+            autoPlayButton.Top.Set(180f, 0f);
+
+            autoPlayButton.OnLeftClick += (evt, element) =>
+            {
+                ToggleAutoPlay();
+            };
+
+            panel.Append(autoPlayButton);
+        }
+
+        private void DisableAutoPlay()
+        {
+            isAutoPlay = false;
+            autoPlayTimer = 0.0;
+
+            if (autoPlayButton != null)
+                autoPlayButton.SetImage(autoTexture);
+        }
+
+        private void ToggleAutoPlay()
+        {
+            isAutoPlay = !isAutoPlay;
+
+            if (isAutoPlay)
+            {
+                autoPlayButton.SetImage(stopTexture);
+
+                autoPlayTimer = AutoPlayDelay;
+            }
+            else
+            {
+                autoPlayButton.SetImage(autoTexture);
+
+                autoPlayTimer = 0.0;
+            }
+        }
+
+        private void PlaySpinSound()
+        {
+            SoundEngine.PlaySound(
+                new SoundStyle("MinerManagementMOD/Assets/Sounds/Play"),
+                Main.LocalPlayer.Center
+            );
         }
 
         private void CreateCoinDisplay()
@@ -332,8 +596,16 @@ namespace MinerManagementMOD.UI
 
         private void StartSpin()
         {
+            // ボーナス中はコインを消費せず、ボーナススピンを開始
+            if (isBonusGame)
+            {
+                PlaySpinSound();
+                StartBonusSpin();
+                return;
+            }
+
             // すでに回っているなら何もしない
-            if (isSpinning || isShowingWinEffect)
+            if (isSpinning || isShowingWinEffect || isShowingBonusResult)
                 return;
 
             Player player = Main.LocalPlayer;
@@ -359,6 +631,7 @@ namespace MinerManagementMOD.UI
             }
 
             UpdateCoinDisplay();
+            PlaySpinSound();
 
             isSpinning = true;
 
@@ -375,6 +648,14 @@ namespace MinerManagementMOD.UI
 
             spinTimer = 0.0;
             changeTimer = 0.0;
+
+            // 約100回に1回の確率でボーナス突入。
+            // ボーナス発生時は3つのBonusシンボルを強制的に揃える。
+            if (random.NextDouble() < BonusTriggerChance)
+            {
+                TriggerBonusSymbol();
+                return;
+            }
 
             // 最終結果を集計
             int[] counts = CountSymbols();
@@ -428,6 +709,422 @@ namespace MinerManagementMOD.UI
             isShowingWinEffect = true;
 
             StartCurrentWinEffect();
+        }
+
+
+        // ========================================
+        // ボーナスゲーム
+        // ========================================
+
+        private void TriggerBonusSymbol()
+        {
+
+            DisableAutoPlay();
+
+            // 通常の15マスをいったんランダムにする
+            RandomizeSymbols();
+
+            // 3か所をBonusシンボルに変更
+            List<int> positions = new List<int>();
+
+            while (positions.Count < 3)
+            {
+                int position = random.Next(Columns * Rows);
+
+                if (!positions.Contains(position))
+                {
+                    positions.Add(position);
+                }
+            }
+
+            foreach (int position in positions)
+            {
+                int x = position % Columns;
+                int y = position / Columns;
+
+                result[x, y] = SlotSymbol.Bonus;
+                symbolImages[x, y].SetImage(GetSymbolTexture(SlotSymbol.Bonus));
+            }
+
+            Main.NewText("BONUS GAME!!");
+
+            // BONUS絵柄3つ成立時の派手な「キーン！」
+            SoundEngine.PlaySound(SoundID.ResearchComplete, Main.LocalPlayer.Center);
+            SoundEngine.PlaySound(SoundID.Item4, Main.LocalPlayer.Center);
+
+            // 3つ揃ったことを確認してからボーナスへ
+            StartBonusGame();
+        }
+
+        private void StartBonusGame()
+        {
+            // まず通常スロット上で「ボーナスゲーム突入！！」を3秒表示
+            isBonusGame = true;
+            isBonusIntro = true;
+            isBonusSpinning = false;
+            isShowingBonusResult = false;
+            bonusIntroTimer = 0.0;
+            bonusRound = 0;
+            bonusTotalMultiplier = 0;
+            bonusSpinTimer = 0.0;
+            bonusChangeTimer = 0.0;
+            bonusFinishTimer = 0.0;
+
+            Main.NewText("ボーナスゲーム突入！！");
+            if (bonusIntroText != null)
+                bonusIntroText.SetText("ボーナスゲーム突入！！");
+        }
+
+        private void BeginBonusBoard()
+        {
+            isBonusIntro = false;
+            if (bonusIntroText != null)
+                bonusIntroText.SetText("");
+
+            // 15マスの当たりをここで先に決定
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    bonusAssignedMultipliers[x, y] = GetRandomBonusResult();
+                    bonusBroken[x, y] = false;
+                    bonusMultipliers[x, y] = "";
+
+                    symbolImages[x, y].Width.Set(CellSize, 0f);
+                    symbolImages[x, y].Height.Set(CellSize, 0f);
+                    symbolImages[x, y].Left.Set(120f + x * CellSize, 0f);
+                    symbolImages[x, y].Top.Set(60f + y * CellSize, 0f);
+                    symbolImages[x, y].SetImage(GetBonusBlockTexture());
+
+                    bonusMultiplierTexts[x, y].SetText("");
+                    bonusMultiplierTexts[x, y].Width.Set(CellSize, 0f);
+                    bonusMultiplierTexts[x, y].Height.Set(CellSize, 0f);
+                    bonusMultiplierTexts[x, y].Left.Set(0f, 0f);
+                    bonusMultiplierTexts[x, y].Top.Set(0f, 0f);
+                }
+            }
+
+            Main.NewText("採掘ボーナス開始！");
+        }
+
+        private void UpdateBonusGame(double deltaTime)
+        {
+            if (isBonusSpinning)
+            {
+                bonusSpinTimer += deltaTime;
+                bonusChangeTimer += deltaTime;
+
+                if (bonusChangeTimer >= BonusChangeInterval)
+                {
+                    bonusChangeTimer = 0.0;
+                    RandomizeBonusBlockDisplay();
+                }
+
+                if (bonusSpinTimer >= BonusSpinDuration)
+                    StopBonusSpin();
+
+                return;
+            }
+
+            if (isBonusRevealing)
+                UpdateBonusReveal(deltaTime);
+        }
+
+        private void StartBonusSpin()
+        {
+            if (!isBonusGame ||
+                isBonusIntro ||
+                isBonusSpinning ||
+                isBonusRevealing ||
+                isShowingBonusResult ||
+                bonusRound >= BonusRounds)
+            {
+                return;
+            }
+
+            // すでに15マスすべて崩れていたら終了
+            if (CountUnbrokenBonusBlocks() < BonusBreakCountPerRound)
+            {
+                FinishBonusGame();
+                return;
+            }
+
+            isBonusSpinning = true;
+            bonusSpinTimer = 0.0;
+            bonusChangeTimer = 0.0;
+
+            RandomizeBonusBlockDisplay();
+        }
+
+        private void RandomizeBonusBlockDisplay()
+        {
+            // 残っているブロックだけ少しランダムに揺らす演出。
+            // 実際に崩すのはStopBonusSpinで確定する。
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    if (!bonusBroken[x, y])
+                    {
+                        symbolImages[x, y].SetImage(
+                            GetBonusBlockTexture()
+                        );
+                    }
+                }
+            }
+        }
+
+        private void StopBonusSpin()
+        {
+            isBonusSpinning = false;
+            bonusSpinTimer = 0.0;
+            bonusChangeTimer = 0.0;
+
+            List<int> available = new List<int>();
+            for (int y = 0; y < Rows; y++)
+                for (int x = 0; x < Columns; x++)
+                    if (!bonusBroken[x, y])
+                        available.Add(y * Columns + x);
+
+            bonusPendingPositions.Clear();
+            for (int i = 0; i < BonusBreakCountPerRound; i++)
+            {
+                int index = random.Next(available.Count);
+                bonusPendingPositions.Add(available[index]);
+                available.RemoveAt(index);
+            }
+
+            bonusRevealIndex = 0;
+            bonusRevealTimer = 0.0;
+            isBonusRevealing = true;
+        }
+
+        private void UpdateBonusReveal(double deltaTime)
+        {
+            if (bonusRevealIndex >= bonusPendingPositions.Count)
+            {
+                isBonusRevealing = false;
+                bonusRound++;
+
+                if (bonusRound >= BonusRounds)
+                    FinishBonusGame();
+                else
+                    Main.NewText($"ボーナス {bonusRound}/{BonusRounds}回目完了！");
+                return;
+            }
+
+            int position = bonusPendingPositions[bonusRevealIndex];
+            int x = position % Columns;
+            int y = position / Columns;
+            bonusRevealTimer += deltaTime;
+
+            if (bonusRevealTimer < BonusRevealChangeTime)
+            {
+                float progress = (float)(bonusRevealTimer / BonusRevealChangeTime);
+                SetBonusBlockScale(x, y, MathHelper.Lerp(1.0f, 1.18f, progress));
+            }
+            else if (bonusRevealTimer < BonusRevealDuration)
+            {
+                if (bonusRevealTimer - deltaTime < BonusRevealChangeTime)
+                {
+                    BreakBonusBlock(x, y);
+                    SoundEngine.PlaySound(SoundID.Tink, Main.LocalPlayer.Center);
+                }
+
+                float progress = (float)((bonusRevealTimer - BonusRevealChangeTime) / (BonusRevealDuration - BonusRevealChangeTime));
+                SetBonusBlockScale(x, y, MathHelper.Lerp(1.18f, 1.0f, progress));
+            }
+            else
+            {
+                SetBonusBlockScale(x, y, 1.0f);
+                bonusRevealIndex++;
+                bonusRevealTimer = 0.0;
+            }
+        }
+
+        private void SetBonusBlockScale(int x, int y, float scale)
+        {
+            float size = CellSize * scale;
+            float offset = (CellSize - size) / 2f;
+            symbolImages[x, y].Width.Set(size, 0f);
+            symbolImages[x, y].Height.Set(size, 0f);
+            symbolImages[x, y].Left.Set(120f + x * CellSize + offset, 0f);
+            symbolImages[x, y].Top.Set(60f + y * CellSize + offset, 0f);
+        }
+
+        private void BreakBonusBlock(int x, int y)
+        {
+            bonusBroken[x, y] = true;
+
+            // ボーナス開始時に決めておいた結果を使用
+            string resultText = bonusAssignedMultipliers[x, y];
+            bonusMultipliers[x, y] = resultText;
+
+            // 剥がした後はBlock2画像へ
+            symbolImages[x, y].SetImage(GetBonusBlock2Texture());
+            symbolImages[x, y].Width.Set(CellSize, 0f);
+            symbolImages[x, y].Height.Set(CellSize, 0f);
+            symbolImages[x, y].Left.Set(120f + x * CellSize, 0f);
+            symbolImages[x, y].Top.Set(60f + y * CellSize, 0f);
+
+            // ハズレは文字なし。それ以外は X1 / X2 / X5 / X10
+            if (resultText == "ハズレ")
+                bonusMultiplierTexts[x, y].SetText("");
+            else
+                bonusMultiplierTexts[x, y].SetText(resultText.ToUpperInvariant());
+
+            if (resultText == "x1")
+                bonusTotalMultiplier += 1;
+            else if (resultText == "x2")
+                bonusTotalMultiplier += 2;
+            else if (resultText == "x5")
+                bonusTotalMultiplier += 5;
+            else if (resultText == "x10")
+                bonusTotalMultiplier += 10;
+        }
+
+        private string GetRandomBonusResult()
+        {
+            int totalWeight = 0;
+
+            foreach (int weight in bonusResultWeights)
+                totalWeight += weight;
+
+            int roll = random.Next(totalWeight);
+
+            for (int i = 0; i < bonusResults.Length; i++)
+            {
+                if (roll < bonusResultWeights[i])
+                    return bonusResults[i];
+
+                roll -= bonusResultWeights[i];
+            }
+
+            return "ハズレ";
+        }
+
+        private int CountUnbrokenBonusBlocks()
+        {
+            int count = 0;
+
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    if (!bonusBroken[x, y])
+                        count++;
+                }
+            }
+
+            return count;
+        }
+
+        private void FinishBonusGame()
+        {
+            isBonusSpinning = false;
+            isShowingBonusResult = true;
+            bonusFinishTimer = 0.0;
+
+            // 最終倍率表示
+            Main.NewText(
+                $"BONUS終了！ トータル倍率 x{bonusTotalMultiplier}"
+            );
+
+            // Bet × トータル倍率を払い戻す
+            int payout = betAmount * bonusTotalMultiplier;
+
+            if (payout > 0)
+            {
+                Player player = Main.LocalPlayer;
+
+                int goldMinerCoinType =
+                    ModContent.ItemType<GoldMinerCoin>();
+
+                player.QuickSpawnItem(
+                    player.GetSource_Misc("SlotMachineBonus"),
+                    goldMinerCoinType,
+                    payout
+                );
+
+                UpdateCoinDisplay();
+
+                Main.NewText(
+                    $"ゴールドマイナーコイン {payout}枚獲得！"
+                );
+            }
+            else
+            {
+                Main.NewText("今回は払い戻しなし！");
+            }
+
+            Main.NewText("5秒後に通常スロットへ戻ります。");
+        }
+
+        private void EndBonusGame()
+        {
+            isBonusGame = false;
+            isBonusIntro = false;
+            if (bonusIntroText != null)
+                bonusIntroText.SetText("");
+            isBonusSpinning = false;
+            isBonusRevealing = false;
+            bonusIntroTimer = 0.0;
+            bonusRevealTimer = 0.0;
+            bonusRevealIndex = 0;
+            bonusPendingPositions.Clear();
+            isShowingBonusResult = false;
+
+            bonusRound = 0;
+            bonusTotalMultiplier = 0;
+            bonusFinishTimer = 0.0;
+
+            // 通常スロットの表示へ戻す
+            ResetBonusImages();
+
+            RandomizeSymbols();
+        }
+
+        private void ResetBonusImages()
+        {
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    bonusBroken[x, y] = false;
+                    bonusMultipliers[x, y] = "";
+
+                    symbolImages[x, y].Width.Set(CellSize, 0f);
+                    symbolImages[x, y].Height.Set(CellSize, 0f);
+                    symbolImages[x, y].Left.Set(
+                        120f + x * CellSize,
+                        0f
+                    );
+                    symbolImages[x, y].Top.Set(
+                        60f + y * CellSize,
+                        0f
+                    );
+
+                    bonusMultiplierTexts[x, y].SetText("");
+                    bonusMultiplierTexts[x, y].Left.Set(0f, 0f);
+                    bonusMultiplierTexts[x, y].Top.Set(0f, 0f);
+                    bonusMultiplierTexts[x, y].Width.Set(CellSize, 0f);
+                    bonusMultiplierTexts[x, y].Height.Set(CellSize, 0f);
+                }
+            }
+        }
+
+        private Asset<Texture2D> GetBonusBlockTexture()
+        {
+            return ModContent.Request<Texture2D>(
+                "MinerManagementMOD/Assets/UI/Slot/Block"
+            );
+        }
+
+        private Asset<Texture2D> GetBonusBlock2Texture()
+        {
+            return ModContent.Request<Texture2D>(
+                "MinerManagementMOD/Assets/UI/Slot/Block2"
+            );
         }
 
         private void RandomizeSymbols()
@@ -757,6 +1454,9 @@ namespace MinerManagementMOD.UI
 
                 SlotSymbol.Diamond =>
                     "MinerManagementMOD/Assets/UI/Slot/Diamond",
+
+                SlotSymbol.Bonus =>
+                    "MinerManagementMOD/Assets/UI/Slot/Bonus",
 
                 _ =>
                     "MinerManagementMOD/Assets/UI/Slot/Pickaxe"
