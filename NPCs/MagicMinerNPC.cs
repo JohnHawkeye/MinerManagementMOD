@@ -22,7 +22,7 @@ namespace MinerManagementMOD.NPCs
         public int OreBonusChance;
         public bool HasLight;
 
-        private const float TeleportDistance = 500f;
+        private const float TeleportDistance = 384f;
 
         private const int DetectRange = 12;
         private Point targetTile = Point.Zero;
@@ -201,12 +201,26 @@ namespace MinerManagementMOD.NPCs
                 return;
             }
 
+            // ------------------------------------------
             // 十分近ければ停止
-            if (distance < 4f)
+            // ------------------------------------------
+
+            const float StopDistance = 70f;
+
+            if (distance < StopDistance)
             {
                 NPC.velocity.X *= 0.8f;
+
+                if (System.Math.Abs(NPC.velocity.X) < 0.1f)
+                    NPC.velocity.X = 0f;
+
+                // 近距離では向きを変更しない
                 return;
             }
+
+            // ------------------------------------------
+            // プレイヤーに向かって移動
+            // ------------------------------------------
 
             float speed = 4f;
 
@@ -215,16 +229,25 @@ namespace MinerManagementMOD.NPCs
 
             NPC.velocity.X = move.X;
 
-            // 向きを変更
-            if (NPC.velocity.X != 0f)
+            // ------------------------------------------
+            // 向き変更
+            // ------------------------------------------
+
+            const float DirectionThreshold = 20f;
+
+            // X方向に十分な距離がある場合だけ向きを変更
+            if (System.Math.Abs(difference.X) > DirectionThreshold)
             {
                 NPC.direction =
-                    NPC.velocity.X > 0f ? 1 : -1;
+                    difference.X > 0f ? 1 : -1;
 
                 NPC.spriteDirection = NPC.direction;
             }
 
-            //jump
+            // ------------------------------------------
+            // ジャンプ
+            // ------------------------------------------
+
             if (player.Center.Y + 24 < NPC.Center.Y &&
                 NPC.collideY)
             {
@@ -234,10 +257,10 @@ namespace MinerManagementMOD.NPCs
 
         private void TeleportToPlayer(Player player)
         {
-            int offsetX = player.direction ==1 ? -48 :48;
-            Vector2 target = player.Center +new Vector2(offsetX,0);
+            int offsetX = player.direction == 1 ? -48 : 48;
+            Vector2 target = player.Center + new Vector2(offsetX, 0);
 
-            target.Y = player.Bottom.Y - NPC.height /2f;
+            target.Y = player.Bottom.Y - NPC.height / 2f;
             NPC.Center = target;
             NPC.velocity = Vector2.Zero;
             NPC.direction = player.direction;
@@ -380,10 +403,18 @@ namespace MinerManagementMOD.NPCs
             direction.Normalize();
 
             // ターゲット方向を向く
-            NPC.direction =
-                direction.X >= 0f ? 1 : -1;
+            const float DirectionThreshold = 16f;
 
-            NPC.spriteDirection = NPC.direction;
+            float horizontalDistance =
+                targetPosition.X - NPC.Center.X;
+
+            if (System.Math.Abs(horizontalDistance) > DirectionThreshold)
+            {
+                NPC.direction = direction.X >= 0f ? 1 : -1;
+
+                NPC.spriteDirection = NPC.direction;
+            }
+
 
             // =====================================================
             // 後でProjectile発射に使用する

@@ -123,7 +123,7 @@ namespace MinerManagementMOD.Systems
             {
                 var data = minerList[i];
 
-                if(data.ContainsKey("ID"))
+                if (data.ContainsKey("ID"))
                     Miners[i].ID = data.GetInt("ID");
 
                 Miners[i].IsHired = data.GetBool("IsHired");
@@ -139,9 +139,9 @@ namespace MinerManagementMOD.Systems
                 Miners[i].CarryCapacity = data.GetInt("CarryCapacity");
                 Miners[i].OreBonusChance = data.GetInt("OreBonusChance");
 
-                if(data.ContainsKey("Name"))
+                if (data.ContainsKey("Name"))
                     Miners[i].Name = data.GetString("Name");
-                
+
                 if (data.ContainsKey("StyleInfo"))
                     Miners[i].StyleInfo = data.GetString("StyleInfo");
                 else
@@ -213,18 +213,18 @@ namespace MinerManagementMOD.Systems
                 hasLight: false
             );
 
-            // 5人目：通常鉱夫（仮）
+            // 5人目：採掘の女神
             Miners[4] = CreateDefaultMiner(
                 nextMinerID++,
-                "通常鉱夫4",
-                "MinerManagementMOD/Assets/UI/EmptyPortrait",
-                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                "採掘の女神",
+                "MinerManagementMOD/Assets/UI/MiningGoddess",
+                "主人の背後に浮かび、ゴールドマイナーコインを捧げることで、周囲30ブロック以内の鉱石を一瞬で採掘する。",
                 miningLevel: 1,
-                miningPower: 1,
-                miningSpeed: 1,
-                carryCapacity: 80,
-                oreBonusChance: 30,
-                hasLight: false
+                miningPower: 999,
+                miningSpeed: 999,
+                carryCapacity: 9999,
+                oreBonusChance: 0,
+                hasLight: true
             );
         }
 

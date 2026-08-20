@@ -49,6 +49,24 @@ Mods: {
 
 				Census.SpawnCondition: Conditions unknown
 			}
+
+			MiningGoddessNPC: {
+				DisplayName: Mining Goddess N P C
+
+				TownNPCMood: {
+					Content: 私は満足しています。
+					NoHome: 家を持っていないのが 嫌なんです。
+					FarFromHome: 家から遠すぎる。
+					LoveSpace: 充分なスペースが あるのがいいね。
+					DislikeCrowded: 人混みが嫌いです。
+					HateCrowded: こんなに混んでいるのは 嫌だよ。
+					LoveBiome: 私は {BiomeName} を 愛している。
+					LikeNPC_Princess: I like {NPCName}.
+					Princess_LovesNPC: I like {NPCName}.
+				}
+
+				Census.SpawnCondition: Conditions unknown
+			}
 		}
 
 		Items: {
@@ -196,6 +214,11 @@ Mods: {
 				DisplayName: Ore Seed
 				Tooltip: ""
 			}
+
+			StoneBomb: {
+				DisplayName: Stone Bomb
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -212,6 +235,7 @@ Mods: {
 			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
 			MagicMiningProjectile.DisplayName: Magic Mining Projectile
 			LoveHeart.DisplayName: Love Heart
+			StoneBombProjectile.DisplayName: Stone Bomb Projectile
 		}
 
 		Tiles: {

@@ -2,8 +2,36 @@
 ワールド生成時に追加のゴールドチェスト、トレジャーアイテムの追加などが行われます。
 ゲームバランスはあまり考慮されていません。
 ですので、あまり重要なゲームのために使用せず、楽観的な試用で遊んでみてください。
+※シングルプレイ前提で制作しております。マルチプレイでの動作は保証できません。ご了承ください。
 
 This mod was developed with the aim of simply enjoying ore mining.
 It adds features such as extra gold chests and treasure items during world generation.
 Game balance was not a primary consideration during development.
 Therefore, please avoid using it for serious playthroughs; instead, feel free to try it out casually.
+*This title is designed for single-player gameplay. Operation in multiplayer mode is not guaranteed. Thank you for your understanding.
+
+<Ver 0.1>
+　1．鉱夫名簿で鉱夫を雇い、鉱物を掘らせることができます。一定確率でボーナス。
+　2．トレジャーアイテムが宝箱に入っている可能性があります。ワールド生成時にゴールドチェストが増量。
+　3．採掘に便利な道具が作れます。レシピブラウザーなどでご確認ください。
+　4．MODボスと戦えます。採掘パワーでのみ、ダメージが与えられます。
+　5．スロットマシンを作って設置すると、スロットゲームが楽しめます。
+
+<Ver 0.2>
+　・雇える鉱夫に魔法採掘師を追加。採掘可能な鉱石をめがけて魔法を放ちます。
+　・スロットマシンの当たりの確立を調整。ボーナスゲームを追加。
+　・バニーガール登場。マイナーコインと特別なアイテムを交換できます。
+
+<Ver 0.1>
+1. You can hire miners from the miner roster to mine ores for you. There is a chance to receive a bonus.
+2. Treasure items may be found in treasure chests. The number of Gold Chests is increased during world generation.
+3. You can craft tools useful for mining; please check the Recipe Browser for details.
+4. You can battle a mod-exclusive boss. Damage can only be dealt using mining power.
+5. You can craft and place a slot machine to play a slot game.
+
+<Ver 0.2>
+- Added the "Magic Miner" to the list of hireable miners; they cast magic spells at mineable ores.
+- Adjusted the winning odds for the slot machine and added a bonus game.
+- Added a Bunny Girl NPC; you can exchange Miner Coins for special items.
+
+Sorry.This game supports Japanese localization.

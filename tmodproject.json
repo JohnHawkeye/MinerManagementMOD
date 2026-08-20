@@ -88,6 +88,7 @@
     "Items\\SlopeAccessory.cs": "MinerManagementMOD.Items",
     "Items\\OreSeed.cs": "MinerManagementMOD.Items",
     "Tiles\\OreSeedTile.cs": "MinerManagementMOD.Tiles",
-    "TileEntities\\OreSeedTileEntity.cs": "MinerManagementMOD.TileEntities"
+    "TileEntities\\OreSeedTileEntity.cs": "MinerManagementMOD.TileEntities",
+    "NPCs\\MiningGoddessNPC.cs": "MinerManagementMOD.NPCs"
   }
 }

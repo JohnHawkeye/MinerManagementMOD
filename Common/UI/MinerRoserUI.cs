@@ -267,6 +267,25 @@ namespace MinerManagementMOD.Common.UI
                 {
                     player.ConsumeItem(platinumMinerCoin);
                 }
+            }// 5人目：採掘の女神
+            else if (currentPage == 4)
+            {
+                int platinumMinerCoin =
+                    ModContent.ItemType<PlatinumMinerCoin>();
+
+                if (player.CountItem(platinumMinerCoin) < 100)
+                {
+                    Main.NewText(
+                        "採掘の女神を雇うには、プラチナマイナーコインが100枚必要です。",
+                        255, 100, 100
+                    );
+                    return;
+                }
+
+                for (int i = 0; i < 100; i++)
+                {
+                    player.ConsumeItem(platinumMinerCoin);
+                }
             }
             // それ以外の鉱夫は
             // ゴールドマイナーコイン10枚
@@ -439,6 +458,10 @@ namespace MinerManagementMOD.Common.UI
                 if (currentPage == 2)
                 {
                     hireButton.SetText("雇う\n10P");
+                }
+                else if(currentPage == 4)
+                {
+                    hireButton.SetText("雇う\n100P");
                 }
                 else
                 {

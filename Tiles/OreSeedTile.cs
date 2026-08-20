@@ -15,6 +15,8 @@ namespace MinerManagementMOD.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileMergeDirt[Type] = true;
 
+            Main.tileLighted[Type] = true;
+
             Main.tileFrameImportant[Type] = true;
 
             DustType = DustID.Stone;

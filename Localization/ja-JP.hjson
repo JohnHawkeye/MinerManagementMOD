@@ -173,6 +173,16 @@ Mods: {
 				DisplayName: スロープごろごろ
 				Tooltip: "歩いた場所の角が丸くなる。"
 			}
+
+			OreSeed: {
+				DisplayName: 魔法の鉱石の種
+				Tooltip: "ストーンブロックに植えると、鉱石が生えてくる不思議な種。"
+			}
+
+			StoneBomb: {
+				DisplayName: ストーンボム
+				Tooltip: "狙った場所に石ブロックが生成される爆弾。"
+			}
         }
     }
 }

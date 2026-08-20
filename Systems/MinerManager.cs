@@ -8,14 +8,25 @@ namespace MinerManagementMOD.Systems
 {
     public static class MinerManager
     {
-
         public static bool IsMinerSpawned(int id)
         {
             foreach (NPC npc in Main.npc)
             {
-                if (npc.active &&
-                    npc.ModNPC is MinerNPC miner &&
+                if (!npc.active)
+                    continue;
+
+                if (npc.ModNPC is MinerNPC miner &&
                     miner.MinerID == id)
+                {
+                    return true;
+                }
+                if (npc.ModNPC is MagicMinerNPC magicMiner &&
+                    magicMiner.MinerID == id)
+                {
+                    return true;
+                }
+                if (npc.ModNPC is MiningGoddessNPC miningGoddessNPC &&
+                    miningGoddessNPC.MinerID == id)
                 {
                     return true;
                 }
@@ -26,13 +37,14 @@ namespace MinerManagementMOD.Systems
 
         public static void SpawnMiner(Player player, MinerData data)
         {
-            
             // 既に存在する場合
-            if(IsMinerSpawned(data.ID))
+            if (IsMinerSpawned(data.ID))
             {
+                DespawnMiner(data.ID);
+
                 Main.NewText(
-                    $"{data.Name} は既に召喚されています。",
-                    255,200,100
+                    $"{data.Name} の召喚を解除しました。",
+                    255, 200, 100
                 );
 
                 return;
@@ -40,7 +52,11 @@ namespace MinerManagementMOD.Systems
 
             int npcType;
 
-            if(data.ID == 3)
+            if (data.ID == 5)
+            {
+                npcType = ModContent.NPCType<MiningGoddessNPC>();
+            }
+            else if (data.ID == 3)
             {
                 npcType = ModContent.NPCType<MagicMinerNPC>();
             }
@@ -58,7 +74,7 @@ namespace MinerManagementMOD.Systems
 
             NPC npc = Main.npc[npcID];
 
-            if(npc.ModNPC is MinerNPC miner)
+            if (npc.ModNPC is MinerNPC miner)
             {
                 miner.MinerID = data.ID;
                 miner.MinerName = data.Name;
@@ -71,11 +87,71 @@ namespace MinerManagementMOD.Systems
 
                 npc.GivenName = data.Name;
             }
+            else if (npc.ModNPC is MagicMinerNPC magicMiner)
+            {
+                magicMiner.MinerID = data.ID;
+                magicMiner.MinerName = data.Name;
+                magicMiner.MiningLevel = data.MiningLevel;
+                magicMiner.MiningPower = data.MiningPower;
+                magicMiner.MiningSpeed = data.MiningSpeed;
+                magicMiner.OreBonusChance = data.OreBonusChance;
+                magicMiner.CarryCapacity = data.CarryCapacity;
+                magicMiner.HasLight = data.HasLight;
+
+                npc.GivenName = data.Name;
+            }
+            else if (npc.ModNPC is MiningGoddessNPC miningGoddessNPC)
+            {
+                miningGoddessNPC.MinerID = data.ID;
+                miningGoddessNPC.MinerName = data.Name;
+                miningGoddessNPC.MiningLevel = data.MiningLevel;
+                miningGoddessNPC.MiningPower = data.MiningPower;
+                miningGoddessNPC.MiningSpeed = data.MiningSpeed;
+                miningGoddessNPC.OreBonusChance = data.OreBonusChance;
+                miningGoddessNPC.CarryCapacity = data.CarryCapacity;
+                miningGoddessNPC.HasLight = data.HasLight;
+
+                npc.GivenName = data.Name;
+            }
 
             Main.NewText(
                 $"{data.Name} を召喚しました。",
-                100,255,100
+                100, 255, 100
             );
+        }
+
+        //desummon 
+        public static void DespawnMiner(int id)
+        {
+            foreach (NPC npc in Main.npc)
+            {
+                if (!npc.active)
+                    continue;
+
+                // 通常Miner
+                if (npc.ModNPC is MinerNPC miner &&
+                    miner.MinerID == id)
+                {
+                    npc.active = false;
+                    return;
+                }
+
+                // MagicMiner
+                if (npc.ModNPC is MagicMinerNPC magicMiner &&
+                    magicMiner.MinerID == id)
+                {
+                    npc.active = false;
+                    return;
+                }
+
+                // MagicMiner
+                if (npc.ModNPC is MiningGoddessNPC goddessNPC &&
+                    goddessNPC.MinerID == id)
+                {
+                    npc.active = false;
+                    return;
+                }
+            }
         }
     }
 }
