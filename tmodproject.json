@@ -89,6 +89,14 @@
     "Items\\OreSeed.cs": "MinerManagementMOD.Items",
     "Tiles\\OreSeedTile.cs": "MinerManagementMOD.Tiles",
     "TileEntities\\OreSeedTileEntity.cs": "MinerManagementMOD.TileEntities",
-    "NPCs\\MiningGoddessNPC.cs": "MinerManagementMOD.NPCs"
+    "NPCs\\MiningGoddessNPC.cs": "MinerManagementMOD.NPCs",
+    "Items\\MastersBaton.cs": "MinerManagementMOD.Items",
+    "Items\\SkyIslandMap.cs": "MinerManagementMOD.Items",
+    "Systems\\SkyMapSystem.cs": "MinerManagementMOD.Systems",
+    "Systems\\DungeonMapSystem.cs": "MinerManagementMOD.Systems",
+    "Items\\DungeonMap.cs": "MinerManagementMOD.Items",
+    "Items\\TradeExchangeMachine.cs": "MinerManagementMOD.Items",
+    "Tiles\\TradeExchangeMachineTile.cs": "MinerManagementMOD.Tiles",
+    "Systems\\TradeExchangeSystem.cs": "MinerManagementMOD.Systems"
   }
 }

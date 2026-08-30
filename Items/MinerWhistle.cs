@@ -37,13 +37,12 @@ namespace MinerManagementMOD.Items
                 if (!npc.active)
                     continue;
 
-                if (npc.type != ModContent.NPCType<MinerNPC>() &&
-                    npc.type != ModContent.NPCType<GuardNPC>())
+                if (npc.type != ModContent.NPCType<MinerNPC>())
                     continue;
 
                 Vector2 spawnPos = new Vector2(
                     player.Center.X + player.direction *24f,
-                    player.Bottom.Y - npc.height / 2f
+                    player.Bottom.Y - npc.height
                 ); 
 
                 npc.Teleport(spawnPos, TeleportationStyleID.RodOfDiscord);

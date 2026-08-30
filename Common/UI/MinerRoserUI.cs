@@ -21,6 +21,7 @@ namespace MinerManagementMOD.Common.UI
         private UIText nameText;
         private UIText pageText;
         private UIText miningLevelText;
+        private UIText styleInfoText;
 
         private UITextPanel<string> summonButton;
         private UITextPanel<string> gotoButton;
@@ -137,6 +138,19 @@ namespace MinerManagementMOD.Common.UI
             miningLevelText.Top.Set(120, 0);
 
             Panel.Append(miningLevelText);
+
+            //---------------------------------------------------
+            // 特徴説明
+            //---------------------------------------------------
+
+            styleInfoText = new UIText("");
+
+            styleInfoText.Left.Set(90, 0);
+            styleInfoText.Top.Set(200, 0);
+
+            styleInfoText.Width.Set(480, 0);
+
+            Panel.Append(styleInfoText);
 
             //-----------------------------------------------------
             //summon button
@@ -459,7 +473,7 @@ namespace MinerManagementMOD.Common.UI
                 {
                     hireButton.SetText("雇う\n10P");
                 }
-                else if(currentPage == 4)
+                else if (currentPage == 4)
                 {
                     hireButton.SetText("雇う\n100P");
                 }
@@ -504,6 +518,9 @@ namespace MinerManagementMOD.Common.UI
 
             //mining level
             miningLevelText.SetText($"採掘レベル : {miner.MiningLevel}");
+
+            // 特徴説明
+            styleInfoText.SetText(miner.StyleInfo ?? "");
 
             if (miner == null)
                 return;

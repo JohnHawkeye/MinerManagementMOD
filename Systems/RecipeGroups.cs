@@ -30,6 +30,17 @@ namespace MinerManagementMOD
                 "DemoniteOrCrimtane",
                 demoniteOrCrimtane
             );
+
+            RecipeGroup mythrilOrOrichalcumBar = new RecipeGroup(
+                () => "Mythril or Orichalcum Bar",
+                ItemID.MythrilBar,
+                ItemID.OrichalcumBar
+            );
+
+            RecipeGroup.RegisterGroup(
+                "MythrilOrOrichalcumBar",
+                mythrilOrOrichalcumBar
+            );
         }
     }
 }

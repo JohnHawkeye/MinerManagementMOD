@@ -110,6 +110,11 @@ Mods: {
 				Tooltip: "ドリルクラスターを使うための弾薬。"
 			}
 
+			DrillRocket2: {
+				DisplayName: ドリルロケット2
+				Tooltip: "ミスリルコーティングされたドリル。\nハードモード鉱物が掘れるようになる。"
+			}
+
 			RemoteBomb2: {
 				DisplayName: リモートボムタイプ２
 				Tooltip: "ヘルストーン、メテオライトも爆破可能になったリモートボム。"
@@ -164,6 +169,11 @@ Mods: {
 				Tooltip: "それはスロカス、全ての始まり…。"
 			}
 
+			TradeExchangeMachine: {
+				DisplayName: 鉱物交換機
+				Tooltip: "相互する鉱物またはバーを交換する機器。カッパーマイナーコインが必要。"
+			}
+
 			MinerBlessingPotion: {
 				DisplayName: 鉱夫の祝福ポーション
 				Tooltip: "採掘王の祝福があなたに多大な力をもたらす…！"
@@ -183,6 +193,16 @@ Mods: {
 				DisplayName: ストーンボム
 				Tooltip: "狙った場所に石ブロックが生成される爆弾。"
 			}
+			
+			SkyIslandMap: {
+				DisplayName: 空島の地図
+				Tooltip: "使用すると空島の位置が分かるようになる。"
+			}
+			DungeonMap: {
+				DisplayName: ダンジョンマップ
+				Tooltip: "使用するとダンジョンの内部が明らかになる。"
+			}
+			
         }
     }
 }

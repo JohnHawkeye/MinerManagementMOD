@@ -214,6 +214,9 @@ namespace MinerManagementMOD.Projectiles
                         continue;
                     }
 
+                    //gems?
+                    int gemItem = GetGemItem(tile);
+
                     // タイルを破壊
                     WorldGen.KillTile(
                         x,
@@ -221,7 +224,146 @@ namespace MinerManagementMOD.Projectiles
                         false,
                         false,
                         false);
+
+                    if (gemItem != -1)
+                    {
+                        Vector2 dropPosition = new Vector2(x * 16f + 8f, y * 16f + 8f);
+
+                        Item.NewItem(null,
+                            new Rectangle(x * 16, y * 16, 16, 16),
+                            gemItem, 4);
+
+                        CreateGemBonusEffect(dropPosition, gemItem);
+                    }
                 }
+            }
+        }
+
+        private void CreateGemBonusEffect(
+            Vector2 position,
+            int gemItem)
+        {
+            Color gemColor;
+
+            switch (gemItem)
+            {
+                case ItemID.Amethyst:
+                    gemColor = new Color(180, 80, 255);
+                    break;
+
+                case ItemID.Topaz:
+                    gemColor = new Color(255, 220, 60);
+                    break;
+
+                case ItemID.Sapphire:
+                    gemColor = new Color(70, 140, 255);
+                    break;
+
+                case ItemID.Emerald:
+                    gemColor = new Color(60, 255, 120);
+                    break;
+
+                case ItemID.Ruby:
+                    gemColor = new Color(255, 70, 70);
+                    break;
+
+                case ItemID.Diamond:
+                    gemColor = new Color(180, 240, 255);
+                    break;
+
+                case ItemID.Amber:
+                    gemColor = new Color(255, 160, 40);
+                    break;
+
+                default:
+                    return;
+            }
+
+            // ---------------------------------------------
+            // 発光
+            // ---------------------------------------------
+
+            Lighting.AddLight(
+                position,
+                gemColor.R / 255f * 0.8f,
+                gemColor.G / 255f * 0.8f,
+                gemColor.B / 255f * 0.8f);
+
+            // ---------------------------------------------
+            // キラキラしたDust
+            // ---------------------------------------------
+
+            for (int i = 0; i < 10; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(
+                    position,
+                    DustID.GemAmethyst,
+                    Main.rand.NextVector2Circular(2.5f, 2.5f));
+
+                dust.color = gemColor;
+                dust.noGravity = true;
+                dust.scale = Main.rand.NextFloat(0.8f, 1.3f);
+            }
+
+            // ---------------------------------------------
+            // 白いキラキラを少し混ぜる
+            // ---------------------------------------------
+
+            for (int i = 0; i < 4; i++)
+            {
+                Dust dust = Dust.NewDustPerfect(
+                    position,
+                    DustID.WhiteTorch,
+                    Main.rand.NextVector2Circular(3f, 3f));
+
+                dust.noGravity = true;
+                dust.scale = 0.8f;
+            }
+        }
+
+        private int GetGemItem(Tile tile)
+        {
+            ushort tileType = tile.TileType;
+
+            switch (tileType)
+            {
+                case TileID.Amethyst:
+                    return ItemID.Amethyst;
+
+                case TileID.Topaz:
+                    return ItemID.Topaz;
+
+                case TileID.Sapphire:
+                    return ItemID.Sapphire;
+
+                case TileID.Emerald:
+                    return ItemID.Emerald;
+
+                case TileID.Ruby:
+                    return ItemID.Ruby;
+
+                case TileID.Diamond:
+                    return ItemID.Diamond;
+
+                case TileID.ExposedGems:
+                    switch (tile.TileFrameX)
+                    {
+                        case 0:
+                            return ItemID.Amethyst;
+                        case 18:
+                            return ItemID.Topaz;
+                        case 36:
+                            return ItemID.Sapphire;
+                        case 54:
+                            return ItemID.Emerald;
+                        case 72:
+                            return ItemID.Ruby;
+                        case 90:
+                            return ItemID.Diamond;
+                        default:
+                            return -1;
+                    }
+                default: return -1;
             }
         }
 

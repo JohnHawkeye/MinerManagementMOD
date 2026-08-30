@@ -160,6 +160,36 @@ namespace MinerManagementMOD.NPCs
                 shopSpecialCurrency = MinerCoinCurrencySystem.SilverCurrencyID
             });
 
+            npcShop.Add(new Item(ModContent.ItemType<TradeExchangeMachine>())
+            {
+                shopCustomPrice = 1,
+                shopSpecialCurrency = MinerCoinCurrencySystem.PlatinumCurrencyID
+            });
+
+            npcShop.Add(new Item(ModContent.ItemType<SkyIslandMap>())
+            {
+                shopCustomPrice = 10,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            });
+
+            npcShop.Add(new Item(ModContent.ItemType<DungeonMap>())
+            {
+                shopCustomPrice = 10,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            });
+
+            npcShop.Add(new Item(ItemID.SoulofLight)
+            {
+                shopCustomPrice = 1,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            },Condition.Hardmode);
+
+            npcShop.Add(new Item(ItemID.SoulofNight)
+            {
+                shopCustomPrice = 1,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            },Condition.Hardmode);
+
             npcShop.Register();
         }
 

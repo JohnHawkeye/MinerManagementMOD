@@ -219,6 +219,31 @@ Mods: {
 				DisplayName: Stone Bomb
 				Tooltip: ""
 			}
+
+			MastarsBaton: {
+				DisplayName: Mastars Baton
+				Tooltip: ""
+			}
+
+			SkyIslandMap: {
+				DisplayName: Sky Island Map
+				Tooltip: ""
+			}
+
+			DungeonMap: {
+				DisplayName: Dungeon Map
+				Tooltip: ""
+			}
+
+			DrillRocket2: {
+				DisplayName: Drill Rocket2
+				Tooltip: ""
+			}
+
+			TradeExchangeMachine: {
+				DisplayName: Trade Exchange Machine
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -236,11 +261,13 @@ Mods: {
 			MagicMiningProjectile.DisplayName: Magic Mining Projectile
 			LoveHeart.DisplayName: Love Heart
 			StoneBombProjectile.DisplayName: Stone Bomb Projectile
+			DrillClusterProjectile2.DisplayName: Drill Cluster Projectile2
 		}
 
 		Tiles: {
 			SlotMachineTile.MapEntry: Slot Machine Tile
 			OreSeedTile.MapEntry: Ore Seed Tile
+			TradeExchangeMachineTile.MapEntry: Trade Exchange Machine Tile
 		}
 	}
 }

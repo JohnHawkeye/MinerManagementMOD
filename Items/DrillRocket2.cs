@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace MinerManagementMOD.Items
 {
-    public class DrillRocket : ModItem
+    public class DrillRocket2 : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -22,18 +22,17 @@ namespace MinerManagementMOD.Items
             // このアイテム自身を弾薬にする
             Item.ammo = Item.type;
 
-            Item.value = Item.buyPrice(silver: 5);
+            Item.value = Item.buyPrice(gold: 30);
             Item.rare = ItemRarityID.Blue;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe(50)
-                .AddRecipeGroup(RecipeGroupID.IronBar, 10)
-                .AddIngredient(ItemID.Wire, 10)
-                .AddIngredient(ItemID.Gel, 10)
-                .AddIngredient<SilverMinerCoin>(50)
-                .AddTile(TileID.Anvils)
+                .AddRecipeGroup("MythrilOrOrichalcumBar",1)
+                .AddIngredient<DrillRocket>(50)
+                .AddIngredient<GoldMinerCoin>(6)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
     }
