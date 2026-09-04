@@ -97,6 +97,12 @@
     "Items\\DungeonMap.cs": "MinerManagementMOD.Items",
     "Items\\TradeExchangeMachine.cs": "MinerManagementMOD.Items",
     "Tiles\\TradeExchangeMachineTile.cs": "MinerManagementMOD.Tiles",
-    "Systems\\TradeExchangeSystem.cs": "MinerManagementMOD.Systems"
+    "Systems\\TradeExchangeSystem.cs": "MinerManagementMOD.Systems",
+    "Items\\StoneWand.cs": "MinerManagementMOD.Items",
+    "Systems\\StoneWandPreviewSystem.cs": "MinerManagementMOD.Systems",
+    "NPCs\\JewelDragonNPC.cs": "MinerManagementMOD.NPCs",
+    "Items\\RainbowJewel.cs": "MinerManagementMOD.Items",
+    "Systems\\RainbowBuffPlayer.cs": "MinerManagementMOD.Systems",
+    "Buffs\\RainbowBuff.cs": "MinerManagementMOD.Buffs"
   }
 }

@@ -67,6 +67,8 @@ Mods: {
 
 				Census.SpawnCondition: Conditions unknown
 			}
+
+			JewelDragonNPC.DisplayName: Jewel Dragon N P C
 		}
 
 		Items: {
@@ -244,6 +246,16 @@ Mods: {
 				DisplayName: Trade Exchange Machine
 				Tooltip: ""
 			}
+
+			StoneWand: {
+				DisplayName: Stone Wand
+				Tooltip: ""
+			}
+
+			RainbowJewel: {
+				DisplayName: Rainbow Jewel
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -268,6 +280,13 @@ Mods: {
 			SlotMachineTile.MapEntry: Slot Machine Tile
 			OreSeedTile.MapEntry: Ore Seed Tile
 			TradeExchangeMachineTile.MapEntry: Trade Exchange Machine Tile
+		}
+
+		Buffs: {
+			RainbowBuff: {
+				DisplayName: Rainbow Buff
+				Description: Mods.MinerManagementMOD.Buffs.RainbowBuff.Description
+			}
 		}
 	}
 }

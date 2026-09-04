@@ -31,6 +31,13 @@ Mods: {
 			HunterNPC.DisplayName: ハンター
 		}
 
+		Buffs: {
+			RainbowBuff: {
+				DisplayName: 虹の光
+				Description: 神秘の力があなたを守る。
+			}
+		}
+
         Items: {
             CopperAmberRing: {
                 DisplayName: カッパーアンバーリング
@@ -202,7 +209,19 @@ Mods: {
 				DisplayName: ダンジョンマップ
 				Tooltip: "使用するとダンジョンの内部が明らかになる。"
 			}
-			
+			MastarsBaton: {
+				DisplayName: 主の指揮棒
+				Tooltip: "主人を守るガードたちを撤退、出動を切り替える指揮棒。"
+			}
+			StoneWand: {
+				DisplayName: ストーンワンド
+				Tooltip: "インベントリにある石ブロックを消費して、\nクリックした場所に設置できます。"
+			}
+
+			RainbowJewel: {
+				DisplayName: レインボージュエル
+				Tooltip: "虹色に輝く美しい宝石。\nジュエルドラゴンに捧げることでバフの威力が増大する。"
+			}
         }
     }
 }

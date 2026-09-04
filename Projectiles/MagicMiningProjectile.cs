@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MinerManagementMOD.Helpers;
+using System.Collections.Generic;
+using Terraria.Audio;
 
 namespace MinerManagementMOD.Projectiles
 {
@@ -21,6 +23,8 @@ namespace MinerManagementMOD.Projectiles
 
         // 消滅時間 2秒
         private const int FadeTime = 120;
+
+        private HashSet<Point> processedExposedGems = new HashSet<Point>();
 
         public override void SetStaticDefaults()
         {
@@ -167,14 +171,18 @@ namespace MinerManagementMOD.Projectiles
 
         private void MineTiles(float radius)
         {
-            int centerX =
-                (int)(Projectile.Center.X / 16f);
+            int centerX = (int)(Projectile.Center.X / 16f);
+            int centerY = (int)(Projectile.Center.Y / 16f);
 
-            int centerY =
-                (int)(Projectile.Center.Y / 16f);
+            int tileRadius = (int)(radius / 16f) + 1;
 
-            int tileRadius =
-                (int)(radius / 16f) + 1;
+            // =========================================================
+            // ① 破壊前にExposedGemsを記録
+            //    ただし、このProjectileで一度記録したものは除外
+            // =========================================================
+
+            List<(Point tilePosition, Vector2 worldPosition, int gemItem)> exposedGems
+                = new List<(Point, Vector2, int)>();
 
             for (int x = centerX - tileRadius;
                  x <= centerX + tileRadius;
@@ -205,17 +213,78 @@ namespace MinerManagementMOD.Projectiles
                     if (!tile.HasTile)
                         continue;
 
-                    // MiningHelperで採掘可能か判定
+                    // ExposedGemsではない
+                    if (tile.TileType != TileID.ExposedGems)
+                        continue;
 
-                    bool allowHardmodeOre = MiningLevel >= 2;
+                    Point tilePosition = new Point(x, y);
 
-                    if (!MiningHelper.CanMine(tile.TileType, allowHardmodeOre))
+                    // このProjectileですでに記録済みなら無視
+                    if (processedExposedGems.Contains(tilePosition))
+                        continue;
+
+                    int gemItem = GetGemItem(tile);
+
+                    if (gemItem == -1)
+                        continue;
+
+                    exposedGems.Add(
+                        (tilePosition, tileCenter, gemItem));
+
+                    // ★このProjectileでは二度と処理しない
+                    processedExposedGems.Add(tilePosition);
+                }
+            }
+
+            // =========================================================
+            // ② 通常のタイル破壊
+            // =========================================================
+
+            for (int x = centerX - tileRadius;
+                 x <= centerX + tileRadius;
+                 x++)
+            {
+                for (int y = centerY - tileRadius;
+                     y <= centerY + tileRadius;
+                     y++)
+                {
+                    if (!WorldGen.InWorld(x, y))
+                        continue;
+
+                    Vector2 tileCenter =
+                        new Vector2(
+                            x * 16f + 8f,
+                            y * 16f + 8f);
+
+                    if (Vector2.Distance(
+                        Projectile.Center,
+                        tileCenter) > radius)
                     {
                         continue;
                     }
 
-                    //gems?
+                    Tile tile =
+                        Framing.GetTileSafely(x, y);
+
+                    if (!tile.HasTile)
+                        continue;
+
+                    // 採掘可能か判定
+                    bool allowHardmodeOre = MiningLevel >= 2;
+
+                    if (!MiningHelper.CanMine(
+                        tile.TileType,
+                        allowHardmodeOre))
+                    {
+                        continue;
+                    }
+
+                    // 通常の宝石タイル判定
                     int gemItem = GetGemItem(tile);
+
+                    // ExposedGemsはここでは処理しない
+                    bool isExposedGem =
+                        tile.TileType == TileID.ExposedGems;
 
                     // タイルを破壊
                     WorldGen.KillTile(
@@ -225,16 +294,59 @@ namespace MinerManagementMOD.Projectiles
                         false,
                         false);
 
-                    if (gemItem != -1)
+                    // 通常の宝石タイルのみ
+                    if (gemItem != -1 && !isExposedGem)
                     {
-                        Vector2 dropPosition = new Vector2(x * 16f + 8f, y * 16f + 8f);
+                        Vector2 dropPosition =
+                            new Vector2(
+                                x * 16f + 8f,
+                                y * 16f + 8f);
 
-                        Item.NewItem(null,
-                            new Rectangle(x * 16, y * 16, 16, 16),
-                            gemItem, 4);
+                        Item.NewItem(
+                            null,
+                            new Rectangle(
+                                x * 16,
+                                y * 16,
+                                16,
+                                16),
+                            gemItem,
+                            4);
 
-                        CreateGemBonusEffect(dropPosition, gemItem);
+                        CreateGemBonusEffect(
+                            dropPosition,
+                            gemItem);
                     }
+                }
+            }
+
+            // =========================================================
+            // ③ 破壊後にExposedGemsを確認
+            // =========================================================
+
+            foreach (var exposedGem in exposedGems)
+            {
+                Tile tileAfter =
+                    Framing.GetTileSafely(
+                        exposedGem.tilePosition.X,
+                        exposedGem.tilePosition.Y);
+
+                // ExposedGemが実際に消えていた場合のみボーナス
+                if (!tileAfter.HasTile ||
+                    tileAfter.TileType != TileID.ExposedGems)
+                {
+                    Item.NewItem(
+                        null,
+                        new Rectangle(
+                            (int)exposedGem.worldPosition.X - 8,
+                            (int)exposedGem.worldPosition.Y - 8,
+                            16,
+                            16),
+                        exposedGem.gemItem,
+                        4);
+
+                    CreateGemBonusEffect(
+                        exposedGem.worldPosition,
+                        exposedGem.gemItem);
                 }
             }
         }
@@ -319,6 +431,20 @@ namespace MinerManagementMOD.Projectiles
                 dust.noGravity = true;
                 dust.scale = 0.8f;
             }
+
+            SoundEngine.PlaySound(
+                SoundID.ResearchComplete, new Vector2(position.X , position.Y ));
+
+            CombatText.NewText(
+                new Rectangle(
+                    (int)position.X,
+                    (int)position.Y,
+                    16,
+                    16
+                ),
+                Color.Gold,
+                "Lucky!"
+            );
         }
 
         private int GetGemItem(Tile tile)
@@ -346,20 +472,25 @@ namespace MinerManagementMOD.Projectiles
                     return ItemID.Diamond;
 
                 case TileID.ExposedGems:
-                    switch (tile.TileFrameX)
+
+                    int gemStyle = tile.TileFrameX / 18;
+
+                    switch (gemStyle)
                     {
                         case 0:
                             return ItemID.Amethyst;
-                        case 18:
+                        case 1:
                             return ItemID.Topaz;
-                        case 36:
+                        case 2:
                             return ItemID.Sapphire;
-                        case 54:
+                        case 3:
                             return ItemID.Emerald;
-                        case 72:
+                        case 4:
                             return ItemID.Ruby;
-                        case 90:
+                        case 5:
                             return ItemID.Diamond;
+                        case 6:
+                            return ItemID.Amber;
                         default:
                             return -1;
                     }

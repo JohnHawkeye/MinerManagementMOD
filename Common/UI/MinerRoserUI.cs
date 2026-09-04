@@ -281,7 +281,28 @@ namespace MinerManagementMOD.Common.UI
                 {
                     player.ConsumeItem(platinumMinerCoin);
                 }
-            }// 5人目：採掘の女神
+            }
+            // ★ 4番目：ジュエルドラゴン
+            else if (currentPage == 3)
+            {
+                int platinumMinerCoin =
+                    ModContent.ItemType<PlatinumMinerCoin>();
+
+                if (player.CountItem(platinumMinerCoin) < 10)
+                {
+                    Main.NewText(
+                        "ジュエルドラゴンを雇うには、プラチナマイナーコインが10枚必要です。",
+                        255, 100, 100
+                    );
+                    return;
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    player.ConsumeItem(platinumMinerCoin);
+                }
+            }
+            // 5人目：採掘の女神
             else if (currentPage == 4)
             {
                 int platinumMinerCoin =
@@ -367,25 +388,52 @@ namespace MinerManagementMOD.Common.UI
             RefreshPage();
         }
 
-        private void GotoButtonClicked(UIMouseEvent evt, UIElement listeningElement)
+        private void GotoButtonClicked(
+    UIMouseEvent evt,
+    UIElement listeningElement)
         {
-            MinerData miner = MinerRosterSystem.Miners[currentPage];
+            MinerData miner =
+                MinerRosterSystem.Miners[currentPage];
 
             foreach (NPC npc in Main.npc)
             {
                 if (!npc.active)
                     continue;
 
+                bool isTarget = false;
+
+                // 通常鉱夫
                 if (npc.ModNPC is MinerNPC minerNpc &&
                     minerNpc.MinerID == miner.ID)
                 {
-                    // NPCの少し横へワープ
-                    SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
+                    isTarget = true;
+                }
+
+                // ジュエルドラゴン
+                if (npc.ModNPC is JewelDragonNPC jewelDragon &&
+                    miner.ID == 4)
+                {
+                    isTarget = true;
+                }
+
+                // 採掘の女神なども今後ここに追加可能
+                if (isTarget)
+                {
+                    SoundEngine.PlaySound(
+                        SoundID.Item6,
+                        Main.LocalPlayer.Center
+                    );
+
                     Main.LocalPlayer.Teleport(
                         npc.Center + new Vector2(0f, -24f),
                         TeleportationStyleID.RodOfDiscord
                     );
-                    SoundEngine.PlaySound(SoundID.Item6, Main.LocalPlayer.Center);
+
+                    SoundEngine.PlaySound(
+                        SoundID.Item6,
+                        Main.LocalPlayer.Center
+                    );
+
                     break;
                 }
             }
@@ -393,6 +441,9 @@ namespace MinerManagementMOD.Common.UI
 
         private void LightButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
+            if (currentPage == 3)
+                return;
+
             MinerData miner = MinerRosterSystem.Miners[currentPage];
 
             if (!miner.IsHired)
@@ -422,6 +473,9 @@ namespace MinerManagementMOD.Common.UI
 
         private void LevelUpButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
+            if (currentPage == 3)
+                return;
+
             MinerData miner = MinerRosterSystem.Miners[currentPage];
 
             if (!miner.IsHired)
@@ -516,8 +570,17 @@ namespace MinerManagementMOD.Common.UI
                 lightButton.TextColor = Color.White;
             }
 
-            //mining level
-            miningLevelText.SetText($"採掘レベル : {miner.MiningLevel}");
+            if (currentPage == 3)
+            {
+                // ジュエルドラゴンには採掘レベルを表示しない
+                miningLevelText.SetText("");
+            }
+            else
+            {
+                miningLevelText.SetText(
+                    $"採掘レベル : {miner.MiningLevel}"
+                );
+            }
 
             // 特徴説明
             styleInfoText.SetText(miner.StyleInfo ?? "");
@@ -543,11 +606,23 @@ namespace MinerManagementMOD.Common.UI
                 if (summonButton.Parent == null)
                     Panel.Append(summonButton);
 
-                if (lightButton.Parent == null)
-                    Panel.Append(lightButton);
+                // ジュエルドラゴンには鉱夫用機能を表示しない
+                if (currentPage != 3)
+                {
+                    if (lightButton.Parent == null)
+                        Panel.Append(lightButton);
 
-                if (levelUpButton.Parent == null)
-                    Panel.Append(levelUpButton);
+                    if (levelUpButton.Parent == null)
+                        Panel.Append(levelUpButton);
+                }
+                else
+                {
+                    if (lightButton.Parent != null)
+                        lightButton.Remove();
+
+                    if (levelUpButton.Parent != null)
+                        levelUpButton.Remove();
+                }
             }
             else
             {

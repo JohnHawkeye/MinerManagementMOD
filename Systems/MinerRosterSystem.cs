@@ -199,12 +199,12 @@ namespace MinerManagementMOD.Systems
                 hasLight: false
             );
 
-            // 4人目：通常鉱夫（仮）
+            // 4人目：ジュエルドラゴン
             Miners[3] = CreateDefaultMiner(
                 nextMinerID++,
-                "通常鉱夫3",
-                "MinerManagementMOD/Assets/UI/EmptyPortrait",
-                "主人の場所から直線的に採掘を始める。\n稀に鉱石ボーナスが得られる。",
+                "ジュエルドラゴン",
+                "MinerManagementMOD/Assets/UI/JewelDragon",
+                "神秘な宝石の力により、\nプレイヤーに強力なバフを与えてくれる。",
                 miningLevel: 1,
                 miningPower: 1,
                 miningSpeed: 1,
