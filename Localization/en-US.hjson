@@ -256,6 +256,11 @@ Mods: {
 				DisplayName: Rainbow Jewel
 				Tooltip: ""
 			}
+
+			PinkyWormItem: {
+				DisplayName: Pinky Worm Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -286,6 +291,11 @@ Mods: {
 			RainbowBuff: {
 				DisplayName: Rainbow Buff
 				Description: Mods.MinerManagementMOD.Buffs.RainbowBuff.Description
+			}
+
+			PinkyWormMountBuff: {
+				DisplayName: Pinky Worm Mount Buff
+				Description: Mods.MinerManagementMOD.Buffs.PinkyWormMountBuff.Description
 			}
 		}
 	}

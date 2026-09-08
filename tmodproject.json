@@ -103,6 +103,12 @@
     "NPCs\\JewelDragonNPC.cs": "MinerManagementMOD.NPCs",
     "Items\\RainbowJewel.cs": "MinerManagementMOD.Items",
     "Systems\\RainbowBuffPlayer.cs": "MinerManagementMOD.Systems",
-    "Buffs\\RainbowBuff.cs": "MinerManagementMOD.Buffs"
+    "Buffs\\RainbowBuff.cs": "MinerManagementMOD.Buffs",
+    "Items\\PinkyWormItem.cs": "MinerManagementMOD.Items",
+    "Buffs\\PinkyWormMountBuff.cs": "MinerManagementMOD.Buffs",
+    "Mounts\\PinkyWormMount.cs": "MinerManagementMOD.Mounts",
+    "Common\\Players\\PinkyWormPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Systems\\PinkyWormDrawLayer.cs": "MinerManagementMOD.Systems",
+    "Systems\\PinkyWormOrePickupSystem.cs": "MinerManagementMOD.Systems"
   }
 }

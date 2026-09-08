@@ -1,10 +1,12 @@
 このMODは純粋な鉱石採掘を楽しむために開発を始めたMODです。
+テラリアを緩い難易度でプレイしたい方にお勧めします。
 ワールド生成時に追加のゴールドチェスト、トレジャーアイテムの追加などが行われます。
 ゲームバランスはあまり考慮されていません。
 ですので、あまり重要なゲームのために使用せず、楽観的な試用で遊んでみてください。
 ※シングルプレイ前提で制作しております。マルチプレイでの動作は保証できません。ご了承ください。
 
 This mod was developed with the aim of simply enjoying ore mining.
+I recommend this to anyone who wants to play Terraria with a relaxed difficulty level.
 It adds features such as extra gold chests and treasure items during world generation.
 Game balance was not a primary consideration during development.
 Therefore, please avoid using it for serious playthroughs; instead, feel free to try it out casually.
@@ -22,6 +24,13 @@ Therefore, please avoid using it for serious playthroughs; instead, feel free to
 　・スロットマシンの当たりの確立を調整。ボーナスゲームを追加。
 　・バニーガール登場。マイナーコインと特別なアイテムを交換できます。
 
+<Ver 0.3>
+　・スロットゲームによるボーナスゲームの追加。
+　・鉱夫を新たに追加。（データが変更されているため、/resetminersコマンドを使って初期化されることをお勧めします。）
+　・マイナーコインで交換できるアイテムを数点追加。
+　・その他微調整。
+
+
 <Ver 0.1>
 1. You can hire miners from the miner roster to mine ores for you. There is a chance to receive a bonus.
 2. Treasure items may be found in treasure chests. The number of Gold Chests is increased during world generation.
@@ -33,5 +42,11 @@ Therefore, please avoid using it for serious playthroughs; instead, feel free to
 - Added the "Magic Miner" to the list of hireable miners; they cast magic spells at mineable ores.
 - Adjusted the winning odds for the slot machine and added a bonus game.
 - Added a Bunny Girl NPC; you can exchange Miner Coins for special items.
+
+<Ver 0.3>
+・Added a bonus game to the slot machine.
+・Added a new miner. (As data has changed, we recommend resetting using the `/resetminers` command.)
+・Added several items that can be exchanged for Miner Coins.
+・Other minor adjustments.
 
 Sorry.This game supports Japanese localization.
