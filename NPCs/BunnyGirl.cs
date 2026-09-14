@@ -172,6 +172,12 @@ namespace MinerManagementMOD.NPCs
                 shopSpecialCurrency = MinerCoinCurrencySystem.PlatinumCurrencyID
             });
 
+            npcShop.Add(new Item(ModContent.ItemType<GreedCompass>())
+            {
+                shopCustomPrice = 1,
+                shopSpecialCurrency = MinerCoinCurrencySystem.PlatinumCurrencyID
+            });
+
             npcShop.Add(new Item(ModContent.ItemType<SkyIslandMap>())
             {
                 shopCustomPrice = 10,

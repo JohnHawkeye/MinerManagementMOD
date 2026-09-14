@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using MinerManagementMOD.Common.Players;
+using MinerManagementMOD.Mounts;
 
 namespace MinerManagementMOD.Buffs
 {
@@ -16,8 +17,10 @@ namespace MinerManagementMOD.Buffs
             Player player,
             ref int buffIndex)
         {
-            player.GetModPlayer<PinkyWormPlayer>()
-                .PinkyWormActive = true;
+            var worm = player.GetModPlayer<PinkyWormPlayer>();
+            worm.PinkyWormActive = true;
+
+            player.buffTime[buffIndex] = 10;
         }
     }
 }

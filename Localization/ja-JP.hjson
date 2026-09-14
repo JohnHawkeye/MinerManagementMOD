@@ -36,6 +36,11 @@ Mods: {
 				DisplayName: 虹の光
 				Description: 神秘の力があなたを守る。
 			}
+			
+			PinkyWormMountBuff: {
+				DisplayName: ピンキーワーム
+				Description: ずずずずずず
+			}
 		}
 
         Items: {
@@ -221,6 +226,32 @@ Mods: {
 			RainbowJewel: {
 				DisplayName: レインボージュエル
 				Tooltip: "虹色に輝く美しい宝石。\nジュエルドラゴンに捧げることでバフの威力が増大する。"
+			}
+			
+			PinkyWormItem: {
+				DisplayName: ピンキーワームエッグ
+				Tooltip: "地下より深い階層で変身可能。\nワームの気持ちになって鉱石を掘り進め。"
+			}
+			
+			GreedCompass: {
+				DisplayName: 貪欲のコンパス
+				Tooltip: "宝箱の位置を指し示す魔法のコンパス。\n自分が設置したチェストにも反応するので注意。\n中身を入手したら宝箱を回収しよう。"
+			}
+
+			
+			BlackSmithArmor: {
+				DisplayName: ブラックスミスアーマー
+				Tooltip: "高潔な鍛冶屋の鎧。\nセット装備で採掘範囲３増加。"
+			}
+
+			BlackSmithHat: {
+				DisplayName: ブラックスミスハット
+				Tooltip: "高潔な鍛冶屋の帽子。\nセット装備で採掘範囲３増加。"
+			}
+
+			BlackSmithLeggings: {
+				DisplayName: ブラックスミスレギンス
+				Tooltip: "高潔な鍛冶屋の足防具。\nセット装備で採掘範囲３増加。"
 			}
         }
     }

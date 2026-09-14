@@ -67,7 +67,7 @@ namespace MinerManagementMOD.Items
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 1)
+                .AddRecipeGroup("IronOrLeadBar",1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

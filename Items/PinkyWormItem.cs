@@ -23,7 +23,7 @@ namespace MinerManagementMOD.Items
         {
             CreateRecipe()
                 .AddIngredient(ItemID.PinkGel, 20)
-                .AddIngredient(ItemID.Worm, 1)
+                .AddRecipeGroup("RottenOrBertebrae",30)
                 .AddTile(TileID.WorkBenches)
                 .Register();
         }

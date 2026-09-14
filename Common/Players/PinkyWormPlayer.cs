@@ -2,54 +2,40 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
 
 namespace MinerManagementMOD.Common.Players
 {
     public class PinkyWormPlayer : ModPlayer
     {
         // =========================================================
-        // 基本設定
+        // Pinky Worm
         // =========================================================
 
+        // 基本攻撃力
         public const int HitDamage = 20;
+
+        // 身体1節につき増加する攻撃力
+        public const int DamagePerBodySegment = 10;
 
         public const float BaseKnockBack = 8f;
         public const float MaxKnockBack = 10f;
-
         public const int HitCooldown = 30;
 
-        // 10個の鉱石を拾うごとに身体が1節成長
+        // 10個の鉱石を取得するごとに身体が1節伸びる
         public const int OrePerBody = 10;
 
-        // 最大身体節数
+        // 最大身体数
         public const int MaxBodySegments = 30;
 
-        // 最大速度
         public const float MaxSpeed = 8f;
-
-        // 加速度
         public const float Acceleration = 0.20f;
-
-        // 左右旋回速度
         public const float TurnSpeed = 0.055f;
-
-        // 下入力による減速
         public const float BrakeAmount = 0.18f;
-
-        // 身体節間の距離
         public const float SegmentDistance = 36f;
-
-        // 地上へ出すぎないための余白
         public const int UndergroundMargin = 10;
-
-        private Vector2 wormPosition;
-
-        // =========================================================
-        // ワーム状態
-        // =========================================================
 
         public bool PinkyWormActive;
 
@@ -57,21 +43,20 @@ namespace MinerManagementMOD.Common.Players
             PinkyWormActive &&
             WormSpeed > 0.15f;
 
-        // 現在速度
         public float WormSpeed;
-
-        // ワームの向き
         public float WormRotation;
 
-        // 現在までに拾った鉱石数
         public int CollectedOre;
-
-        // 現在の身体節数
         public int BodySegments;
 
+        // =========================================================
+        // Worm position
+        // =========================================================
+
+        private Vector2 wormPosition;
 
         // =========================================================
-        // 身体位置履歴
+        // Position history
         // =========================================================
 
         private readonly List<Vector2> positionHistory =
@@ -80,21 +65,24 @@ namespace MinerManagementMOD.Common.Players
         public IReadOnlyList<Vector2> PositionHistory =>
             positionHistory;
 
-
         // =========================================================
-        // NPCヒットクールダウン
+        // NPC hit cooldown
         // =========================================================
 
         private readonly Dictionary<int, int> hitCooldowns =
             new Dictionary<int, int>();
 
-        //sound option
+        // =========================================================
+        // Worm sound
+        // =========================================================
+
         private int wormSoundTimer;
+
         public const int MinWormSoundInterval = 8;
         public const int MaxWormSoundInterval = 35;
 
         // =========================================================
-        // 初期化
+        // Initialize
         // =========================================================
 
         public override void Initialize()
@@ -107,15 +95,16 @@ namespace MinerManagementMOD.Common.Players
             CollectedOre = 0;
             BodySegments = 0;
 
-            wormSoundTimer = 0;
+            wormPosition = Vector2.Zero;
 
             positionHistory.Clear();
             hitCooldowns.Clear();
+
+            wormSoundTimer = 0;
         }
 
-
         // =========================================================
-        // ワーム開始
+        // Start
         // =========================================================
 
         public void StartWorm()
@@ -123,48 +112,41 @@ namespace MinerManagementMOD.Common.Players
             PinkyWormActive = true;
 
             WormSpeed = 0f;
-            wormSoundTimer = 0;
 
-            // 成長状態は毎回リセット
             BodySegments = 0;
             CollectedOre = 0;
 
             positionHistory.Clear();
 
-            // Playerの向きをワームの初期方向にする
             WormRotation =
                 Player.direction == -1
                     ? MathF.PI
                     : 0f;
 
-            // 最初から十分な履歴を用意
-            Vector2 center = Player.Center;
+            Vector2 center =
+                Player.Center;
+
+            // ワーム専用位置
+            wormPosition =
+                Player.position;
 
             for (int i = 0; i < 300; i++)
-            {
                 positionHistory.Add(center);
-            }
 
             hitCooldowns.Clear();
 
-            // ワームの当たり判定サイズ
+            wormSoundTimer = 0;
+
             Player.width = 32;
             Player.height = 32;
 
-            // 落下ダメージ無効
             Player.noFallDmg = true;
-
-            // 通常Playerの速度を停止
             Player.velocity = Vector2.Zero;
-
-            // 重力停止
             Player.gravity = 0f;
-            wormPosition = Player.position;
         }
 
-
         // =========================================================
-        // ワーム終了
+        // Stop
         // =========================================================
 
         public void StopWorm()
@@ -172,22 +154,17 @@ namespace MinerManagementMOD.Common.Players
             PinkyWormActive = false;
 
             WormSpeed = 0f;
-            wormSoundTimer = 0;
-
-            // 成長は一時的なもの
-            BodySegments = 0;
             CollectedOre = 0;
+            BodySegments = 0;
 
             positionHistory.Clear();
             hitCooldowns.Clear();
 
-            // 通常Playerへ戻す
-            Player.velocity = Vector2.Zero;
+            wormSoundTimer = 0;
 
-            // 次の通常Player更新で通常状態へ戻す
+            Player.velocity = Vector2.Zero;
             Player.gravity = 0f;
         }
-
 
         // =========================================================
         // PreUpdate
@@ -195,7 +172,6 @@ namespace MinerManagementMOD.Common.Players
 
         public override void PreUpdate()
         {
-
             if (!PinkyWormActive)
                 return;
 
@@ -209,7 +185,12 @@ namespace MinerManagementMOD.Common.Players
                 return;
             }
 
-            Player.position = wormPosition;
+            // =====================================================
+            // ワーム本来の位置を維持
+            // =====================================================
+
+            Player.position =
+                wormPosition;
 
             Player.gravity = 0f;
             Player.velocity = Vector2.Zero;
@@ -218,17 +199,8 @@ namespace MinerManagementMOD.Common.Players
             UpdateHitCooldowns();
         }
 
-
         // =========================================================
-        // 通常Player移動を停止
-        // =========================================================
-        //
-        // PreUpdateMovementは、Playerがvelocityを使って
-        // 通常移動する直前に呼ばれる。
-        //
-        // ここでは通常移動を完全にゼロにする。
-        //
-        // ワーム自身の移動はPostUpdateで行う。
+        // PreUpdateMovement
         // =========================================================
 
         public override void PreUpdateMovement()
@@ -236,25 +208,13 @@ namespace MinerManagementMOD.Common.Players
             if (!PinkyWormActive)
                 return;
 
-            // 通常速度を完全停止
             Player.velocity = Vector2.Zero;
-
-            // 重力を無効化
             Player.gravity = 0f;
-
-            // 前フレーム速度も停止
             Player.oldVelocity = Vector2.Zero;
         }
 
-
         // =========================================================
-        // Player.Updateの最後
-        // =========================================================
-        //
-        // vanillaのPlayer.Updateがすべて終了したあとに
-        // ワーム独自の移動を行う。
-        //
-        // PostUpdateはPlayer.Updateの最後に呼ばれる。
+        // PostUpdate
         // =========================================================
 
         public override void PostUpdate()
@@ -265,22 +225,15 @@ namespace MinerManagementMOD.Common.Players
             if (Player.dead)
                 return;
 
-            // -----------------------------------------------------
-            // vanilla側から変更された速度・重力を再び停止
-            // -----------------------------------------------------
-
             Player.velocity = Vector2.Zero;
             Player.gravity = 0f;
-
-            // -----------------------------------------------------
-            // 地上へ出すぎないようにする
-            // -----------------------------------------------------
 
             float surfaceY =
                 (float)(Main.worldSurface * 16.0);
 
             if (Player.Center.Y <
-                surfaceY + UndergroundMargin * 16f)
+                surfaceY +
+                UndergroundMargin * 16f)
             {
                 WormSpeed = 0f;
 
@@ -294,30 +247,25 @@ namespace MinerManagementMOD.Common.Players
                 Player.Center =
                     correctedCenter;
 
+                wormPosition =
+                    Player.position;
+
                 return;
             }
 
-            // -----------------------------------------------------
-            // 左旋回
-            // -----------------------------------------------------
+            // =====================================================
+            // 左右旋回
+            // =====================================================
 
             if (Player.controlLeft)
-            {
                 WormRotation -= TurnSpeed;
-            }
-
-            // -----------------------------------------------------
-            // 右旋回
-            // -----------------------------------------------------
 
             if (Player.controlRight)
-            {
                 WormRotation += TurnSpeed;
-            }
 
-            // -----------------------------------------------------
-            // 前進
-            // -----------------------------------------------------
+            // =====================================================
+            // 加速
+            // =====================================================
 
             if (Player.controlUp)
             {
@@ -331,9 +279,9 @@ namespace MinerManagementMOD.Common.Players
                     );
             }
 
-            // -----------------------------------------------------
-            // 下入力
-            // -----------------------------------------------------
+            // =====================================================
+            // 減速
+            // =====================================================
 
             if (Player.controlDown)
             {
@@ -347,9 +295,9 @@ namespace MinerManagementMOD.Common.Players
                     );
             }
 
-            // -----------------------------------------------------
-            // 入力なしで徐々に減速
-            // -----------------------------------------------------
+            // =====================================================
+            // 自然減速
+            // =====================================================
 
             if (!Player.controlUp &&
                 !Player.controlDown)
@@ -357,14 +305,12 @@ namespace MinerManagementMOD.Common.Players
                 WormSpeed *= 0.985f;
 
                 if (WormSpeed < 0.05f)
-                {
                     WormSpeed = 0f;
-                }
             }
 
-            // -----------------------------------------------------
+            // =====================================================
             // 移動方向
-            // -----------------------------------------------------
+            // =====================================================
 
             Vector2 direction =
                 new Vector2(
@@ -373,53 +319,60 @@ namespace MinerManagementMOD.Common.Players
                 );
 
             Vector2 movement =
-                direction * WormSpeed;
+                direction *
+                WormSpeed;
 
-            wormPosition += movement;
+            // =====================================================
+            // ワーム専用座標を移動
+            // =====================================================
 
-            Player.position = wormPosition;
+            wormPosition +=
+                movement;
 
-            Player.velocity = Vector2.Zero;
+            // =====================================================
+            // Player位置をワーム座標に強制
+            // =====================================================
 
-            // -----------------------------------------------------
-            // Playerの向き
-            // -----------------------------------------------------
+            Player.position =
+                wormPosition;
+
+            Player.velocity =
+                Vector2.Zero;
 
             Player.direction =
                 MathF.Cos(WormRotation) >= 0f
                     ? 1
                     : -1;
 
-            UpdatePositionHistory(Player.Center);
+            // =====================================================
+            // 履歴
+            // =====================================================
+
+            UpdatePositionHistory(
+                Player.Center
+            );
+
+            // =====================================================
+            // 採掘
+            // =====================================================
+
             TryMineOre();
+
+            // =====================================================
+            // 攻撃
+            // =====================================================
+
             TryAttackNPCs();
+
+            // =====================================================
+            // 音
+            // =====================================================
+
             UpdateWormSound();
         }
 
-
         // =========================================================
-        // Playerの通常描画を完全に非表示
-        // =========================================================
-        //
-        // PlayerDrawLayerLoader.Layersに登録されている
-        // 全描画レイヤーを非表示にする。
-        //
-        // ただしPinkyWormDrawLayerだけは除外する。
-        //
-        // これにより、
-        //
-        // Player本体
-        // 髪
-        // 頭
-        // 防具
-        // 腕
-        // 脚
-        // 手持ちアイテム
-        // Wings
-        // Mountの通常描画
-        // その他のPlayer描画
-        //
-        // を描画しない。
+        // Draw layers
         // =========================================================
 
         public override void HideDrawLayers(
@@ -435,7 +388,6 @@ namespace MinerManagementMOD.Common.Players
             foreach (PlayerDrawLayer layer
                      in PlayerDrawLayerLoader.Layers)
             {
-                // Pinky Worm自身の描画だけは残す
                 if (layer == wormLayer)
                     continue;
 
@@ -443,9 +395,8 @@ namespace MinerManagementMOD.Common.Players
             }
         }
 
-
         // =========================================================
-        // 身体位置履歴更新
+        // Position history
         // =========================================================
 
         private void UpdatePositionHistory(
@@ -467,9 +418,8 @@ namespace MinerManagementMOD.Common.Players
             }
         }
 
-
         // =========================================================
-        // 頭部Hitbox
+        // Head hitbox
         // =========================================================
 
         public Rectangle GetHeadHitbox()
@@ -482,15 +432,33 @@ namespace MinerManagementMOD.Common.Players
             );
         }
 
-
         // =========================================================
-        // NPC攻撃
+        // NPC attack
         // =========================================================
 
         private void TryAttackNPCs()
         {
             Rectangle head =
                 GetHeadHitbox();
+
+            // =====================================================
+            // 攻撃力計算
+            //
+            // 基本攻撃力20
+            // 身体1節につき+10
+            //
+            // 例：
+            // 0節 = 20
+            // 1節 = 30
+            // 2節 = 40
+            // 10節 = 120
+            // 30節 = 320
+            // =====================================================
+
+            int damage =
+                HitDamage +
+                BodySegments *
+                DamagePerBodySegment;
 
             for (int i = 0;
                  i < Main.maxNPCs;
@@ -514,18 +482,11 @@ namespace MinerManagementMOD.Common.Players
                 if (!head.Intersects(npc.Hitbox))
                     continue;
 
-                // クールダウン
                 if (hitCooldowns.TryGetValue(
                         i,
                         out int cooldown) &&
                     cooldown > 0)
-                {
                     continue;
-                }
-
-                // -------------------------------------------------
-                // 速度によるノックバック
-                // -------------------------------------------------
 
                 float speedRatio =
                     MathHelper.Clamp(
@@ -541,10 +502,6 @@ namespace MinerManagementMOD.Common.Players
                         speedRatio
                     );
 
-                // -------------------------------------------------
-                // 攻撃方向
-                // -------------------------------------------------
-
                 Vector2 direction =
                     new Vector2(
                         MathF.Cos(WormRotation),
@@ -556,16 +513,13 @@ namespace MinerManagementMOD.Common.Players
                         ? 1
                         : -1;
 
-                // -------------------------------------------------
-                // ダメージ
-                // -------------------------------------------------
-
                 NPC.HitInfo hit =
                     new NPC.HitInfo
                     {
-                        Damage = HitDamage,
+                        Damage = damage,
                         Knockback = knockback,
-                        HitDirection = hitDirection,
+                        HitDirection =
+                            hitDirection,
                         Crit = false
                     };
 
@@ -575,26 +529,16 @@ namespace MinerManagementMOD.Common.Players
                     false
                 );
 
-                // -------------------------------------------------
-                // NPCを押し飛ばす
-                // -------------------------------------------------
-
                 npc.velocity +=
                     direction *
                     knockback;
 
-                // -------------------------------------------------
-                // クールダウン
-                // -------------------------------------------------
-
                 hitCooldowns[i] =
                     HitCooldown;
 
-                // -------------------------------------------------
-                // ヒットエフェクト
-                // -------------------------------------------------
-
-                for (int d = 0; d < 8; d++)
+                for (int d = 0;
+                     d < 8;
+                     d++)
                 {
                     Dust dust =
                         Dust.NewDustDirect(
@@ -614,16 +558,15 @@ namespace MinerManagementMOD.Common.Players
                         );
                 }
 
-                Terraria.Audio.SoundEngine.PlaySound(
+                SoundEngine.PlaySound(
                     SoundID.NPCHit1,
                     npc.Center
                 );
             }
         }
 
-
         // =========================================================
-        // NPCクールダウン更新
+        // Hit cooldown
         // =========================================================
 
         private void UpdateHitCooldowns()
@@ -640,27 +583,18 @@ namespace MinerManagementMOD.Common.Players
                     pair.Value - 1;
 
                 if (value <= 0)
-                {
-                    remove.Add(
-                        pair.Key
-                    );
-                }
+                    remove.Add(pair.Key);
                 else
-                {
                     hitCooldowns[pair.Key] =
                         value;
-                }
             }
 
             foreach (int id in remove)
-            {
                 hitCooldowns.Remove(id);
-            }
         }
 
-
         // =========================================================
-        // 鉱石採掘
+        // Ore mining
         // =========================================================
 
         private void TryMineOre()
@@ -692,25 +626,18 @@ namespace MinerManagementMOD.Common.Players
                             x,
                             y,
                             1))
-                    {
                         continue;
-                    }
 
                     Tile tile =
                         Main.tile[x, y];
 
                     if (tile == null ||
                         !tile.HasTile)
-                    {
                         continue;
-                    }
 
-                    // 鉱石だけを対象
                     if (!TileID.Sets.Ore[
                             tile.TileType])
-                    {
                         continue;
-                    }
 
                     Rectangle tileRect =
                         new Rectangle(
@@ -722,11 +649,8 @@ namespace MinerManagementMOD.Common.Players
 
                     if (!head.Intersects(
                             tileRect))
-                    {
                         continue;
-                    }
 
-                    // 鉱石を破壊
                     WorldGen.KillTile(
                         x,
                         y
@@ -735,9 +659,8 @@ namespace MinerManagementMOD.Common.Players
             }
         }
 
-
         // =========================================================
-        // 鉱石取得
+        // Ore collection
         // =========================================================
 
         public void AddCollectedOre(
@@ -749,11 +672,14 @@ namespace MinerManagementMOD.Common.Players
             if (amount <= 0)
                 return;
 
-            CollectedOre += amount;
+            CollectedOre +=
+                amount;
 
-            while (CollectedOre >= OrePerBody)
+            while (CollectedOre >=
+                   OrePerBody)
             {
-                CollectedOre -= OrePerBody;
+                CollectedOre -=
+                    OrePerBody;
 
                 if (BodySegments <
                     MaxBodySegments)
@@ -765,9 +691,8 @@ namespace MinerManagementMOD.Common.Players
             }
         }
 
-
         // =========================================================
-        // 成長エフェクト
+        // Growth effect
         // =========================================================
 
         private void SpawnGrowthEffect()
@@ -793,60 +718,39 @@ namespace MinerManagementMOD.Common.Players
                     );
             }
 
-            Terraria.Audio.SoundEngine.PlaySound(
+            SoundEngine.PlaySound(
                 SoundID.ResearchComplete,
                 Player.Center
             );
         }
 
-
         // =========================================================
-        // アイテム使用制限
+        // Worm sound
         // =========================================================
-
-        public override bool CanUseItem(
-            Item item)
-        {
-            if (PinkyWormActive)
-            {
-                // 武器などの通常攻撃アイテムを使用不可
-                if (item.damage > 0)
-                    return false;
-            }
-
-            return true;
-        }
 
         private void UpdateWormSound()
         {
             if (!PinkyWormActive)
                 return;
 
-            // 停止中は音を鳴らさない
             if (WormSpeed <= 0.15f)
             {
                 wormSoundTimer = 0;
                 return;
             }
 
-            // 次の音まで待つ
             if (wormSoundTimer > 0)
             {
                 wormSoundTimer--;
                 return;
             }
 
-            // 0～1に速度を変換
             float speedRatio =
                 MathHelper.Clamp(
                     WormSpeed / MaxSpeed,
                     0f,
                     1f
                 );
-
-            // -------------------------------------------------
-            // 速度が速いほど再生間隔を短くする
-            // -------------------------------------------------
 
             int interval =
                 (int)MathHelper.Lerp(
@@ -855,14 +759,10 @@ namespace MinerManagementMOD.Common.Players
                     speedRatio
                 );
 
-            // -------------------------------------------------
-            // 速度が速いほど音程を高くする
-            // -------------------------------------------------
-
             float pitch =
                 MathHelper.Lerp(
-                    -0.20f,
-                    0.20f,
+                    -0.15f,
+                    0.10f,
                     speedRatio
                 );
 
@@ -878,7 +778,24 @@ namespace MinerManagementMOD.Common.Players
                 Player.Center
             );
 
-            wormSoundTimer = interval;
+            wormSoundTimer =
+                interval;
+        }
+
+        // =========================================================
+        // Item use restriction
+        // =========================================================
+
+        public override bool CanUseItem(
+            Item item)
+        {
+            if (PinkyWormActive)
+            {
+                if (item.damage > 0)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

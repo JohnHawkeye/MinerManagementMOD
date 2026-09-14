@@ -261,6 +261,26 @@ Mods: {
 				DisplayName: Pinky Worm Item
 				Tooltip: ""
 			}
+
+			GreedCompass: {
+				DisplayName: Greed Compass
+				Tooltip: ""
+			}
+
+			BlackSmithArmor: {
+				DisplayName: Black Smith Armor
+				Tooltip: ""
+			}
+
+			BlackSmithHat: {
+				DisplayName: Black Smith Hat
+				Tooltip: ""
+			}
+
+			BlackSmithLeggings: {
+				DisplayName: Black Smith Leggings
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -296,6 +316,11 @@ Mods: {
 			PinkyWormMountBuff: {
 				DisplayName: Pinky Worm Mount Buff
 				Description: Mods.MinerManagementMOD.Buffs.PinkyWormMountBuff.Description
+			}
+
+			DetectChestBuff: {
+				DisplayName: Detect Chest Buff
+				Description: Mods.MinerManagementMOD.Buffs.DetectChestBuff.Description
 			}
 		}
 	}

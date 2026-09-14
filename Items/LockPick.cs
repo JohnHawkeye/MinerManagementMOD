@@ -95,7 +95,7 @@ namespace MinerManagementMOD.Items
         {
             Recipe recipe = CreateRecipe();
 
-            recipe.AddIngredient(ItemID.IronBar, 1);
+            recipe.AddRecipeGroup("IronOrLeadBar",1);
             recipe.AddIngredient<GoldMinerCoin>(1);
             recipe.AddTile(TileID.Anvils);
             recipe.Register();

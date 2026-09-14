@@ -109,6 +109,14 @@
     "Mounts\\PinkyWormMount.cs": "MinerManagementMOD.Mounts",
     "Common\\Players\\PinkyWormPlayer.cs": "MinerManagementMOD.Common.Players",
     "Systems\\PinkyWormDrawLayer.cs": "MinerManagementMOD.Systems",
-    "Systems\\PinkyWormOrePickupSystem.cs": "MinerManagementMOD.Systems"
+    "Systems\\PinkyWormOrePickupSystem.cs": "MinerManagementMOD.Systems",
+    "Items\\GreedCompass.cs": "MinerManagementMOD.Items",
+    "Buffs\\DetectChestBuff.cs": "MinerManagementMOD.Buffs",
+    "Common\\Players\\GreedCompassPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Systems\\GreedCompassUISystem.cs": "MinerManagementMOD.Systems",
+    "Items\\BlackSmithArmor.cs": "MinerManagementMOD.Items",
+    "Items\\BlackSmithHat.cs": "MinerManagementMOD.Items",
+    "Items\\BlackSmithLeggings.cs": "MinerManagementMOD.Items",
+    "Common\\Players\\BlackSmithArmorPlayer.cs": "MinerManagementMOD.Common.Players"
   }
 }
