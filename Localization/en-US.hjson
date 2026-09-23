@@ -47,7 +47,7 @@ Mods: {
 					Princess_LovesNPC: I like {NPCName}.
 				}
 
-				Census.SpawnCondition: Conditions unknown
+				Census.SpawnCondition: Obtain a Copper Miner Coin.
 			}
 
 			MiningGoddessNPC: {
@@ -281,6 +281,31 @@ Mods: {
 				DisplayName: Black Smith Leggings
 				Tooltip: ""
 			}
+
+			MobileTracker: {
+				DisplayName: Mobile Tracker
+				Tooltip: ""
+			}
+
+			HoppingTrackItem: {
+				DisplayName: Hopping Track Item
+				Tooltip: ""
+			}
+
+			MinerBaseItem: {
+				DisplayName: Miner Base Item
+				Tooltip: ""
+			}
+
+			MinerOutpostItem: {
+				DisplayName: Miner Outpost Item
+				Tooltip: ""
+			}
+
+			MossHornetMountItem: {
+				DisplayName: Moss Hornet Mount Item
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {
@@ -299,12 +324,16 @@ Mods: {
 			LoveHeart.DisplayName: Love Heart
 			StoneBombProjectile.DisplayName: Stone Bomb Projectile
 			DrillClusterProjectile2.DisplayName: Drill Cluster Projectile2
+			MossHornetStinger.DisplayName: Moss Hornet Stinger
 		}
 
 		Tiles: {
 			SlotMachineTile.MapEntry: Slot Machine Tile
 			OreSeedTile.MapEntry: Ore Seed Tile
 			TradeExchangeMachineTile.MapEntry: Trade Exchange Machine Tile
+			HoppingTrack.MapEntry: Hopping Track
+			MinerBase.MapEntry: Miner Base
+			MinerOutpost.MapEntry: Miner Outpost
 		}
 
 		Buffs: {
@@ -322,6 +351,13 @@ Mods: {
 				DisplayName: Detect Chest Buff
 				Description: Mods.MinerManagementMOD.Buffs.DetectChestBuff.Description
 			}
+
+			MossHornetMountBuff: {
+				DisplayName: Moss Hornet Mount Buff
+				Description: Mods.MinerManagementMOD.Buffs.MossHornetMountBuff.Description
+			}
 		}
+
+		Conditions.MobileTracker: Mods.MinerManagementMOD.Conditions.MobileTracker
 	}
 }

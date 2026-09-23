@@ -1,3 +1,13 @@
 {
-    "tmodloader.rootNamespace": "MinerManagementMOD"
+    "tmodloader.rootNamespace": "MinerManagementMOD",
+
+    "files.exclude": {
+        "**/bin": true,
+        "**/obj": true
+    },
+
+    "search.exclude": {
+        "**/bin": true,
+        "**/obj": true
+    }
 }

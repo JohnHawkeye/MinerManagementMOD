@@ -117,6 +117,23 @@
     "Items\\BlackSmithArmor.cs": "MinerManagementMOD.Items",
     "Items\\BlackSmithHat.cs": "MinerManagementMOD.Items",
     "Items\\BlackSmithLeggings.cs": "MinerManagementMOD.Items",
-    "Common\\Players\\BlackSmithArmorPlayer.cs": "MinerManagementMOD.Common.Players"
+    "Common\\Players\\BlackSmithArmorPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Common\\Players\\BunnyPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Items\\MobileTracker.cs": "MinerManagementMOD.Items",
+    "Systems\\MobileTrackerRecipeSystem.cs": "MinerManagementMOD.Systems",
+    "Tiles\\HoppingTrack.cs": "MinerManagementMOD.Tiles",
+    "Items\\HoppingTrackItem.cs": "MinerManagementMOD.Items",
+    "Tiles\\MinerBase.cs": "MinerManagementMOD.Tiles",
+    "Tiles\\MinerOutpost.cs": "MinerManagementMOD.Tiles",
+    "Items\\MinerBaseItem.cs": "MinerManagementMOD.Items",
+    "Items\\MinerOutpostItem.cs": "MinerManagementMOD.Items",
+    "Systems\\MinerStationSystem.cs": "MinerManagementMOD.Systems",
+    "Map\\MinerMapLayer.cs": "MinerManagementMOD.Map",
+    "Items\\MossHornetMountItem.cs": "MinerManagementMOD.Items",
+    "Mounts\\MossHornetMount.cs": "MinerManagementMOD.Mounts",
+    "Common\\Players\\MossHornetMountPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Projectiles\\MossHornetStinger.cs": "MinerManagementMOD.Projectiles",
+    "Buffs\\MossHornetMountBuff.cs": "MinerManagementMOD.Buffs",
+    "Systems\\MossHornetDrawLayer.cs": "MinerManagementMOD.Systems"
   }
 }

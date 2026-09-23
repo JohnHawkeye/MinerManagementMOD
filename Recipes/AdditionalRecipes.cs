@@ -46,15 +46,9 @@ namespace MinerManagementMOD.Recipes
                 .AddTile(TileID.Loom)
                 .Register();
 
-            // Copper Bar → Wire
+            // Wire
             Recipe.Create(ItemID.Wire, 5)
-                .AddIngredient(ItemID.CopperBar)
-                .AddTile(TileID.Anvils)
-                .Register();
-
-            // Tin Bar → Wire
-            Recipe.Create(ItemID.Wire, 5)
-                .AddIngredient(ItemID.TinBar)
+                .AddRecipeGroup("CopperOrTin",1)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

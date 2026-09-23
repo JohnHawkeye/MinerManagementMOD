@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using MinerManagementMOD.Items;
 using MinerManagementMOD.Systems;
 using MinerManagementMOD.Projectiles;
+using MinerManagementMOD.Common.Players;
 
 namespace MinerManagementMOD.NPCs
 {
@@ -48,6 +49,7 @@ namespace MinerManagementMOD.NPCs
             AnimationType = NPCID.Nurse;
 
         }
+
         public override void AI()
         {
             foreach (Player player in Main.ActivePlayers)
@@ -84,18 +86,20 @@ namespace MinerManagementMOD.NPCs
                 }
             }
         }
+
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
-            int minerCoins = ModContent.ItemType<CopperMinerCoin>();
-
-            for (int i = 0; i < Main.maxPlayers; i++)
+            foreach (Player player in Main.ActivePlayers)
             {
-                Player player = Main.player[i];
-                if (player != null && player.active && player.HasItem(minerCoins))
+                BunnyPlayer bunnyPlayer =
+                    player.GetModPlayer<BunnyPlayer>();
+
+                if (bunnyPlayer.HasObtainedCopperMinerCoin)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -137,6 +141,12 @@ namespace MinerManagementMOD.NPCs
             var npcShop = new NPCShop(Type);
 
             npcShop.Add(new Item(ModContent.ItemType<MinerBlessingPotion>())
+            {
+                shopCustomPrice = 10,
+                shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
+            });
+
+            npcShop.Add(new Item(ModContent.ItemType<MobileTracker>())
             {
                 shopCustomPrice = 10,
                 shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
@@ -194,13 +204,13 @@ namespace MinerManagementMOD.NPCs
             {
                 shopCustomPrice = 1,
                 shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
-            },Condition.Hardmode);
+            }, Condition.Hardmode);
 
             npcShop.Add(new Item(ItemID.SoulofNight)
             {
                 shopCustomPrice = 1,
                 shopSpecialCurrency = MinerCoinCurrencySystem.GoldCurrencyID
-            },Condition.Hardmode);
+            }, Condition.Hardmode);
 
             npcShop.Register();
         }

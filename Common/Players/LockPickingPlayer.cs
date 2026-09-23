@@ -142,7 +142,9 @@ namespace MinerManagementMOD.Players
         public void RandomizeSuccessRange()
         {
             SuccessStartAngle = Main.rand.NextFloat(0f, 360f);
-            SuccessEndAngle = SuccessStartAngle + SuccessRange;
+
+            SuccessEndAngle =
+                (SuccessStartAngle + SuccessRange) % 360f;
         }
 
         public void StartPicking(int x, int y)
@@ -195,8 +197,17 @@ namespace MinerManagementMOD.Players
 
         private bool IsSuccessAngle(float angle)
         {
-            return angle >= SuccessStartAngle &&
-                   angle <= SuccessStartAngle + SuccessRange;
+            if (SuccessStartAngle <= SuccessEndAngle)
+            {
+                return angle >= SuccessStartAngle &&
+                        angle <= SuccessStartAngle + SuccessRange;
+            }
+            else
+            {
+                return angle >= SuccessStartAngle ||
+                        angle <= SuccessEndAngle;
+            }
+
         }
 
         public void CancelPicking()

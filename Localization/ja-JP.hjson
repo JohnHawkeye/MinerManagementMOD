@@ -238,6 +238,27 @@ Mods: {
 				Tooltip: "宝箱の位置を指し示す魔法のコンパス。\n自分が設置したチェストにも反応するので注意。\n中身を入手したら宝箱を回収しよう。"
 			}
 
+			MobileTracker: {
+				DisplayName: モバイルトラッカー
+				Tooltip: "素材があればどこでも線路が作れる3Dプリンター。\nそのほかの部品も作成可能。"
+			}
+
+			MinerBaseItem: {
+				DisplayName: マイナーベースフラッグ
+				Tooltip: "本拠地であることを示す旗。これと併せてアウトポストを置くと、\nその場所へテレポートすることが出来る。"
+			}
+
+			MinerOutpostItem: {
+				DisplayName: マイナーアウトポストサイン
+				Tooltip: "遠征した採掘地点に置くと、マイナーベースフラッグを置いた場所へ\n瞬時に戻ることができる。"
+			}
+
+			
+			HoppingTrackItem: {
+				DisplayName: ホッピングトラック
+				Tooltip: "通ると跳ねあがってジャンプが出来る路線。"
+			}
+
 			
 			BlackSmithArmor: {
 				DisplayName: ブラックスミスアーマー
@@ -253,6 +274,8 @@ Mods: {
 				DisplayName: ブラックスミスレギンス
 				Tooltip: "高潔な鍛冶屋の足防具。\nセット装備で採掘範囲３増加。"
 			}
+
+
         }
     }
 }

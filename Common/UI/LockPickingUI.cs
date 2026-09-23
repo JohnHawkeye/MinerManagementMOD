@@ -82,13 +82,11 @@ namespace MinerManagementMOD.UI
             var player =
                 Main.LocalPlayer.GetModPlayer<Players.LockPickingPlayer>();
 
-            for (
-                float i = player.SuccessStartAngle;
-                i <= player.SuccessEndAngle;
-                i += 2)
+            for (float i = 0f; i <= 60f; i += 2f)
             {
-                float a =
-                    MathHelper.ToRadians(i);
+                float angle = (player.SuccessStartAngle + i) % 360f;
+
+                float a = MathHelper.ToRadians(angle);
 
                 Vector2 p =
                     center +
