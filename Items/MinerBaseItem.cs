@@ -30,7 +30,7 @@ namespace MinerManagementMOD.Items
             CreateRecipe()
                 .AddIngredient(ItemID.Silk,10)
                 .AddIngredient<GoldMinerCoin>(10)
-                .AddIngredient(ItemID.IronBar, 5)
+                .AddRecipeGroup("IronOrLeadBar",5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

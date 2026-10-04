@@ -41,6 +41,16 @@ Mods: {
 				DisplayName: ピンキーワーム
 				Description: ずずずずずず
 			}
+			
+			MossHornetMountBuff: {
+				DisplayName: モスホーネット
+				Description: 深緑のハンター
+			}
+
+			MinecartProtectionBuff: {
+				DisplayName: トロッコの守護
+				Description: 完全無敵。設置範囲＋５、アイテム回収拡大。
+			}
 		}
 
         Items: {
@@ -233,6 +243,11 @@ Mods: {
 				Tooltip: "地下より深い階層で変身可能。\nワームの気持ちになって鉱石を掘り進め。"
 			}
 			
+			MossHornetMountItem: {
+				DisplayName: 深緑巨蜂の魂
+				Tooltip: "ジャングルのモスホーネットに変身できる。\n左クリックで毒針攻撃が出来るよ。"
+			}
+			
 			GreedCompass: {
 				DisplayName: 貪欲のコンパス
 				Tooltip: "宝箱の位置を指し示す魔法のコンパス。\n自分が設置したチェストにも反応するので注意。\n中身を入手したら宝箱を回収しよう。"
@@ -253,6 +268,10 @@ Mods: {
 				Tooltip: "遠征した採掘地点に置くと、マイナーベースフラッグを置いた場所へ\n瞬時に戻ることができる。"
 			}
 
+			ReturnEmblem: {
+				DisplayName: リターンエンブレム
+				Tooltip: "使うと一番近いアウトポストへ瞬間移動することが出来る。\n3000ブロック以上離れていると飛べない。"
+			}
 			
 			HoppingTrackItem: {
 				DisplayName: ホッピングトラック

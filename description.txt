@@ -30,6 +30,17 @@ Therefore, please avoid using it for serious playthroughs; instead, feel free to
 　・マイナーコインで交換できるアイテムを数点追加。
 　・その他微調整。
 
+<Ver 0.4>
+　・ハードモード用の鉱夫装備セットが作れます。
+　・変身用マウント2種追加。（ピンキーワームは使用時、地下に瞬間移動します。地上には行けません。）
+　・便利なマイナーベース、アウトポストを追加。瞬時にテレポートできます。
+　・貪欲のコンパス追加。
+　・ワールド生成時でのチェストアイテム封入調整。
+　・ロックピックの判定方法修正。
+　・トロッコ関連アイテムを数点追加。路線を敷きながら探索したくなるアイデアを模索中です。
+
+　※クラフトできる便利なアイテムはレシピブラウザ等で確認してみてね！
+
 
 <Ver 0.1>
 1. You can hire miners from the miner roster to mine ores for you. There is a chance to receive a bonus.
@@ -48,5 +59,16 @@ Therefore, please avoid using it for serious playthroughs; instead, feel free to
 ・Added a new miner. (As data has changed, we recommend resetting using the `/resetminers` command.)
 ・Added several items that can be exchanged for Miner Coins.
 ・Other minor adjustments.
+
+<Ver 0.4>
+・Added a Miner's equipment set for Hardmode.
+・Added two transformation mounts. (Using the Pinky Worm instantly teleports you underground; it cannot be used to travel to the surface.)
+・Added convenient Miner's Bases and Outposts; you can teleport to them instantly.
+・Added the Compass of Greed.
+・Adjusted chest item generation during world creation.
+・Fixed the detection logic for lockpicks.
+・Added a few items related to minecarts. We are currently exploring ideas that encourage players to explore while laying down tracks.
+
+※Check out the recipes for these handy craftable items using a recipe browser!
 
 Sorry.This game supports Japanese localization.

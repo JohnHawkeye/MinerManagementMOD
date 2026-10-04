@@ -1,21 +1,21 @@
 Mods: {
 	MinerManagementMOD: {
 		Currency: {
-			CopperMinerCoin: カッパーマイナーコイン
-			SilverMinerCoin: シルバーマイナーコイン
-			GoldMinerCoin: ゴールドマイナーコイン
-			PlatinumMinerCoin: プラチナマイナーコイン
+			CopperMinerCoin: Copper Miner Coin
+			SilverMinerCoin: Silver Miner Coin
+			GoldMinerCoin: Gold Miner Coin
+			PlatinumMinerCoin: Platinum Miner Coin
 		}
 
 		NPCs: {
 			OreMerchant: {
 				TownNPCMood: {
-					HateCrowded: こんなに混んでいるのは 嫌だよ。
-					DislikeCrowded: 人混みが嫌いです。
-					LoveSpace: 充分なスペースが あるのがいいね。
-					FarFromHome: 家から遠すぎる。
-					NoHome: 家を持っていないのが 嫌なんです。
-					Content: 私は満足しています。
+					HateCrowded: It's too crowded here. I don't like it.
+					DislikeCrowded: I don't like being around so many people.
+					LoveSpace: I like having plenty of room.
+					FarFromHome: It's too far from home.
+					NoHome: I don't like not having a home.
+					Content: I'm quite satisfied.
 					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
 				}
@@ -24,25 +24,25 @@ Mods: {
 				Census.SpawnCondition: Conditions unknown
 			}
 
-			MinerNPC.DisplayName: Miner N P C
-			GuardNPC.DisplayName: Guard N P C
-			OldMinerNPC.DisplayName: Old Miner N P C
-			HunterNPC.DisplayName: Hunter N P C
-			HealerNPC.DisplayName: Healer N P C
+			MinerNPC.DisplayName: Miner
+			GuardNPC.DisplayName: Guard
+			OldMinerNPC.DisplayName: Old Miner
+			HunterNPC.DisplayName: Hunter
+			HealerNPC.DisplayName: Healer
 			TopazCrab.DisplayName: Topaz Crab
 			TopazShieldCore.DisplayName: Topaz Shield Core
-			MagicMinerNPC.DisplayName: Magic Miner N P C
+			MagicMinerNPC.DisplayName: Magic Miner
 
 			BunnyGirl: {
 				DisplayName: Bunny Girl
 
 				TownNPCMood: {
-					Content: 私は満足しています。
-					NoHome: 家を持っていないのが 嫌なんです。
-					FarFromHome: 家から遠すぎる。
-					LoveSpace: 充分なスペースが あるのがいいね。
-					DislikeCrowded: 人混みが嫌いです。
-					HateCrowded: こんなに混んでいるのは 嫌だよ。
+					Content: I'm quite satisfied.
+					NoHome: I don't like not having a home.
+					FarFromHome: It's too far from home.
+					LoveSpace: I like having plenty of room.
+					DislikeCrowded: I don't like being around so many people.
+					HateCrowded: It's too crowded here. I don't like it.
 					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
 				}
@@ -51,16 +51,16 @@ Mods: {
 			}
 
 			MiningGoddessNPC: {
-				DisplayName: Mining Goddess N P C
+				DisplayName: Mining Goddess
 
 				TownNPCMood: {
-					Content: 私は満足しています。
-					NoHome: 家を持っていないのが 嫌なんです。
-					FarFromHome: 家から遠すぎる。
-					LoveSpace: 充分なスペースが あるのがいいね。
-					DislikeCrowded: 人混みが嫌いです。
-					HateCrowded: こんなに混んでいるのは 嫌だよ。
-					LoveBiome: 私は {BiomeName} を 愛している。
+					Content: I'm quite satisfied.
+					NoHome: I don't like not having a home.
+					FarFromHome: It's too far from home.
+					LoveSpace: I like having plenty of room.
+					DislikeCrowded: I don't like being around so many people.
+					HateCrowded: It's too crowded here. I don't like it.
+					LoveBiome: I love the {BiomeName}.
 					LikeNPC_Princess: I like {NPCName}.
 					Princess_LovesNPC: I like {NPCName}.
 				}
@@ -68,269 +68,394 @@ Mods: {
 				Census.SpawnCondition: Conditions unknown
 			}
 
-			JewelDragonNPC.DisplayName: Jewel Dragon N P C
+			JewelDragonNPC.DisplayName: Jewel Dragon
 		}
 
 		Items: {
 			MinerWhistle: {
 				DisplayName: Miner's Whistle
-				Tooltip: Summons distant miners to your side
+				Tooltip: Summons nearby miners to your side.
 			}
 
 			CopperSword100: {
-				DisplayName: Copper Sword100
-				Tooltip: ""
+				DisplayName: Box of 100 Copper Swords
+				Tooltip: A quest item containing 100 Copper Swords.
 			}
 
 			CopperAmberRing: {
 				DisplayName: Copper Amber Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperAmethystRing: {
 				DisplayName: Copper Amethyst Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperDiamondRing: {
 				DisplayName: Copper Diamond Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperEmeraldRing: {
 				DisplayName: Copper Emerald Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperRubyRing: {
 				DisplayName: Copper Ruby Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperSapphireRing: {
 				DisplayName: Copper Sapphire Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			CopperTopazRing: {
 				DisplayName: Copper Topaz Ring
-				Tooltip: ""
+				Tooltip:
+					'''
+					A decorative ring crafted from a beautiful gemstone.
+					It can be sold for a high price.
+					'''
 			}
 
 			BuriedBox: {
 				DisplayName: Buried Box
-				Tooltip: ""
+				Tooltip: I wonder what's inside...
 			}
 
 			MiningMachineItem: {
-				DisplayName: Mining Machine Item
-				Tooltip: ""
+				DisplayName: Tier 1 Mining Machine
+				Tooltip:
+					'''
+					Deploys a mining machine at your location.
+					It automatically mines nearby ores.
+					Right-click with your inventory closed to collect the mined ores.
+					'''
 			}
 
 			Detonator: {
 				DisplayName: Detonator
-				Tooltip: ""
+				Tooltip:
+					'''
+					A remote detonator for destroying attached remote bombs.
+					Use it to detonate the bomb.
+					'''
 			}
 
 			RemoteBomb: {
 				DisplayName: Remote Bomb
-				Tooltip: ""
+				Tooltip: Throw it where you want to place the bomb.
 			}
 
 			MagicHand: {
 				DisplayName: Magic Hand
-				Tooltip: ""
+				Tooltip: No need to touch it yourself!
 			}
 
 			DrillClusterItem: {
-				DisplayName: Drill Cluster Item
-				Tooltip: ""
+				DisplayName: Tier 1 Drill Cluster
+				Tooltip:
+					'''
+					Fires a drill capable of mining blocks.
+					Can mine Hellstone.
+					'''
 			}
 
 			CrystalVacuum: {
 				DisplayName: Crystal Vacuum
-				Tooltip: ""
+				Tooltip:
+					'''
+					The one and only vacuum with unchanging suction power.
+					Sucks up crystals from wherever you click.
+					'''
 			}
 
 			DrillRocket: {
 				DisplayName: Drill Rocket
-				Tooltip: ""
+				Tooltip: Ammunition for the Drill Cluster.
+			}
+
+			DrillRocket2: {
+				DisplayName: Drill Rocket 2
+				Tooltip:
+					'''
+					A mithril-coated drill.
+					Allows the Drill Cluster to mine Hardmode ores.
+					'''
 			}
 
 			RemoteBomb2: {
-				DisplayName: Remote Bomb2
-				Tooltip: ""
-			}
-
-			CopperMinerCoin: {
-				DisplayName: Copper Miner Coin
-				Tooltip: ""
-			}
-
-			GoldMinerCoin: {
-				DisplayName: Gold Miner Coin
-				Tooltip: ""
-			}
-
-			PlatinumMinerCoin: {
-				DisplayName: Platinum Miner Coin
-				Tooltip: ""
-			}
-
-			SilverMinerCoin: {
-				DisplayName: Silver Miner Coin
-				Tooltip: ""
+				DisplayName: Remote Bomb Type 2
+				Tooltip: An upgraded remote bomb capable of destroying Hellstone and Meteorite.
 			}
 
 			BioBombItem: {
-				DisplayName: Bio Bomb Item
-				Tooltip: ""
+				DisplayName: Biome Bomb
+				Tooltip: Creates blocks matching the surrounding biome where it lands.
+			}
+
+			CopperMinerCoin: {
+				DisplayName: Miner Medal (Copper)
+				Tooltip:
+					'''
+					A proud miner's medal.
+					Used for crafting and upgrading miners.
+					'''
+			}
+
+			SilverMinerCoin: {
+				DisplayName: Miner Medal (Silver)
+				Tooltip:
+					'''
+					A proud miner's medal.
+					Used for crafting and upgrading miners.
+					'''
+			}
+
+			GoldMinerCoin: {
+				DisplayName: Miner Medal (Gold)
+				Tooltip:
+					'''
+					A proud miner's medal.
+					Used for crafting and upgrading miners.
+					'''
+			}
+
+			PlatinumMinerCoin: {
+				DisplayName: Miner Medal (Platinum)
+				Tooltip:
+					'''
+					A proud miner's medal.
+					Used for crafting and upgrading miners.
+					'''
+			}
+
+			TopazCrabStone: {
+				DisplayName: Topaz Crab Stone
+				Tooltip: Summons the Topaz Crab.
+			}
+
+			CrabClaw: {
+				DisplayName: Crab Claw
+				Tooltip: A delicious-looking crab claw.
 			}
 
 			FoolTicket: {
-				DisplayName: Fool Ticket
-				Tooltip: ""
+				DisplayName: Losing Ticket
+				Tooltip: Better luck next time. You lose!
 			}
 
 			LockPick: {
-				DisplayName: Lock Pick
-				Tooltip: ""
+				DisplayName: Lockpick
+				Tooltip: Unlocks locked Gold Chests.
 			}
 
 			SlotMachine: {
 				DisplayName: Slot Machine
-				Tooltip: ""
+				Tooltip: The beginning of a lifelong gambling addiction...
+			}
+
+			TradeExchangeMachine: {
+				DisplayName: Ore Exchange Machine
+				Tooltip:
+					'''
+					Exchanges matching ores or bars.
+					Requires Copper Miner Coins.
+					'''
 			}
 
 			MinerBlessingPotion: {
-				DisplayName: Miner Blessing Potion
-				Tooltip: ""
+				DisplayName: Miner's Blessing Potion
+				Tooltip: The blessing of the Mining King grants you tremendous power...!
 			}
 
 			SlopeAccessory: {
-				DisplayName: Slope Accessory
-				Tooltip: ""
+				DisplayName: Rolling Slope
+				Tooltip: Rounds off the corners of blocks as you walk.
 			}
 
 			OreSeed: {
-				DisplayName: Ore Seed
-				Tooltip: ""
+				DisplayName: Magical Ore Seed
+				Tooltip: A mysterious seed that grows ore when planted in Stone Blocks.
 			}
 
 			StoneBomb: {
 				DisplayName: Stone Bomb
-				Tooltip: ""
-			}
-
-			MastarsBaton: {
-				DisplayName: Mastars Baton
-				Tooltip: ""
+				Tooltip: Creates Stone Blocks at the location you target.
 			}
 
 			SkyIslandMap: {
 				DisplayName: Sky Island Map
-				Tooltip: ""
+				Tooltip: Reveals the locations of Sky Islands when used.
 			}
 
 			DungeonMap: {
 				DisplayName: Dungeon Map
-				Tooltip: ""
+				Tooltip: Reveals the interior of the Dungeon when used.
 			}
 
-			DrillRocket2: {
-				DisplayName: Drill Rocket2
-				Tooltip: ""
-			}
-
-			TradeExchangeMachine: {
-				DisplayName: Trade Exchange Machine
-				Tooltip: ""
+			MastarsBaton: {
+				DisplayName: Master's Baton
+				Tooltip: Commands your guards to deploy or retreat.
 			}
 
 			StoneWand: {
 				DisplayName: Stone Wand
-				Tooltip: ""
+				Tooltip: Consumes Stone Blocks from your inventory to place them where you click.
 			}
 
 			RainbowJewel: {
 				DisplayName: Rainbow Jewel
-				Tooltip: ""
+				Tooltip:
+					'''
+					A beautiful gemstone that shines with every color of the rainbow.
+					Offer it to the Jewel Dragon to increase the power of its buff.
+					'''
 			}
 
 			PinkyWormItem: {
-				DisplayName: Pinky Worm Item
-				Tooltip: ""
+				DisplayName: Pinky Worm Egg
+				Tooltip:
+					'''
+					Allows you to transform deep underground.
+					Dig through the earth as a worm and feel the life of an ore miner!
+					'''
+			}
+
+			MossHornetMountItem: {
+				DisplayName: Soul of the Giant Moss Hornet
+				Tooltip:
+					'''
+					Transforms you into a Moss Hornet from the Jungle.
+					Left-click to fire poisonous stingers.
+					'''
 			}
 
 			GreedCompass: {
 				DisplayName: Greed Compass
-				Tooltip: ""
-			}
-
-			BlackSmithArmor: {
-				DisplayName: Black Smith Armor
-				Tooltip: ""
-			}
-
-			BlackSmithHat: {
-				DisplayName: Black Smith Hat
-				Tooltip: ""
-			}
-
-			BlackSmithLeggings: {
-				DisplayName: Black Smith Leggings
-				Tooltip: ""
+				Tooltip:
+					'''
+					A magical compass that points toward nearby chests.
+					Be careful—it also reacts to chests you place yourself.
+					Collect the contents, then retrieve the chest.
+					'''
 			}
 
 			MobileTracker: {
 				DisplayName: Mobile Tracker
-				Tooltip: ""
-			}
-
-			HoppingTrackItem: {
-				DisplayName: Hopping Track Item
-				Tooltip: ""
+				Tooltip:
+					'''
+					A 3D printer that lets you craft rails anywhere with the required materials.
+					It can also craft other components.
+					'''
 			}
 
 			MinerBaseItem: {
-				DisplayName: Miner Base Item
-				Tooltip: ""
+				DisplayName: Miner Base Flag
+				Tooltip:
+					'''
+					A flag marking your home base.
+					Place an Outpost along with it to teleport back to your base.
+					'''
 			}
 
 			MinerOutpostItem: {
-				DisplayName: Miner Outpost Item
-				Tooltip: ""
+				DisplayName: Miner Outpost Sign
+				Tooltip: Place it at an expedition site to instantly return to the location of your Miner Base Flag.
 			}
 
-			MossHornetMountItem: {
-				DisplayName: Moss Hornet Mount Item
-				Tooltip: ""
+			ReturnEmblem: {
+				DisplayName: Return Emblem
+				Tooltip:
+					'''
+					Teleports you to the nearest registered Outpost.
+					Cannot be used if the Outpost is more than 3,000 blocks away.
+					'''
+			}
+
+			HoppingTrackItem: {
+				DisplayName: Hopping Track
+				Tooltip: A special rail that launches you into the air as you pass over it.
+			}
+
+			BlackSmithArmor: {
+				DisplayName: Blacksmith Armor
+				Tooltip:
+					'''
+					Armor worn by a noble blacksmith.
+					Wearing the full set increases mining range by 3.
+					'''
+			}
+
+			BlackSmithHat: {
+				DisplayName: Blacksmith Hat
+				Tooltip:
+					'''
+					A hat worn by a noble blacksmith.
+					Wearing the full set increases mining range by 3.
+					'''
+			}
+
+			BlackSmithLeggings: {
+				DisplayName: Blacksmith Leggings
+				Tooltip:
+					'''
+					Leggings worn by a noble blacksmith.
+					Wearing the full set increases mining range by 3.
+					'''
 			}
 		}
 
 		Projectiles: {
 			MiningMachineProjectile.DisplayName: Mining Machine Projectile
-			RemoteBombProj.DisplayName: Remote Bomb Proj
+			RemoteBombProj.DisplayName: Remote Bomb Projectile
 			MagicHandProjectile.DisplayName: Magic Hand Projectile
 			DrillClusterProjectile.DisplayName: Drill Cluster Projectile
 			HunterRifleProjectile.DisplayName: Hunter Rifle Projectile
 			GuardSwordProjectile.DisplayName: Guard Sword Projectile
-			RemoteBombProj2.DisplayName: Remote Bomb Proj2
-			BioBombProjectile.DisplayName: Bio Bomb Projectile
+			RemoteBombProj2.DisplayName: Remote Bomb Projectile 2
+			BioBombProjectile.DisplayName: Biome Bomb Projectile
 			TopazCrabShell.DisplayName: Topaz Crab Shell
 			TopazCrabLight.DisplayName: Topaz Crab Light
-			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Piece
+			TopazCrabDeathPiece.DisplayName: Topaz Crab Death Fragment
 			MagicMiningProjectile.DisplayName: Magic Mining Projectile
 			LoveHeart.DisplayName: Love Heart
 			StoneBombProjectile.DisplayName: Stone Bomb Projectile
-			DrillClusterProjectile2.DisplayName: Drill Cluster Projectile2
+			DrillClusterProjectile2.DisplayName: Drill Cluster Projectile 2
 			MossHornetStinger.DisplayName: Moss Hornet Stinger
 		}
 
 		Tiles: {
-			SlotMachineTile.MapEntry: Slot Machine Tile
-			OreSeedTile.MapEntry: Ore Seed Tile
-			TradeExchangeMachineTile.MapEntry: Trade Exchange Machine Tile
+			SlotMachineTile.MapEntry: Slot Machine
+			OreSeedTile.MapEntry: Ore Seed
+			TradeExchangeMachineTile.MapEntry: Ore Exchange Machine
 			HoppingTrack.MapEntry: Hopping Track
 			MinerBase.MapEntry: Miner Base
 			MinerOutpost.MapEntry: Miner Outpost
@@ -338,23 +463,28 @@ Mods: {
 
 		Buffs: {
 			RainbowBuff: {
-				DisplayName: Rainbow Buff
-				Description: Mods.MinerManagementMOD.Buffs.RainbowBuff.Description
+				DisplayName: Rainbow Light
+				Description: A mysterious power protects you.
 			}
 
 			PinkyWormMountBuff: {
-				DisplayName: Pinky Worm Mount Buff
-				Description: Mods.MinerManagementMOD.Buffs.PinkyWormMountBuff.Description
+				DisplayName: Pinky Worm
+				Description: Rumble, rumble, rumble...
 			}
 
 			DetectChestBuff: {
-				DisplayName: Detect Chest Buff
-				Description: Mods.MinerManagementMOD.Buffs.DetectChestBuff.Description
+				DisplayName: Chest Detection
+				Description: Reveals the location of nearby chests.
 			}
 
 			MossHornetMountBuff: {
-				DisplayName: Moss Hornet Mount Buff
-				Description: Mods.MinerManagementMOD.Buffs.MossHornetMountBuff.Description
+				DisplayName: Moss Hornet
+				Description: A hunter of the deep green jungle.
+			}
+
+			MinecartProtectionBuff: {
+				DisplayName: Minecart Protection
+				Description: Grants complete invulnerability, increases building range by 6, and greatly increases item pickup range.
 			}
 		}
 

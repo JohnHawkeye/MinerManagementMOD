@@ -134,6 +134,10 @@
     "Common\\Players\\MossHornetMountPlayer.cs": "MinerManagementMOD.Common.Players",
     "Projectiles\\MossHornetStinger.cs": "MinerManagementMOD.Projectiles",
     "Buffs\\MossHornetMountBuff.cs": "MinerManagementMOD.Buffs",
-    "Systems\\MossHornetDrawLayer.cs": "MinerManagementMOD.Systems"
+    "Systems\\MossHornetDrawLayer.cs": "MinerManagementMOD.Systems",
+    "Items\\ReturnEmblem.cs": "MinerManagementMOD.Items",
+    "Common\\Players\\MinecartPlayer.cs": "MinerManagementMOD.Common.Players",
+    "Buffs\\MinecartProtectionBuff.cs": "MinerManagementMOD.Buffs",
+    "Common\\Items\\MinecartItemGlobal.cs": "MinerManagementMOD.Common.Items"
   }
 }

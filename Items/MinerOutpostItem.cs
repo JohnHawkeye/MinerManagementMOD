@@ -29,7 +29,7 @@ namespace MinerManagementMOD.Items
         {
             CreateRecipe()
                 .AddIngredient<SilverMinerCoin>(10)
-                .AddIngredient(ItemID.IronBar, 5)
+                .AddRecipeGroup("IronOrLeadBar",5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

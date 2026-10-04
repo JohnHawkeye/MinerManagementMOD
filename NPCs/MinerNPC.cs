@@ -191,7 +191,7 @@ namespace MinerManagementMOD.NPCs
             bool hasFallingBlock = false;
 
             // 下 → 中 → 上 の順に確認
-            int[] checkOrder = { 0, 1, 2 };
+            int[] checkOrder = { 0, 1, 2 ,3};
 
             foreach (int offset in checkOrder)
             {

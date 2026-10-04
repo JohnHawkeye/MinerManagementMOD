@@ -23,5 +23,16 @@ namespace MinerManagementMOD.Items
             // モスホーネットマウント
             Item.mountType = ModContent.MountType<MossHornetMount>();
         }
+        
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.Stinger, 20)
+                .AddIngredient(ItemID.JungleSpores, 10)
+                .AddIngredient(ItemID.Emerald, 10)
+                .AddIngredient(ItemID.TatteredBeeWing, 1)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
+        }
     }
 }

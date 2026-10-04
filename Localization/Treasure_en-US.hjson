@@ -1103,13 +1103,9 @@ Mods: {
 			}
 
 			CrabClaw: {
-				DisplayName: Crab Claw
-				Tooltip: ""
 			}
 
 			TopazCrabStone: {
-				DisplayName: Topaz Crab Stone
-				Tooltip: ""
 			}
 		}
 	}
