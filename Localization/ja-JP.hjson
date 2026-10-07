@@ -294,7 +294,15 @@ Mods: {
 				Tooltip: "高潔な鍛冶屋の足防具。\nセット装備で採掘範囲３増加。"
 			}
 
+			ReinforcedMiningPants: {
+				DisplayName: 改良版鉱夫のパンツ
+				Tooltip: "防御力を強化した鉱夫のパンツ。"
+			}
 
+			ReinforcedMiningShirt: {
+				DisplayName: 改良版鉱夫のシャツ
+				Tooltip: "防御力を強化した鉱夫のシャツ。"
+			}
         }
     }
 }

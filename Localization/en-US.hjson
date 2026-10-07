@@ -431,6 +431,16 @@ Mods: {
 					Wearing the full set increases mining range by 3.
 					'''
 			}
+
+			ReinforcedMiningPants: {
+				DisplayName: Reinforced Mining Pants
+				Tooltip: ""
+			}
+
+			ReinforcedMiningShirt: {
+				DisplayName: Reinforced Mining Shirt
+				Tooltip: ""
+			}
 		}
 
 		Projectiles: {

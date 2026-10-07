@@ -52,7 +52,7 @@ namespace MinerManagementMOD
                 silverOrTungsten
             );
 
-            //silver or tungsten
+            //gold or platinum
             RecipeGroup goldOrPlatinum = new RecipeGroup(
                 () => "Gold or Platinum Bar",
                 ItemID.GoldBar,

@@ -64,6 +64,9 @@ namespace MinerManagementMOD.Common.Players
                 return;
 
             Player.blockRange += BuildRangeBonus;
+            // 採掘範囲 +6
+            Player.tileRangeX += BuildRangeBonus;
+            Player.tileRangeY += BuildRangeBonus;
         }
 
         // ==========================================
